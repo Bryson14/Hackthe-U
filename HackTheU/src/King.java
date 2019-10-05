@@ -1,9 +1,22 @@
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class King extends gamePiece{
-    int positionX, getPositionY, moves;
+    int posX, posY, moves;
     String name = "King";
     boolean team = True;
 
     
-    void move()
+
+    King(){
+        this.name = name;
+        this.posX = posX;
+        this.posY = posY;
+        (super)
+    }
+
+    void move(){
+
+    }
 
 }
