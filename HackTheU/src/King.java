@@ -10,14 +10,6 @@ class King extends gamePiece {
 
     }
 
-    public void canMove() {
-
-    }
-
-    public void move(){
-
-    }
-
     public ArrayList<String> moves() {
         return null;
     }
