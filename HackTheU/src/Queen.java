@@ -8,6 +8,26 @@ class Queen extends gamePiece {
 
     }
 
+    @Override
+    public void setPosX(int posX) {
+        super.setPosX(posX);
+    }
+
+    @Override
+    public void setPosY(int posY) {
+        super.setPosY(posY);
+    }
+
+    @Override
+    public int getPosX() {
+        return super.getPosX();
+    }
+
+    @Override
+    public int getPosY() {
+        return super.getPosY();
+    }
+
     public void canMove() {
 
     }
@@ -17,6 +37,6 @@ class Queen extends gamePiece {
     }
 
     public ArrayList<String> moves() {
-        return null;
+
     }
 }
