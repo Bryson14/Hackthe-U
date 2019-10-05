@@ -1,22 +1,22 @@
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.util.*;
 
-public class King extends gamePiece{
-    int posX, posY, moves;
-    String name = "King";
-    boolean team = True;
+class King extends gamePiece {
 
-    
-
-    King(){
-        this.name = name;
-        this.posX = posX;
-        this.posY = posY;
-        (super)
-    }
-
-    void move(){
+    King(String name, int posX, int posY, boolean team) {
+        super(name, posX, posY, team);
+        name = "King";
 
     }
 
+    public void canMove() {
+
+    }
+
+    public void move(){
+
+    }
+
+    public ArrayList<String> moves() {
+        return moves();
+    }
 }
