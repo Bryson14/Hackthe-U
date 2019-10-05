@@ -5,12 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import static javafx.scene.text.FontWeight.BOLD;
-import static javafx.scene.text.FontWeight.EXTRA_BOLD;
 
 public class mainMenu extends Application {
 
@@ -57,14 +53,14 @@ public class mainMenu extends Application {
         quitButton.setOnAction(quitGame);
 
         // create a stack pane 
-        StackPane r = new StackPane();
+        StackPane buttonHolder = new StackPane();
 
         // add button 
-        r.getChildren().addAll(gameButton, rulesButton, quitButton, title);
-        r.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
+        buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);
+        buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
 
         // create a scene 
-        Scene sc = new Scene(r, 600, 600);
+        Scene sc = new Scene(buttonHolder, 600, 600);
 
         // set the scene 
         s.setScene(sc);
