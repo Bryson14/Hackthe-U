@@ -17,6 +17,6 @@ class Queen extends gamePiece {
     }
 
     public ArrayList<String> moves() {
-
+        return null;
     }
 }
