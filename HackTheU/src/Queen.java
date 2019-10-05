@@ -34,4 +34,9 @@ class Queen extends gamePiece {
     public ArrayList<String> moves() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

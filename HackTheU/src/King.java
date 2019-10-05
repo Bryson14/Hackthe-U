@@ -43,6 +43,11 @@ class King extends gamePiece {
         super.setPosX(posX);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
     public ArrayList<String> moves() {
         return null;
     }

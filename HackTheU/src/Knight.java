@@ -13,6 +13,11 @@ class Knight extends gamePiece {
         return super.getTeam();
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
     public ArrayList<String> moves() {
         return null;
     }

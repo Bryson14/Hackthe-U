@@ -43,6 +43,11 @@ public class Pawn extends gamePiece{
     }
 
     @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
     public ArrayList<String> moves() {
         return null;
     }
