@@ -27,7 +27,6 @@ class Queen extends gamePiece {
     }
 
     public ArrayList<String> moves() {
-        // Queens can make any movement on the board
-        return null;
+
     }
 }
