@@ -19,6 +19,11 @@ public class Rook extends gamePiece{
     }
 
     @Override
+    public boolean getTeam() {
+        return super.getTeam();
+    }
+
+    @Override
     public void setPosX(int posX) {
         super.setPosX(posX);
     }

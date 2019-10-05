@@ -8,12 +8,9 @@ class Knight extends gamePiece {
 
     }
 
-    public void canMove() {
-
-    }
-
-    public void move(){
-
+    @Override
+    public boolean getTeam() {
+        return super.getTeam();
     }
 
     public ArrayList<String> moves() {

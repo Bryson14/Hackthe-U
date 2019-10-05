@@ -10,6 +10,39 @@ class King extends gamePiece {
 
     }
 
+    @Override
+    public boolean getTeam() {
+        return super.getTeam();
+    }
+
+    @Override
+    public int getPosX() {
+        return super.getPosX();
+    }
+
+    @Override
+    public int getPosY() {
+        return super.getPosY();
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public void setNumberOfMoves(int numberOfMoves) {
+        this.numberOfMoves = numberOfMoves;
+    }
+
+    @Override
+    public void setPosY(int posY) {
+        super.setPosY(posY);
+    }
+
+    @Override
+    public void setPosX(int posX) {
+        super.setPosX(posX);
+    }
+
     public ArrayList<String> moves() {
         return null;
     }

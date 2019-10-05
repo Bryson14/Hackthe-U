@@ -26,6 +26,11 @@ class Queen extends gamePiece {
         return super.getPosY();
     }
 
+    @Override
+    public boolean getTeam() {
+        return super.getTeam();
+    }
+
     public ArrayList<String> moves() {
         return null;
     }

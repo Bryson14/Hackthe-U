@@ -20,6 +20,11 @@ public class Pawn extends gamePiece{
     }
 
     @Override
+    public boolean getTeam() {
+        return super.getTeam();
+    }
+
+    @Override
     public void setPosY(int posY) {
         super.setPosY(posY);
     }
