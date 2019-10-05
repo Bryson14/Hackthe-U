@@ -1,11 +1,10 @@
 import java.util.*;
 
-class King extends gamePiece {
+class Knight extends gamePiece {
 
-    King(String name, int posX, int posY, boolean team) {
+    Knight(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
-        name = "King";
-        int numOfMoves;
+        name = "Knight";
 
     }
 
