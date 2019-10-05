@@ -44,7 +44,7 @@ public class Pawn extends gamePiece{
 
     @Override
     public String toString() {
-        return "Pawn" + getTeam();
+        return getName();
     }
 
     @Override

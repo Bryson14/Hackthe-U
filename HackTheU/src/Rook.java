@@ -35,7 +35,7 @@ public class Rook extends gamePiece{
 
     @Override
     public String toString() {
-        return "Rook" + getTeam();
+        return getName();
     }
 
     @Override

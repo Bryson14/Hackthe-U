@@ -37,6 +37,6 @@ class Queen extends gamePiece {
 
     @Override
     public String toString() {
-        return "Queen" + getTeam();
+        return getName();
     }
 }

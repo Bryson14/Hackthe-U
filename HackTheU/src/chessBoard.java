@@ -13,20 +13,27 @@ public class chessBoard {
     }
 
     void setNewBoard() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                grid[j][i] = new Queen(i + "" + j, j, i, currentTeam );
-                }
-            }
+        grid[0][0] = new Rook("BlackRook1", 0,0,false);
+        grid[7][0] = new Rook("BlackRook2", 7,0,false);
+        grid[0][7] = new Rook("WhiteRook1", 0,7,true);
+        grid[7][7] = new Rook("WhileRook2", 7,7,true);
+        grid[3][0] = new Queen("BlackQueen", 3, 0, false);
+        grid[3][7] = new Queen("WhiteQueen", 3, 7, true);
+        grid[4][0] = new King("BlackKing", 4, 0, false);
+        grid[4][7] = new King("WhiteKing", 4, 7, true);
 
+        printBoard();
+
+    }
+
+    void printBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.print(grid[j][i]  + " ");
+                System.out.print(grid[j][i] + " ");
             }
             System.out.println("");
         }
     }
-
 
     /**
      * LOTS IF logic to see if anything is blocking the piece's moves
