@@ -33,7 +33,7 @@ public class Bishop extends gamePiece{
 
     @Override
     public String toString() {
-        return getName();
+        return "Bishop" + getTeam();
     }
 
     @Override

@@ -15,7 +15,7 @@ class Knight extends gamePiece {
 
     @Override
     public String toString() {
-        return getName();
+        return "Knight" + getTeam();
     }
 
     public ArrayList<String> moves() {
