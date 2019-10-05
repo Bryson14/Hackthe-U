@@ -13,14 +13,32 @@ public class chessBoard {
     }
 
     void setNewBoard() {
+        // rooks
         grid[0][0] = new Rook("BlackRook1", 0,0,false);
         grid[7][0] = new Rook("BlackRook2", 7,0,false);
         grid[0][7] = new Rook("WhiteRook1", 0,7,true);
         grid[7][7] = new Rook("WhileRook2", 7,7,true);
+        //queens
         grid[3][0] = new Queen("BlackQueen", 3, 0, false);
         grid[3][7] = new Queen("WhiteQueen", 3, 7, true);
+        //kings
         grid[4][0] = new King("BlackKing", 4, 0, false);
         grid[4][7] = new King("WhiteKing", 4, 7, true);
+        //bishops
+        grid[2][0] = new Bishop("BlackBishop1", 2,0,false);
+        grid[5][0] = new Bishop("BlackBishop2",5,0,false);
+        grid[2][7] = new Bishop("WhiteBishop1",2,7,true);
+        grid[5][7] = new Bishop("WhiteBishop2", 5,7,true);
+        //knights
+        grid[1][0] = new Knight("BlackKnight1", 1,0,false);
+        grid[6][0] = new Knight("BlackKnight2",6,0,false);
+        grid[1][7] = new Knight("WhiteKnight1",1,7,true);
+        grid[6][7] = new Knight("WhiteKnight2", 6,7,true);
+        //pawns
+        for (int i = 0; i < 8; i++) {
+            grid[i][1] = new Pawn("BlackPawn"+i, i, 2, false);
+            grid[i][6] = new Pawn("WhilePawn"+i, i,6,true);
+        }
 
         printBoard();
 
@@ -29,7 +47,7 @@ public class chessBoard {
     void printBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.print(grid[j][i] + " ");
+                System.out.print(grid[j][i] + "\t");
             }
             System.out.println("");
         }
