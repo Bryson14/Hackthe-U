@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class  gamePiece {
     private int posX;
     private int posY;
@@ -9,5 +11,30 @@ public abstract class  gamePiece {
         this.posX = posX;
         this.posY = posY;
         this.team = team;
+    }
+
+    public abstract ArrayList<String> possibleSpots();
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+    public boolean getTeam() {
+        return team;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 }
