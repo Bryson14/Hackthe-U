@@ -81,11 +81,12 @@ public class chessBoardGUI {
                     button.setStyle("-fx-background-color: grey");
                 }
                 button.setMaxSize(50, 50);
-                button.setId("" + listValue);
+                button.setId("" + ((listValue % 8) - 1) + listValue / 8);
 
 
 
                 button.setOnAction(event -> {
+                    System.out.println(button.getId() + "is pushed");
                     if (qwerty.isEmpty()) {
                         String number = icons.get(Integer.parseInt(button.getId()) - 1);
                         qwerty.add(number);
