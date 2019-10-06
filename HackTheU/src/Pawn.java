@@ -54,60 +54,32 @@ public class Pawn extends gamePiece{
     @Override
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
 
-        ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
-
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
         int ySwitch;
         if (getTeam()) ySwitch = -1; // white team going up
         else ySwitch = 1; // black team going down
 
-
-
-
-
-
-
-        // Pawn has a special case first move where it goes forward 2
-        try {
-            if (getNumberOfMoves() == 0 && grid[getPosX()][getPosY() + ySwitch] == null && grid[getPosX()][getPosY() + ySwitch * 2] == null) {
-                possibleMoves.add(new Coordinates(getPosX(), getPosY() + 2 * ySwitch));
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {}
-
-        // Tries to move forward one
-        try {
-            if (grid[getPosX()][getPosY() + ySwitch] != null) ; //pawn can't move if something is in front of it
-            else possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
-        } catch (ArrayIndexOutOfBoundsException e) {}
-
-        // can move/attack to the right diagonal
-        try {
-            if (grid[getPosX() + 1][getPosY() + ySwitch] != null) { //something is there
-                if (grid[getPosX() + 1][getPosY() + ySwitch].getTeam() != getTeam()) { //its an enemy
-                    possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch));
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {}
-
-        // can move/attack to the left diagonal
-        try {
-            if (grid[getPosX() - 1][getPosY() + ySwitch] != null) { //something is there
-                if (grid[getPosX() - 1][getPosY() + ySwitch].getTeam() != getTeam()) { //its an enemy
-                    possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + ySwitch));
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e ) {}
-
-        //removes everything out of bounds
-        int i = 0;
-        while (i < possibleMoves.size()){
-            if (possibleMoves.get(i).x > 7 || possibleMoves.get(i).x < 0 || possibleMoves.get(i).y > 7 || possibleMoves.get(i).y < 0) { //outside board
-                possibleMoves.remove(i);
-
+        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8) { //within bounds
+            if (grid[getPosX()][ getPosY() + ySwitch] != null) {
+                //pawns cant do crap
             } else {
-                i++; // moves increment forward if nothing was removed
+                possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
+                if (getNumberOfMoves() == 0) {
+                    possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch * 2)); //special first move jump
+                }
             }
         }
+        //kill to diagonal left
+        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() - 1 >= 0 && grid[getPosY() + ySwitch][getPosX() - 1] != null) {
+            possibleMoves.add(new Coordinates(getPosX() -1, getPosY() + ySwitch));
+        }
+        //kill to diagonal right
+        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() + 1 >= 0 && grid[getPosY() + ySwitch][getPosX() + 1] != null) {
+            possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch));
+        }
+
+
         return possibleMoves;
     }
 }
