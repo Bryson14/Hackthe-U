@@ -46,6 +46,11 @@ public class Bishop extends gamePiece{
         return getName();
     }
 
+    /**
+     * return all possible moves of a bishop not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     @Override
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();

@@ -51,9 +51,15 @@ class Knight extends gamePiece {
         return getName();
     }
 
+    /**
+     * return all possible moves of a knight not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
+        //All possible moves for a knight
         for (int i = -1; i < 2; i+=2) {
             possibleMoves.add(new Coordinates(getPosX() + (i * 2),getPosY() + 1)); //upper wide
             possibleMoves.add(new Coordinates(getPosX() - (i * 2),getPosY() + -1)); //lower wide
@@ -61,6 +67,23 @@ class Knight extends gamePiece {
             possibleMoves.add(new Coordinates(getPosX() + 1,getPosY() - (i*2))); //right tall
         }
 
-        return super.whatsInTheWay(grid, possibleMoves);
+        //removes everything out of bounds
+        int i = 0;
+        while (i < possibleMoves.size()){
+            if (possibleMoves.get(i).x > 7 || possibleMoves.get(i).x < 0 || possibleMoves.get(i).y > 7 || possibleMoves.get(i).y < 0) { //outside board
+                possibleMoves.remove(i);
+
+                // another piece is there
+            } else if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y] != null) {
+
+                // a teammate is there
+                if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y].getTeam() == getTeam()) possibleMoves.remove(i);
+                else i++;
+
+            } else {
+                i++; // moves increment forward if nothing was removed
+            }
+        }
+        return possibleMoves;
     }
 }
