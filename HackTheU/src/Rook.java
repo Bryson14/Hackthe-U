@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class Rook extends gamePiece{
 
-
+    private int numberOfMoves;
     Rook(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
-
+        numberOfMoves = 0;
     }
 
     @Override
@@ -26,6 +26,14 @@ public class Rook extends gamePiece{
     @Override
     public void setPosX(int posX) {
         super.setPosX(posX);
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public void incrementNumberOfMoves() {
+        this.numberOfMoves++;
     }
 
     @Override

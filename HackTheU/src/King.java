@@ -7,7 +7,6 @@ class King extends gamePiece {
     King(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
         numberOfMoves = 0;
-
     }
 
     @Override
@@ -29,8 +28,8 @@ class King extends gamePiece {
         return numberOfMoves;
     }
 
-    public void setNumberOfMoves(int numberOfMoves) {
-        this.numberOfMoves = numberOfMoves;
+    public void incrementNumberOfMoves() {
+        this.numberOfMoves++;
     }
 
     @Override

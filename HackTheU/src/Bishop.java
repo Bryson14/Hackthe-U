@@ -2,8 +2,11 @@ import java.util.ArrayList;
 
 public class Bishop extends gamePiece{
 
+    private int numberOfMoves;
+
     Bishop(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
+        numberOfMoves = 0;
     }
 
     @Override
@@ -19,6 +22,14 @@ public class Bishop extends gamePiece{
     @Override
     public boolean getTeam() {
         return super.getTeam();
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
+    }
+
+    public void incrementNumberOfMoves() {
+        this.numberOfMoves++;
     }
 
     @Override
