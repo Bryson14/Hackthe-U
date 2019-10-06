@@ -74,8 +74,8 @@ public class chessBoardGUI {
                     button.setStyle("-fx-background-color: grey");
                 }
                 button.setMaxSize(50, 50);
-                button.setId(""+ listValue);
-                button.setOnAction(event -> System.out.println("Button" + button.getId() + "was pushed"));
+                button.setId("" + listValue);
+                button.setOnAction(event -> button.setGraphic(new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(icons.get(Integer.parseInt(button.getId())))))));
                 layout.getChildren().add(button);
                 startx += 52;
 
