@@ -51,15 +51,19 @@ public class Pawn extends gamePiece{
 
         ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
 
+        int ySwitch;
+        if (getTeam()) ySwitch = 1; // white team going up
+        else ySwitch = -1; // black team going down
+
         // Pawn has a special case first move
         if (getNumberOfMoves() == 0) {
-            possibleMoves.add(new Coordinates(getPosX(), getPosY() + 2));
+            possibleMoves.add(new Coordinates(getPosX(), getPosY() + 2 * ySwitch));
         }
+
         // Else they move just one or attack
-        possibleMoves.add(new Coordinates(getPosX(), getPosY() + 1));
-        possibleMoves.add(new Coordinates(getPosX(), getPosY() + 1));
-        possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + 1));
-        possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + 1));
+        possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
+        possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch));
+        possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + ySwitch));
         return super.whatsInTheWay(grid, possibleMoves);
     }
 }
