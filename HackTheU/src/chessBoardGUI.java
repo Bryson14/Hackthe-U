@@ -89,6 +89,8 @@ public class chessBoardGUI {
                     if (list.isEmpty()) {
                         String number = icons.get(Integer.parseInt(button.getId()) - 1);
                         list.add(number);
+                        ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(icons.get(64))));
+                        button.setGraphic(imageView3);
                     }
                     else{
                         ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(list.get(0))));
