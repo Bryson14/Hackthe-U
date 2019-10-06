@@ -85,12 +85,16 @@ public class chessBoard {
 
     /**
      * return true if the spot is occupied and its that teams turn
-     * @param position a list of length 2. position[0] is row, position[1] is column
+     * @param pos a list of length 2. position[0] is row, position[1] is column
      * @return boolean if that spot can be moved on that turn
      */
-    public boolean isOccupiedWithCorrectTeam(int[] position) {
-
-        return true;
+    public boolean isOccupiedWithCorrectTeam(Coordinates pos) {
+        if (grid[pos.x][pos.y] != null) {
+            if (grid[pos.x][pos.y].getTeam() == currentTeam){
+            return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<String> getSpotsMoves(int[] position) {
@@ -98,6 +102,10 @@ public class chessBoard {
         //return availablemoves(pieces.moves()) to the GUI
         //
         return null;
+    }
+
+    public gamePiece[][] getGrid() {
+        return grid;
     }
 
     public static void main(String[] args) {
