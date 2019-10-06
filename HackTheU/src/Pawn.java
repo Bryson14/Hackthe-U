@@ -47,7 +47,7 @@ public class Pawn extends gamePiece{
     }
 
     @Override
-    public ArrayList<Coordinates> moves() {
+    public ArrayList<Coordinates> moves(gamePiece[][] grid) {
 
         ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
 

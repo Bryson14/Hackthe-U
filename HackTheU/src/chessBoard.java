@@ -54,15 +54,6 @@ public class chessBoard {
     }
 
     /**
-     * LOTS IF logic to see if anything is blocking the piece's moves
-     * @param objectsMoves
-     * @return
-     */
-    public ArrayList<String> availableMoves(ArrayList<String> objectsMoves) {
-        return null;
-    }
-
-    /**
      * GUI tells chessBoard that it moves an object from oldspot to newspot
      * @param oldSpot string representing the old spot of piece
      * @param newSpot string representing the new spot of piece
@@ -99,7 +90,7 @@ public class chessBoard {
 
     public ArrayList<String> getSpotsMoves(int[] position) {
         //identify the object that is there
-        //return availablemoves(pieces.moves()) to the GUI
+        //return piece.moves(grid)) to the GUI
         //
         return null;
     }

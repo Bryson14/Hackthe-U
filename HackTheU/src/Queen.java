@@ -41,7 +41,7 @@ class Queen extends gamePiece {
         return super.getTeam();
     }
 
-    public ArrayList<Coordinates> moves() {
+    public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         return null;
     }
 
