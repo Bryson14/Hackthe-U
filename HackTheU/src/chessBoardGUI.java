@@ -101,7 +101,8 @@ public class chessBoardGUI {
                         //user clicked on the right team whose turn it is
                         if (cb.isOccupiedWithCorrectTeam(coor)) {
                             movesList.retainAll(cb.getAvailableMoves(coor));
-                        } else { //user clicked on an empty spot or on the team whose turn it is not
+                        }
+                        else { //user clicked on an empty spot or on the team whose turn it is not
                             //do nothing
                         }
 
