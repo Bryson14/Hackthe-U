@@ -65,7 +65,7 @@ public class Pawn extends gamePiece{
                 //pawns cant do crap
             } else {
                 possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
-                if (getNumberOfMoves() == 0) {
+                if (getNumberOfMoves() == 0 && isEnemy(grid, grid[getPosX()][getPosY() + ySwitch*2])) {
                     possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch * 2)); //special first move jump
                 }
             }

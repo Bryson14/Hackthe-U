@@ -39,7 +39,7 @@ public class chessBoard {
         grid[6][7] = new Knight("WhiteKnight2", 6,7,true);
         //pawns
         for (int i = 0; i < 8; i++) {
-            grid[i][1] = new Pawn("BlackPawn"+i, i, 2, false);
+            grid[i][1] = new Pawn("BlackPawn"+i, i, 1, false);
             grid[i][6] = new Pawn("WhitePawn"+i, i,6,true);
         }
     }
@@ -115,17 +115,17 @@ public class chessBoard {
         return grid;
     }
 
-    public static void main(String[] args) {
-        chessBoard cb = new chessBoard();
+//    public static void main(String[] args) {
+//        chessBoard cb = new chessBoard();
 //        cb.printBoard();
 //        cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
 //        System.out.println(cb.teamTrueGraveyard);
 //        cb.printBoard();
 //        System.out.println(cb.grid[1][0].toString());
-//        cb.movePiece(new Coordinates(4,1), new Coordinates(3,7));
-        cb.printBoard();
+//        cb.movePiece(new Coordinates(4,0), new Coordinates(4,3));
+//        cb.printBoard();
 //        System.out.println("moving" + cb.grid[3][7].toString());
-        System.out.println(cb.getAvailableMoves(new Coordinates(4,1)));
-    }
+//        System.out.println(cb.getAvailableMoves(new Coordinates(4,1)));
+//    }
 }
 
