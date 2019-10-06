@@ -82,7 +82,7 @@ public class chessBoardGUI {
                     button.setStyle("-fx-background-color: grey");
                 }
                 button.setMaxSize(50, 50);
-                button.setId("" + listValue);
+                button.setId("" + col + row);
 
 
                 button.setOnAction(event -> {
