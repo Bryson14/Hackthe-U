@@ -45,10 +45,17 @@ class Queen extends gamePiece {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
         for (int i = 1; i < 7; i++) {
+            // all possible diagonals
             possibleMoves.add(new Coordinates(getPosX() - i,getPosY() + i)); // upper left diag
             possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i)); // lower right diag
             possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i)); // upper right diag
             possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i)); // lower left diag
+
+            //all horizontal and vertical
+            possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
+            possibleMoves.add(new Coordinates(getPosX(),getPosY() - i)); // down
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY())); // right
+            possibleMoves.add(new Coordinates(getPosX() - i,getPosY())); // left
         }
 
         return super.whatsInTheWay(grid, possibleMoves);

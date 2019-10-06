@@ -52,6 +52,15 @@ class Knight extends gamePiece {
     }
 
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
-        return null;
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
+
+        for (int i = -1; i < 2; i+=2) {
+            possibleMoves.add(new Coordinates(getPosX() + (i * 2),getPosY() + 1)); //upper wide
+            possibleMoves.add(new Coordinates(getPosX() - (i * 2),getPosY() + -1)); //lower wide
+            possibleMoves.add(new Coordinates(getPosX() - 1,getPosY() + (i*2))); //left tall
+            possibleMoves.add(new Coordinates(getPosX() + 1,getPosY() - (i*2))); //right tall
+        }
+
+        return super.whatsInTheWay(grid, possibleMoves);
     }
 }
