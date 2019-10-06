@@ -13,7 +13,7 @@ public abstract class  gamePiece {
         this.team = team;
     }
 
-    public abstract ArrayList<String> moves();
+    public abstract ArrayList<Coordinates> moves();
 
     public String getName() {
         return name;
