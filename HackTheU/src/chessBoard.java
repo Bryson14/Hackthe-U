@@ -112,14 +112,14 @@ public class chessBoard {
 
     public static void main(String[] args) {
         chessBoard cb = new chessBoard();
-        cb.printBoard();
+//        cb.printBoard();
 //        cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
 //        System.out.println(cb.teamTrueGraveyard);
 //        cb.printBoard();
-        System.out.println(cb.grid[1][0].toString());
-//        cb.movePiece(new Coordinates(1,0), new Coordinates(4,3));
-//        cb.printBoard();
-        System.out.println(cb.getAvailableMoves(new Coordinates(1,0)));
+//        System.out.println(cb.grid[1][0].toString());
+        cb.movePiece(new Coordinates(0,0), new Coordinates(4,6));
+        cb.printBoard();
+        System.out.println(cb.getAvailableMoves(new Coordinates(4,6)));
     }
 }
 
