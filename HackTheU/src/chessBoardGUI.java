@@ -58,6 +58,16 @@ public class chessBoardGUI {
         icons.add("rookWhite.png");
         icons.add(" ");
 
+        int count = 0;
+        for (int i=0; i < icons.size(); i++) {
+            for (int k = 0; k < 8; k++) {
+                for (int j = 0; j < 8; j++) {
+                    map.put(new Coordinates(j, k), icons.get(count));
+                    count++;
+                }
+            }
+        }
+
         int rowNum = 8;
         int colNum = 8;
         int startY = -250;
@@ -88,7 +98,7 @@ public class chessBoardGUI {
                 button.setMaxSize(50, 50);
                 button.setId("" + col + row);
 
-
+                final String[] imgHolder = {""};
                 button.setOnAction(event -> {
                     //first click
                     Coordinates coor = new Coordinates((int)(button.getId().toCharArray())[0], (int)(button.getId().toCharArray())[1]);
@@ -101,9 +111,10 @@ public class chessBoardGUI {
                             //do nothing
                         }
 
-                        String number = icons.get(Integer.parseInt(button.getId()) - 1);
-                        movesList.add(number);
-                        ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(icons.get(64))));
+//                        String number = icons.get(Integer.parseInt(button.getId()) - 1);
+//                        movesList.add(number);
+                        imgHolder[0] = map.get(coor);
+                        ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(" ")));
                         button.setGraphic(imageView3);
                     }
                     // second click
