@@ -48,6 +48,17 @@ public class Rook extends gamePiece{
 
     @Override
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
-        return null;
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
+
+        for (int i = 1; i < 7; i++) {
+
+            //all horizontal and vertical
+            possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
+            possibleMoves.add(new Coordinates(getPosX(),getPosY() - i)); // down
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY())); // right
+            possibleMoves.add(new Coordinates(getPosX() - i,getPosY())); // left
+        }
+
+        return super.whatsInTheWay(grid, possibleMoves);
     }
 }
