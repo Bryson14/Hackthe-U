@@ -69,7 +69,7 @@ public class Rook extends gamePiece{
                     if (isEnemy(grid, grid[getPosX()][getPosY() + i]  )) {
                         possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
                     }
-                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
+                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
             }
 
             if (getPosY() - i >= 0 && upOpen) {
