@@ -49,6 +49,18 @@ public class Pawn extends gamePiece{
 
     @Override
     public ArrayList<Coordinates> moves() {
-        return null;
+
+        ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
+
+        // Pawn has a special case first move
+        if (numberOfMoves == 0) {
+            possibleMoves.add(new Coordinates(getPosX(), getPosY() + 2));
+        }
+        // Else they move just one or attack
+        possibleMoves.add(new Coordinates(getPosX(), getPosY() + 1));
+        possibleMoves.add(new Coordinates(getPosX(), getPosY() + 1));
+        possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + 1));
+        possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + 1));
+        return possibleMoves;
     }
 }
