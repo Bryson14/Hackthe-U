@@ -89,6 +89,7 @@ public class Pawn extends gamePiece{
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e ) {}
+
         //removes everything out of bounds
         int i = 0;
         while (i < possibleMoves.size()){
@@ -101,6 +102,4 @@ public class Pawn extends gamePiece{
         }
         return possibleMoves;
     }
-
-
 }
