@@ -89,8 +89,7 @@ public class chessBoard {
     }
 
     public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
-        gamePiece piece = grid[pos.x][pos.y];
-        return piece.moves(getGrid());
+        return grid[pos.x][pos.y].moves(getGrid());
     }
 
     public gamePiece[][] getGrid() {
