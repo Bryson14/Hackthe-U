@@ -74,11 +74,20 @@ public class chessBoardGUI {
                     button.setStyle("-fx-background-color: grey");
                 }
                 button.setMaxSize(50, 50);
+                button.setId(""+ listValue);
+                button.setOnAction(event -> System.out.println("Button" + button.getId() + "was pushed"));
                 layout.getChildren().add(button);
                 startx += 52;
 
             }
         }
+
+
+
+        System.out.println(layout.getChildren().get(0));
+        System.out.println(layout.getChildren().get(1));
+        System.out.println(layout.getChildren().get(2));
+        System.out.println(layout.getChildren().get(3));
 
         stage.setTitle("Chess Board");
         stage.setScene(scene);

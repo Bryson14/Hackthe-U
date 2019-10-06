@@ -46,6 +46,7 @@ public class mainMenu extends Application {
         };
 
 
+
         EventHandler<ActionEvent> displayRules = e -> {
             StackPane rulesPane = new StackPane();
             rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
@@ -54,6 +55,18 @@ public class mainMenu extends Application {
             title2.setTranslateX(0);
             title2.setTranslateY(-270);
             title2.setFont(new Font("Algerian",70));
+
+            Button respawn = new Button();
+            EventHandler<ActionEvent> returntomenu = f -> {
+                Stage third = new Stage();
+                third.setScene(new Scene(new StackPane(), 750,650));
+
+                openMainMenu(third);
+                third.show();
+                s.close();
+
+            };
+            respawn.setOnAction(returntomenu);
 
             Font ruleFont = new Font("Comic Sans", 16);
 
@@ -97,7 +110,7 @@ public class mainMenu extends Application {
             king.setTranslateX(-110);
             king.setTranslateY(225);
 
-            rulesPane.getChildren().addAll(title2, pawn, rook, bishop, knight, queen, king);
+            rulesPane.getChildren().addAll(title2, pawn, rook, bishop, knight, queen, king, respawn);
             Scene rulesScene = new Scene(rulesPane, 750,650);
             Stage rulesStage = new Stage();
             rulesStage.setScene(rulesScene);
