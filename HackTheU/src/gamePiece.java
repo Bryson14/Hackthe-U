@@ -61,6 +61,11 @@ public abstract class  gamePiece {
          //check to see if something is in the way
          int j = 0;
         while (j < moves.size()) {
+            if (grid[moves.get(j).x][moves.get(j).y] != null) {
+                if (getTeam() == team)
+                moves.remove(j);
+                j++;
+            }
 
         }
         return moves;
