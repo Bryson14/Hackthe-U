@@ -55,15 +55,60 @@ public class Rook extends gamePiece{
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
+        boolean rightOpen, leftOpen, upOpen, downOpen;
+        upOpen = true;
+        downOpen = true;
+        leftOpen = true;
+        rightOpen = true;
+
         for (int i = 1; i < 7; i++) {
 
-            //all horizontal and vertical
-            possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
-            possibleMoves.add(new Coordinates(getPosX(),getPosY() - i)); // down
-            possibleMoves.add(new Coordinates(getPosX() + i,getPosY())); // right
-            possibleMoves.add(new Coordinates(getPosX() - i,getPosY())); // left
+            if (getPosY() + i < 8 && upOpen) {
+                if (grid[getPosX()][getPosY() + i] != null) {
+                    upOpen = false;
+                    if (isEnemy(grid, grid[getPosX()][getPosY() + i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
+                    }
+                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
+            }
+
+            if (getPosY() - i >= 0 && downOpen) {
+                if (grid[getPosX()][getPosY() - i] != null) {
+
+                    downOpen = false;
+                    if (isEnemy(grid, grid[getPosX()][getPosY() - i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
+                possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
+            }
+
+            if (getPosX() + i < 8 && rightOpen) {
+                if (grid[getPosX() + 1][getPosY()] != null) {
+
+                    rightOpen = false;
+                    if (isEnemy(grid, grid[getPosX() + 1][getPosY()]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() + 1,getPosY()));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() + 1,getPosY()));
+                possibleMoves.add(new Coordinates(getPosX() + 1,getPosY()));
+            }
+
+            if (getPosX() - i >= 0 && leftOpen) {
+                if (grid[getPosX() - 1][getPosY()] != null) {
+
+                    leftOpen = false;
+                    if (isEnemy(grid, grid[getPosX() - 1][getPosY()]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() - 1,getPosY()));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() - 1,getPosY()));
+                possibleMoves.add(new Coordinates(getPosX() - 1,getPosY()));
+            }
         }
 
-        return super.whatsInTheWay(grid, possibleMoves);
+        return possibleMoves;
     }
 }
