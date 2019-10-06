@@ -15,26 +15,31 @@ public class chessBoardGUI extends Application {
         //Instantiating the BorderPane class
         BorderPane bPane = new BorderPane();
 
-
-
         //Make stack pane
         StackPane layout = new StackPane();
 
         // Create Buttons
-        int rowNum = 0;
-        int colNum = 0;
-        for (int row = 0; row < rowNum; row++) {
-            for (int col = 0; col < colNum; col++) {
-                Button button1 = new Button();
-                button1.setStyle("-fx-background-color: rgba(255, 186, 26, 0.64)");
-                layout.getChildren().add(button1);
-               }
+        int rowNum = 7;
+        int colNum = 7;
+        int startY = -300;
+        Boolean isWhite = false;
+        for (int col = 0; col < colNum; col++) {
+            int startX = -300;
+            startY += 52;
+            for (int row = 0; row < rowNum; row++) {
+                Button button = new Button();
+                if (isWhite) {
+                    button.setStyle("-fx-background-color: black");
+                } else
+                    button.setStyle("-fx-background-color: black");
+                button.setMaxSize(50, 50);
+                button.setTranslateX(startX);
+                button.setTranslateY(startY);
+                layout.getChildren().add(button);
+                startX += 52;
+            }
+            }
         }
-        /*Button button1 = new Button();
-        button1.setStyle("-fx-background-color: black");
-        button1.setMaxSize(50, 50);
-        button1.setTranslateX(-275);
-        button1.setTranslateY(-300);*/
 
         //Creating a scene object
         Scene scene = new Scene(layout, 750, 650);
