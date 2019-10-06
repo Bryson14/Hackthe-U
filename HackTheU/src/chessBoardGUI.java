@@ -10,6 +10,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 
@@ -23,7 +24,7 @@ public class chessBoardGUI {
         layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene scene = new Scene(layout, 750, 650);
 
-        ArrayList<String> qwerty = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
         icons.add("rookBlack.png");
@@ -84,18 +85,17 @@ public class chessBoardGUI {
                 button.setId("" + listValue);
 
 
-
                 button.setOnAction(event -> {
-                    if (qwerty.isEmpty()) {
+                    if (list.isEmpty()) {
                         String number = icons.get(Integer.parseInt(button.getId()) - 1);
-                        qwerty.add(number);
+                        list.add(number);
                     }
                     else{
                         ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(qwerty.get(0))));
                         imageView2.setFitWidth(40);
                         imageView2.setFitHeight(40);
                         button.setGraphic(imageView2);
-                        qwerty.remove(0);
+                        list.remove(0);
                     }
                 });
 
