@@ -88,11 +88,9 @@ public class chessBoard {
         return false;
     }
 
-    public ArrayList<String> getSpotsMoves(int[] position) {
-        //identify the object that is there
-        //return piece.moves(grid)) to the GUI
-        //
-        return null;
+    public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
+        gamePiece piece = grid[pos.x][pos.y];
+        return piece.moves(getGrid());
     }
 
     public gamePiece[][] getGrid() {
