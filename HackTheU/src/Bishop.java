@@ -52,7 +52,8 @@ public class Bishop extends gamePiece{
      * @return list of possible coordinates
      */
     @Override
-    public ArrayList<Coordinates> moves(gamePiece[][] grid) {ArrayList<Coordinates> possibleMoves = new ArrayList<>();
+    public ArrayList<Coordinates> moves(gamePiece[][] grid) {
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
         boolean upRightOpen, upLeftOpen, downRightOpen, downLeftOpen;
         downRightOpen = true;
