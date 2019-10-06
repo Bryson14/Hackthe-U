@@ -1,20 +1,13 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.HashSet;
 
 
 public class chessBoardGUI {
@@ -99,6 +92,7 @@ public class chessBoardGUI {
                 button.setId("" + col + row);
 
                 final String[] imgHolder = {""};
+                final Coordinates[] savedcoor = {};
                 button.setOnAction(event -> {
                     //first click
                     Coordinates coor = new Coordinates((int)(button.getId().toCharArray())[0], (int)(button.getId().toCharArray())[1]);
@@ -113,14 +107,15 @@ public class chessBoardGUI {
 
 //                        String number = icons.get(Integer.parseInt(button.getId()) - 1);
 //                        movesList.add(number);
+                        savedcoor[0] = coor;
                         imgHolder[0] = map.get(coor);
                         ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(" ")));
                         button.setGraphic(imageView3);
                     }
                     // second click
                     else{
-                        if movesList.contains(coor) {
-                            cb.movePiece();
+                        if (movesList.contains(coor)) {
+                            cb.movePiece(savedcoor[0], coor);
                             //this is then the destination spot
 
 
@@ -129,7 +124,7 @@ public class chessBoardGUI {
                         }
                         movesList.clear(); // setting up for the first click again
 
-                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(movesList.get(0))));
+                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(map.get(coor))));
                         imageView2.setFitWidth(40);
                         imageView2.setFitHeight(40);
                         button.setGraphic(imageView2);
