@@ -12,19 +12,23 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class chessBoardGUI {
 
     public static void start2(Stage stage) {
         chessBoard cb = new chessBoard();
-        cb.getGrid();
+
+        HashMap<Coordinates, String> map = new HashMap<>();
 
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene scene = new Scene(layout, 750, 650);
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Coordinates> movesList = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
         icons.add("rookBlack.png");
@@ -86,18 +90,39 @@ public class chessBoardGUI {
 
 
                 button.setOnAction(event -> {
-                    if (list.isEmpty()) {
+                    //first click
+                    Coordinates coor = new Coordinates((int)(button.getId().toCharArray())[0], (int)(button.getId().toCharArray())[1]);
+                    if (movesList.isEmpty()) {
+
+                        //user clicked on the right team whose turn it is
+                        if (cb.isOccupiedWithCorrectTeam(coor)) {
+                            movesList.retainAll(cb.getAvailableMoves(coor));
+                        } else { //user clicked on an empty spot or on the team whose turn it is not
+                            //do nothing
+                        }
+
                         String number = icons.get(Integer.parseInt(button.getId()) - 1);
-                        list.add(number);
+                        movesList.add(number);
                         ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(icons.get(64))));
                         button.setGraphic(imageView3);
                     }
+                    // second click
                     else{
-                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(list.get(0))));
+                        if movesList.contains(coor) {
+                            cb.movePiece();
+                            //this is then the destination spot
+
+
+                        } else {
+                            //do nothing
+                        }
+                        movesList.clear(); // setting up for the first click again
+
+                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(movesList.get(0))));
                         imageView2.setFitWidth(40);
                         imageView2.setFitHeight(40);
                         button.setGraphic(imageView2);
-                        list.remove(0);
+                        movesList.remove(0);
                     }
                 });
 
