@@ -51,7 +51,7 @@ class Knight extends gamePiece {
         return getName();
     }
 
-    public ArrayList<Coordinates> moves() {
+    public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         return null;
     }
 }

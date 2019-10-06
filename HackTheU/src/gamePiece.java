@@ -15,7 +15,7 @@ public abstract class  gamePiece {
         this.numberOfMoves = 0;
     }
 
-    public abstract ArrayList<Coordinates> moves();
+    public abstract ArrayList<Coordinates> moves(gamePiece[][] grid);
 
     public String getName() {
         return name;
