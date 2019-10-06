@@ -1,8 +1,13 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -18,6 +23,8 @@ public class chessBoardGUI {
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene scene = new Scene(layout, 750, 650);
+
+        ArrayList<String> qwerty = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
         icons.add("rookBlack.png");
@@ -45,6 +52,7 @@ public class chessBoardGUI {
         icons.add("BishopWhite.png");
         icons.add("KnightWhite.png");
         icons.add("rookWhite.png");
+        icons.add(" ");
 
         int rowNum = 8;
         int colNum = 8;
@@ -75,19 +83,28 @@ public class chessBoardGUI {
                 }
                 button.setMaxSize(50, 50);
                 button.setId("" + listValue);
-                button.setOnAction(event -> button.setGraphic(new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(icons.get(Integer.parseInt(button.getId())))))));
+
+
+
+                button.setOnAction(event -> {
+                    if (qwerty.isEmpty()) {
+                        String number = icons.get(Integer.parseInt(button.getId()) - 1);
+                        qwerty.add(number);
+                    }
+                    else{
+                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(qwerty.get(0))));
+                        imageView2.setFitWidth(40);
+                        imageView2.setFitHeight(40);
+                        button.setGraphic(imageView2);
+                        qwerty.remove(0);
+                    }
+                });
+
                 layout.getChildren().add(button);
                 startx += 52;
 
             }
         }
-
-
-
-        System.out.println(layout.getChildren().get(0));
-        System.out.println(layout.getChildren().get(1));
-        System.out.println(layout.getChildren().get(2));
-        System.out.println(layout.getChildren().get(3));
 
         stage.setTitle("Chess Board");
         stage.setScene(scene);
