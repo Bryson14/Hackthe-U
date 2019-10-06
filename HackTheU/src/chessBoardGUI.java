@@ -15,22 +15,26 @@ public class chessBoardGUI extends Application {
         //Instantiating the BorderPane class
         BorderPane bPane = new BorderPane();
 
-        // Create Buttons
-      /*  for (int row = 0; row < rowNum; row++) {
-            for (int col = 0; col < colNum; col++) {
-                Button button1 = new Button();
-                button1.setStyle("-fx-background-color: rgba(255, 186, 26, 0.64)");
-            }
-        }*/
-        Button button1 = new Button();
-        button1.setStyle("-fx-background-color: black");
-        button1.setMaxSize(50, 50);
-        button1.setLayoutX(-50);
-        button1.setLayoutY(40);
+
 
         //Make stack pane
         StackPane layout = new StackPane();
-        layout.getChildren().addAll(button1);
+
+        // Create Buttons
+        int rowNum = 0;
+        int colNum = 0;
+        for (int row = 0; row < rowNum; row++) {
+            for (int col = 0; col < colNum; col++) {
+                Button button1 = new Button();
+                button1.setStyle("-fx-background-color: rgba(255, 186, 26, 0.64)");
+                layout.getChildren().add(button1);
+               }
+        }
+        /*Button button1 = new Button();
+        button1.setStyle("-fx-background-color: black");
+        button1.setMaxSize(50, 50);
+        button1.setTranslateX(-275);
+        button1.setTranslateY(-300);*/
 
         //Creating a scene object
         Scene scene = new Scene(layout, 750, 650);
@@ -44,10 +48,6 @@ public class chessBoardGUI extends Application {
     }
 
     GridPane gridPane = new GridPane();
-
-
-
-
 
 
     public static void main(String[] args)
