@@ -50,9 +50,22 @@ public class Bishop extends gamePiece{
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
 
-        for (int i = 0; i < 8; i ++)
-            possibleMoves.add(new Coordinates(getPosX() + i, getPosY() + i));
-            possibleMoves.add(new Coordinates(getPosX() - i, getPosY() - i));
+        while (grid == null) {
+            for (int i = 0; i < 8; i ++)
+                possibleMoves.add(new Coordinates(getPosX() + i, getPosY() + i));
+        }
+        while (grid == null) {
+            for (int i = 0; i < 8; i++)
+                possibleMoves.add(new Coordinates(getPosX() - i, getPosY() - i));
+        }
+        while (grid == null) {
+            for (int i = 0; i < 8; i++)
+                possibleMoves.add(new Coordinates(getPosX() + i, getPosY() - i));
+        }
+        while (grid == null) {
+            for (int i = 0; i < 8; i++)
+                possibleMoves.add(new Coordinates(getPosX() - i, getPosY() + i));
+        }
 
         return possibleMoves;
 
