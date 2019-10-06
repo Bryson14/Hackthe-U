@@ -12,6 +12,9 @@ public class chessBoard {
         currentTeam = true; // white team
     }
 
+    /**
+     * creates a new board with false(black) team on top and true(white) team on bottom
+     */
     void setNewBoard() {
         // rooks
         grid[0][0] = new Rook("BlackRook1", 0,0,false);
@@ -39,9 +42,6 @@ public class chessBoard {
             grid[i][1] = new Pawn("BlackPawn"+i, i, 2, false);
             grid[i][6] = new Pawn("WhilePawn"+i, i,6,true);
         }
-
-        printBoard();
-
     }
 
     void printBoard() {
@@ -67,8 +67,17 @@ public class chessBoard {
      * @param oldSpot string representing the old spot of piece
      * @param newSpot string representing the new spot of piece
      */
-    public void movePiece(int[][] oldSpot, int[][] newSpot) {
+    public void movePiece(Coordinates oldSpot, Coordinates newSpot) {
         // if there is an enemy piece in old spot, add that to the graveyard
+
+        if (grid[newSpot.x][newSpot.y] != null) {
+
+            //adding killed player to the graveyard
+            if (grid[newSpot.x][newSpot.y].getTeam()) teamTrueGraveyard.add(grid[newSpot.x][newSpot.y]);
+            else teamFalseGraveyard.add(grid[newSpot.x][newSpot.y]);
+        }
+        grid[newSpot.x][newSpot.y] = grid[oldSpot.x][oldSpot.y];
+        grid[oldSpot.x][oldSpot.y] = null;
 
     }
 
@@ -91,6 +100,9 @@ public class chessBoard {
 
     public static void main(String[] args) {
         chessBoard cb = new chessBoard();
+        cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
+        System.out.println(cb.teamTrueGraveyard);
+        cb.printBoard();
     }
 }
 

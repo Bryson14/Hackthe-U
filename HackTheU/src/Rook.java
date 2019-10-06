@@ -39,7 +39,7 @@ public class Rook extends gamePiece{
     }
 
     @Override
-    public ArrayList<String> moves() {
+    public ArrayList<Coordinates> moves() {
         return null;
     }
 }
