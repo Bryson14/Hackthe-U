@@ -5,15 +5,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class chessBoardGUI extends Application
+public class chessBoardGUI
 {
-    public static void main(String[] args)
-    {
-        Application.launch(args);
-    }
+//    public static void main(String[] args)
+//    {
+//        Application.launch(args);
+//    }
 
-    @Override
-    public void start(Stage stage)
+    public static void start2(Stage stage)
     {
         // Create the Text Nodes
         Text centerText = new Text("Center");
