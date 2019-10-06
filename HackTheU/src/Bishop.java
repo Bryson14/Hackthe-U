@@ -48,6 +48,14 @@ public class Bishop extends gamePiece{
 
     @Override
     public ArrayList<Coordinates> moves() {
-        return null;
+        ArrayList<Coordinates> possibleMoves = new ArrayList<Coordinates>();
+
+        for (int i = 0; i < 8; i ++)
+            possibleMoves.add(new Coordinates(getPosX() + i, getPosY() + i));
+            possibleMoves.add(new Coordinates(getPosX() - i, getPosY() - i));
+
+        return possibleMoves;
+
+
     }
 }
