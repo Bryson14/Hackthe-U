@@ -9,11 +9,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class chessBoardGUI extends Application {
+public class chessBoardGUI {
 
-    public void start(Stage stage) {
+    public static void start2(Stage stage) {
+        chessBoard cb = new chessBoard();
+        cb.getGrid();
 
         StackPane layout = new StackPane();
+        layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene scene = new Scene(layout, 750, 650);
 
         ArrayList<String> icons = new ArrayList<>();
@@ -56,7 +59,7 @@ public class chessBoardGUI extends Application {
             for (int col = 0; col < colNum; col++) {
                 value ^= true;
                 Button button = new Button();
-                Image image = new Image(getClass().getResourceAsStream(icons.get(listValue)));
+                Image image = new Image(chessBoardGUI.class.getResourceAsStream(icons.get(listValue)));
                 listValue ++;
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(40);
