@@ -47,4 +47,8 @@ public abstract class  gamePiece {
     public int getNumberOfMoves() {
         return numberOfMoves;
     }
+
+    ArrayList<Coordinates> whatsInTheWay(gamePiece[][] grid, ArrayList<Coordinates> moves) {
+        return null;
+    }
 }

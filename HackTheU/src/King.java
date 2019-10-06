@@ -47,6 +47,11 @@ class King extends gamePiece {
     }
 
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
-        return null;
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+
+        }
+
+        return super.whatsInTheWay(grid, possibleMoves);
     }
 }
