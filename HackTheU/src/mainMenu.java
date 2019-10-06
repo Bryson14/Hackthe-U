@@ -15,7 +15,7 @@ public class mainMenu extends Application {
     }
 
     private void openMainMenu(Stage s){
-        s.setTitle("Chess");
+        s.setTitle("Chess (Main Menu)");
 
         Text title = new Text("Chess");
         title.setTranslateX(0);
@@ -39,14 +39,27 @@ public class mainMenu extends Application {
             Scene secondScene = new Scene(root2, 750,650);
             Stage secondStage = new Stage();
             secondStage.setScene(secondScene);
-            secondStage.setTitle("Second Form");
+            secondStage.setTitle("Chess");
 //            chessBoardGUI.start2(secondStage);
             secondStage.show();
             s.close();
         };
 
         EventHandler<ActionEvent> displayRules = e -> {
-
+            StackPane rulesPane = new StackPane();
+            rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
+            Text title2 = new Text("Rules");
+            title2.setTranslateX(0);
+            title2.setTranslateY(-270);
+            rulesPane.getChildren().addAll(title2);
+            title2.setFont(new Font("Algerian",70));
+            Scene rulesScene = new Scene(rulesPane, 750,650);
+            Stage rulesStage = new Stage();
+            rulesStage.setScene(rulesScene);
+            rulesStage.setTitle("Chess (Rules)");
+//            chessBoardGUI.start2(secondStage);
+            rulesStage.show();
+            s.close();
 
         };
 
