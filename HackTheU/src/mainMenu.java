@@ -40,7 +40,7 @@ public class mainMenu extends Application {
             Stage secondStage = new Stage();
             secondStage.setScene(secondScene);
             secondStage.setTitle("Chess");
-//            chessBoardGUI.start2(secondStage);
+            chessBoardGUI.start2(secondStage);
             secondStage.show();
             s.close();
         };
