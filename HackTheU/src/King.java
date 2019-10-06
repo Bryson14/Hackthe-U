@@ -48,7 +48,7 @@ class King extends gamePiece {
         return getName();
     }
 
-    public ArrayList<String> moves() {
+    public ArrayList<Coordinates> moves() {
         return null;
     }
 }
