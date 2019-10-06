@@ -80,6 +80,8 @@ public class chessBoardGUI {
                 startx += 52;
 
             }
+
+
         }
 
 
