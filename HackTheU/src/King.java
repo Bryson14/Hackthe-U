@@ -60,6 +60,23 @@ class King extends gamePiece {
             possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i)); // top left, bottom right
         }
 
-        return super.whatsInTheWay(grid, possibleMoves);
+        //removes everything out of bounds
+        int i = 0;
+        while (i < possibleMoves.size()){
+            if (possibleMoves.get(i).x > 7 || possibleMoves.get(i).x < 0 || possibleMoves.get(i).y > 7 || possibleMoves.get(i).y < 0) { //outside board
+                possibleMoves.remove(i);
+
+                // another piece is there
+            } else if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y] != null) {
+
+                // a teammate is there
+                if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y].getTeam() == getTeam()) possibleMoves.remove(i);
+                else i++;
+
+            } else {
+                i++; // moves increment forward if nothing was removed
+            }
+        }
+        return possibleMoves;
     }
 }
