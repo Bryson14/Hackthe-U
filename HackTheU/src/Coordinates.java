@@ -10,6 +10,6 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return "(" + this.x + 1 + "," + this.y + 1 + ")";
+        return "(" + this.x + "," + this.y + ")";
     }
 }
