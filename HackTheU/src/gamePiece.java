@@ -49,6 +49,20 @@ public abstract class  gamePiece {
     }
 
     ArrayList<Coordinates> whatsInTheWay(gamePiece[][] grid, ArrayList<Coordinates> moves) {
-        return null;
+
+        // removes moves outside of board
+        int i = 0;
+        while (i < moves.size()){
+            if (moves.get(i).x > 7 || moves.get(i).x < 0 || moves.get(i).y > 7 || moves.get(i).y < 0) { //outside board
+                moves.remove(i);
+            } else i++; // moves increment forward if nothing was removed
+         }
+
+         //check to see if something is in the way
+         int j = 0;
+        while (j < moves.size()) {
+
+        }
+        return moves;
     }
 }
