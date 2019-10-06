@@ -15,40 +15,42 @@ public class chessBoardGUI extends Application {
         //Instantiating the BorderPane class
         BorderPane bPane = new BorderPane();
 
+
+
         //Make stack pane
         StackPane layout = new StackPane();
 
         // Create Buttons
-        int rowNum = 7;
-        int colNum = 7;
-        int startY = -300;
-        Boolean isWhite = false;
-        for (int col = 0; col < colNum; col++) {
-            int startX = -300;
-            startY += 52;
-            for (int row = 0; row < rowNum; row++) {
+        int rowNum = 8;
+        int colNum = 8;
+        int starty = -250;
+        boolean value = false;
+        for (int row = 0; row < rowNum; row++) {
+            int startx = -180;
+            starty = starty + 52;
+            value ^= true;
+            for (int col = 0; col < colNum; col++) {
+                value ^= true;
                 Button button = new Button();
-                if (isWhite) {
+                button.setTranslateX(startx);
+                button.setTranslateY(starty);
+                if (value){
                     button.setStyle("-fx-background-color: black");
-                } else
-                    button.setStyle("-fx-background-color: black");
+                }
+                else{
+                    button.setStyle("-fx-background-color: grey");
+                }
                 button.setMaxSize(50, 50);
-                button.setTranslateX(startX);
-                button.setTranslateY(startY);
                 layout.getChildren().add(button);
-                startX += 52;
-            }
+                startx = startx + 52;
+
             }
         }
 
-        //Creating a scene object
         Scene scene = new Scene(layout, 750, 650);
-        //Setting title to the Stage
         stage.setTitle("Chess Board");
-        //Adding scene to the stage
         stage.setScene(scene);
 
-        //Displaying the contents of the stage
         stage.show();
     }
 
