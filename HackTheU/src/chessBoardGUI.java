@@ -91,7 +91,7 @@ public class chessBoardGUI {
                         list.add(number);
                     }
                     else{
-                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(qwerty.get(0))));
+                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(list.get(0))));
                         imageView2.setFitWidth(40);
                         imageView2.setFitHeight(40);
                         button.setGraphic(imageView2);
