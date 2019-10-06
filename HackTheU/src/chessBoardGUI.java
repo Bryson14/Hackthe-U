@@ -19,7 +19,6 @@ public class chessBoardGUI {
 
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
-        Scene scene = new Scene(layout, 750, 650);
 
         ArrayList<Coordinates> movesList = new ArrayList<>();
 
@@ -141,6 +140,7 @@ public class chessBoardGUI {
 
         }
 
+        Scene scene = new Scene(layout, 750, 650);
         stage.setTitle("Chess Board");
         stage.setScene(scene);
 

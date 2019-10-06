@@ -1,3 +1,5 @@
+import javafx.scene.layout.CornerRadii;
+
 import java.util.ArrayList;
 
 public class chessBoard {
@@ -55,7 +57,11 @@ public class chessBoard {
             }
             System.out.println("");
         }
+        ArrayList<Integer> test = new ArrayList<>();
+        test.add(5, 6);
     }
+
+
 
     /**
      * GUI tells chessBoard that it moves an object from oldspot to newspot
@@ -105,6 +111,7 @@ public class chessBoard {
      * @return Coordinates of all possible moves for the piece
      */
     public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
+        if (grid[pos.x][pos.y] == null) return new ArrayList<>();
         return grid[pos.x][pos.y].moves(getGrid());
     }
 
