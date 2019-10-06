@@ -62,6 +62,11 @@ public class Pawn extends gamePiece{
         else ySwitch = 1; // black team going down
 
 
+
+
+
+
+
         // Pawn has a special case first move where it goes forward 2
         try {
             if (getNumberOfMoves() == 0 && grid[getPosX()][getPosY() + ySwitch] == null && grid[getPosX()][getPosY() + ySwitch * 2] == null) {

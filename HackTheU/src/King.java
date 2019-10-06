@@ -51,32 +51,106 @@ class King extends gamePiece {
      * @param grid current game state
      * @return list of possible coordinates
      */
-    public ArrayList<Coordinates> moves(gamePiece[][] grid) {
-        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
-        for (int i = -1; i < 2; i+=2) {
-            possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); // up and down
-            possibleMoves.add(new Coordinates(getPosX() + i,getPosY())); // left and right
-            possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i)); // top right, bottom left
-            possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i)); // top left, bottom right
-        }
+    public ArrayList<Coordinates> moves(gamePiece[][] grid) {ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
-        //removes everything out of bounds
-        int i = 0;
-        while (i < possibleMoves.size()){
-            if (possibleMoves.get(i).x > 7 || possibleMoves.get(i).x < 0 || possibleMoves.get(i).y > 7 || possibleMoves.get(i).y < 0) { //outside board
-                possibleMoves.remove(i);
+        boolean upRightOpen, upLeftOpen, downRightOpen, downLeftOpen;
+        downRightOpen = true;
+        downLeftOpen = true;
+        upLeftOpen = true;
+        upRightOpen = true;
 
-                // another piece is there
-            } else if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y] != null) {
+        boolean rightOpen, leftOpen, upOpen, downOpen;
+        upOpen = true;
+        downOpen = true;
+        leftOpen = true;
+        rightOpen = true;
 
-                // a teammate is there
-                if (grid[possibleMoves.get(i).x][possibleMoves.get(i).y].getTeam() == getTeam()) possibleMoves.remove(i);
-                else i++;
+        for (int i = 1; i < 2; i++) {
+            if (getPosY() + i < 8 && getPosX() + i < 8 && downRightOpen) {
+                if (grid[getPosX() + i][getPosY() + i] != null) {
+                    downRightOpen = false;
+                    if (isEnemy(grid, grid[getPosX() + i][getPosY() + i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
+                    }
+                } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
+            }
 
-            } else {
-                i++; // moves increment forward if nothing was removed
+            if (getPosX() - i >= 0 && getPosY() + i < 8 && downLeftOpen) {
+                if (grid[getPosX() - i][getPosY() + i] != null) {
+
+                    downLeftOpen = false;
+                    if (isEnemy(grid, grid[getPosX() - i][getPosY() + i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() - i,getPosY() + i));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() - i,getPosY() +i));
+            }
+
+            if (getPosX() + i < 8 && getPosY() - i >= 0 && upRightOpen) {
+                if (grid[getPosX() + i][getPosY() - i] != null) {
+
+                    upRightOpen = false;
+                    if (isEnemy(grid, grid[getPosX() + i][getPosY() - i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i));
+            }
+
+            if (getPosX() - i >= 0 && getPosY() - i >= 0 && upLeftOpen) {
+                if (grid[getPosX() - i][getPosY() - i] != null) {
+
+                    upLeftOpen = false;
+                    if (isEnemy(grid, grid[getPosX() - i][getPosY() - i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i));
+            }
+
+            if (getPosY() + i < 8 && downOpen) {
+                if (grid[getPosX()][getPosY() + i] != null) {
+                    downOpen = false;
+                    if (isEnemy(grid, grid[getPosX()][getPosY() + i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
+                    }
+                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
+            }
+
+            if (getPosY() - i >= 0 && upOpen) {
+                if (grid[getPosX()][getPosY() - i] != null) {
+
+                    upOpen = false;
+                    if (isEnemy(grid, grid[getPosX()][getPosY() - i]  )) {
+                        possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
+            }
+
+            if (getPosX() + i < 8 && rightOpen) {
+                if (grid[getPosX() + i][getPosY()] != null) {
+
+                    rightOpen = false;
+                    if (isEnemy(grid, grid[getPosX() + i][getPosY()]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
+            }
+
+            if (getPosX() - i >= 0 && leftOpen) {
+                if (grid[getPosX() - i][getPosY()] != null) {
+
+                    leftOpen = false;
+                    if (isEnemy(grid, grid[getPosX() - i][getPosY()]  )) {
+                        possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
+                    }
+
+                } else possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
             }
         }
+
         return possibleMoves;
     }
 }
