@@ -51,6 +51,11 @@ class Knight extends gamePiece {
         return getName();
     }
 
+    /**
+     * return all possible moves of a knight not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 

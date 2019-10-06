@@ -44,6 +44,9 @@ public class chessBoard {
         }
     }
 
+    /**
+     * prints to console a representation of the board
+     */
     void printBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -88,16 +91,26 @@ public class chessBoard {
         return false;
     }
 
+    /**
+     *
+     * @param pos position on the grid that user wants to move
+     * @return Coordinates of all possible moves for the piece
+     */
     public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
         return grid[pos.x][pos.y].moves(getGrid());
     }
 
+    /**
+     * a fixed 2d list of the current game board state
+     * @return current game state
+     */
     public gamePiece[][] getGrid() {
         return grid;
     }
 
     public static void main(String[] args) {
         chessBoard cb = new chessBoard();
+        cb.printBoard();
         cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
         System.out.println(cb.teamTrueGraveyard);
         cb.printBoard();

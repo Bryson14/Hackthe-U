@@ -41,6 +41,11 @@ class Queen extends gamePiece {
         return super.getTeam();
     }
 
+    /**
+     * return all possible moves of a queen not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 

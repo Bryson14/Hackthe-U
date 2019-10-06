@@ -46,6 +46,11 @@ public class Pawn extends gamePiece{
         return getName();
     }
 
+    /**
+     * return all possible moves of a pawn not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     @Override
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
 

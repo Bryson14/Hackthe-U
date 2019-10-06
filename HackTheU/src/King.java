@@ -46,6 +46,11 @@ class King extends gamePiece {
         return getName();
     }
 
+    /**
+     * return all possible moves of a king not considering being out of the board or other players
+     * @param grid current game state
+     * @return list of possible coordinates
+     */
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
         for (int i = -1; i < 2; i+=2) {
