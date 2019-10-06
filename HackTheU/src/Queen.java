@@ -42,7 +42,16 @@ class Queen extends gamePiece {
     }
 
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
-        return null;
+        ArrayList<Coordinates> possibleMoves = new ArrayList<>();
+
+        for (int i = 1; i < 7; i++) {
+            possibleMoves.add(new Coordinates(getPosX() - i,getPosY() + i)); // upper left diag
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i)); // lower right diag
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i)); // upper right diag
+            possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i)); // lower left diag
+        }
+
+        return super.whatsInTheWay(grid, possibleMoves);
     }
 
     @Override

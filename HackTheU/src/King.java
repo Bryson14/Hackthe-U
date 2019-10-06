@@ -48,8 +48,11 @@ class King extends gamePiece {
 
     public ArrayList<Coordinates> moves(gamePiece[][] grid) {
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-
+        for (int i = -1; i < 2; i+=2) {
+            possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); // up and down
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY())); // left and right
+            possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i)); // top right, bottom left
+            possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i)); // top left, bottom right
         }
 
         return super.whatsInTheWay(grid, possibleMoves);
