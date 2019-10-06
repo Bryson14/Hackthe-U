@@ -61,19 +61,21 @@ public class Pawn extends gamePiece{
         if (getTeam()) ySwitch = -1; // white team going up
         else ySwitch = 1; // black team going down
 
+
+        // Pawn has a special case first move where it goes forward 2
         try {
-            // Pawn has a special case first move
             if (getNumberOfMoves() == 0 && grid[getPosX()][getPosY() + ySwitch] == null && grid[getPosX()][getPosY() + ySwitch * 2] == null) {
                 possibleMoves.add(new Coordinates(getPosX(), getPosY() + 2 * ySwitch));
             }
         } catch (ArrayIndexOutOfBoundsException e) {}
 
-        // Else they move just one or attack
+        // Tries to move forward one
         try {
             if (grid[getPosX()][getPosY() + ySwitch] != null) ; //pawn can't move if something is in front of it
             else possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
         } catch (ArrayIndexOutOfBoundsException e) {}
 
+        // can move/attack to the right diagonal
         try {
             if (grid[getPosX() + 1][getPosY() + ySwitch] != null) { //something is there
                 if (grid[getPosX() + 1][getPosY() + ySwitch].getTeam() != getTeam()) { //its an enemy
@@ -82,6 +84,7 @@ public class Pawn extends gamePiece{
             }
         } catch (ArrayIndexOutOfBoundsException e) {}
 
+        // can move/attack to the left diagonal
         try {
             if (grid[getPosX() - 1][getPosY() + ySwitch] != null) { //something is there
                 if (grid[getPosX() - 1][getPosY() + ySwitch].getTeam() != getTeam()) { //its an enemy
