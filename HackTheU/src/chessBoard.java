@@ -74,6 +74,8 @@ public class chessBoard {
         grid[newSpot.x][newSpot.y] = grid[oldSpot.x][oldSpot.y];
         grid[oldSpot.x][oldSpot.y] = null;
         grid[newSpot.x][newSpot.y].incrementNumberOfMoves();
+        grid[newSpot.x][newSpot.y].setPosX(newSpot.x);
+        grid[newSpot.x][newSpot.y].setPosY(newSpot.y);
 
     }
 
@@ -114,8 +116,10 @@ public class chessBoard {
 //        cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
 //        System.out.println(cb.teamTrueGraveyard);
 //        cb.printBoard();
-        System.out.println(cb.grid[0][1].toString());
-        System.out.println(cb.getAvailableMoves(new Coordinates(0,1)));
+        System.out.println(cb.grid[1][0].toString());
+//        cb.movePiece(new Coordinates(1,0), new Coordinates(4,3));
+//        cb.printBoard();
+        System.out.println(cb.getAvailableMoves(new Coordinates(1,0)));
     }
 }
 
