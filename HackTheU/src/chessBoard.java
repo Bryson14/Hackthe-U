@@ -76,8 +76,10 @@ public class chessBoard {
             if (grid[newSpot.x][newSpot.y].getTeam()) teamTrueGraveyard.add(grid[newSpot.x][newSpot.y]);
             else teamFalseGraveyard.add(grid[newSpot.x][newSpot.y]);
         }
+
         grid[newSpot.x][newSpot.y] = grid[oldSpot.x][oldSpot.y];
         grid[oldSpot.x][oldSpot.y] = null;
+        grid[newSpot.x][newSpot.y].incrementNumberOfMoves();
 
     }
 

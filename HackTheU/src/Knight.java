@@ -2,11 +2,8 @@ import java.util.*;
 
 class Knight extends gamePiece {
 
-    private int numberOfMoves;
-
     Knight(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
-        numberOfMoves = 0;
     }
 
     @Override
@@ -14,8 +11,9 @@ class Knight extends gamePiece {
         return super.getTeam();
     }
 
+    @Override
     public int getNumberOfMoves() {
-        return numberOfMoves;
+        return super.getNumberOfMoves();
     }
 
     @Override
@@ -32,8 +30,10 @@ class Knight extends gamePiece {
     public String getName() {
         return super.getName();
     }
+
+    @Override
     public void incrementNumberOfMoves() {
-        this.numberOfMoves++;
+        super.incrementNumberOfMoves();
     }
 
     @Override
