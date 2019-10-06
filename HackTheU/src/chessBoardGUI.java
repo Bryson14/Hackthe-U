@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
@@ -56,13 +55,13 @@ public class chessBoardGUI {
 
         int rowNum = 8;
         int colNum = 8;
-        int starty = -250;
+        int startY = -250;
         int listValue = 0;
         boolean value = false;
 
         for (int row = 0; row < rowNum; row++) {
-            int startx = -180;
-            starty += 52;
+            int startX = -180;
+            startY += 52;
             value ^= true;
             for (int col = 0; col < colNum; col++) {
                 value ^= true;
@@ -73,10 +72,10 @@ public class chessBoardGUI {
                 imageView.setFitWidth(40);
                 imageView.setFitHeight(40);
                 button.setGraphic(imageView);
-                button.setTranslateX(startx);
-                button.setTranslateY(starty);
+                button.setTranslateX(startX);
+                button.setTranslateY(startY);
                 if (value){
-                    button.setStyle("-fx-background-color: black");
+                    button.setStyle("-fx-background-color: blue");
                 }
                 else{
                     button.setStyle("-fx-background-color: grey");
@@ -101,7 +100,7 @@ public class chessBoardGUI {
                 });
 
                 layout.getChildren().add(button);
-                startx += 52;
+                startX += 52;
 
             }
 
