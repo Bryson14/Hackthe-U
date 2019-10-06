@@ -66,8 +66,7 @@ public class Bishop extends gamePiece{
             for (int i = 0; i < 8; i++)
                 possibleMoves.add(new Coordinates(getPosX() - i, getPosY() + i));
         }
-
-        return possibleMoves;
+        return super.whatsInTheWay(grid, possibleMoves);
 
 
     }

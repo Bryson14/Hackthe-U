@@ -60,6 +60,6 @@ public class Pawn extends gamePiece{
         possibleMoves.add(new Coordinates(getPosX(), getPosY() + 1));
         possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + 1));
         possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + 1));
-        return possibleMoves;
+        return super.whatsInTheWay(grid, possibleMoves);
     }
 }
