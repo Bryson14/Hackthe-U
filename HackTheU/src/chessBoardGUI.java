@@ -104,6 +104,8 @@ public class chessBoardGUI {
                 startx += 52;
 
             }
+
+
         }
 
         stage.setTitle("Chess Board");
