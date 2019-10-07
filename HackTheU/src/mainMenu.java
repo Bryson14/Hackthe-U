@@ -57,16 +57,15 @@ public class mainMenu extends Application {
             title2.setFont(new Font("Algerian",70));
 
             Button respawn = new Button();
-            EventHandler<ActionEvent> returntomenu = f -> {
+
+            respawn.setOnAction(f -> {
                 Stage third = new Stage();
                 third.setScene(new Scene(new StackPane(), 750,650));
 
                 openMainMenu(third);
                 third.show();
                 s.close();
-
-            };
-            respawn.setOnAction(returntomenu);
+            });
 
             Font ruleFont = new Font("Comic Sans", 16);
 
@@ -120,12 +119,11 @@ public class mainMenu extends Application {
 
         };
 
-
-        EventHandler<ActionEvent> quitGame = e -> s.close();
-
         gameButton.setOnAction(startGame);
         rulesButton.setOnAction(displayRules);
-        quitButton.setOnAction(quitGame);
+        quitButton.setOnAction(e ->{
+            s.close();
+        });
 
         StackPane buttonHolder = new StackPane();
 

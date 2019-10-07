@@ -14,13 +14,13 @@ public class chessBoardGUI {
 
     public static void start2(Stage stage) {
         chessBoard cb = new chessBoard();
-
+        ArrayList<Coordinates> movesList = new ArrayList<>();
         HashMap<Coordinates, String> map = new HashMap<>();
 
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
 
-        ArrayList<Coordinates> movesList = new ArrayList<>();
+
 
         ArrayList<String> icons = new ArrayList<>();
         icons.add("rookBlack.png");

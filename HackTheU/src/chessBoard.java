@@ -8,6 +8,7 @@ public class chessBoard {
     private gamePiece grid[][] = new gamePiece[8][8];
     public ArrayList<gamePiece> teamTrueGraveyard = new ArrayList<>();
     public ArrayList<gamePiece> teamFalseGraveyard = new ArrayList<>();
+    public Coordinates lastAccessed;
 
     chessBoard() {
         setNewBoard();
