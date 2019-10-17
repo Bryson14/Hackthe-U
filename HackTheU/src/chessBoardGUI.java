@@ -23,31 +23,31 @@ public class chessBoardGUI {
         ArrayList<Coordinates> movesList = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
-        icons.add("rookBlack.png");
-        icons.add("KnightBlack.png");
-        icons.add("BishopBlack.png");
-        icons.add("queenBlack.png");
-        icons.add("KingBlack.png");
-        icons.add("BishopBlack.png");
-        icons.add("KnightBlack.png");
-        icons.add("rookBlack.png");
+        icons.add("pictures/RookBlack.png");
+        icons.add("pictures/KnightBlack.png");
+        icons.add("pictures/BishopBlack.png");
+        icons.add("pictures/QueenBlack.png");
+        icons.add("pictures/KingBlack.png");
+        icons.add("pictures/BishopBlack.png");
+        icons.add("pictures/KnightBlack.png");
+        icons.add("pictures/RookBlack.png");
         for (int i=0; i<8; i++){
-            icons.add("pawnBlack.png");
+            icons.add("pictures/PawnBlack.png");
         }
         for (int j=0; j<32; j++){
             icons.add(" ");
         }
         for (int i=0; i<8; i++){
-            icons.add("pawnWhite.png");
+            icons.add("pictures/PawnWhite.png");
         }
-        icons.add("rookWhite.png");
-        icons.add("KnightWhite.png");
-        icons.add("BishopWhite.png");
+        icons.add("pictures/RookWhite.png");
+        icons.add("pictures/KnightWhite.png");
+        icons.add("pictures/BishopWhite.png");
         icons.add("queenWhite.png");
-        icons.add("KingWhite.png");
-        icons.add("BishopWhite.png");
-        icons.add("KnightWhite.png");
-        icons.add("rookWhite.png");
+        icons.add("pictures/KingWhite.png");
+        icons.add("pictures/BishopWhite.png");
+        icons.add("pictures/KnightWhite.png");
+        icons.add("pictures/RookWhite.png");
         icons.add(" ");
 
         int count = 0;

@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -13,16 +14,19 @@ public class gamePlayScene {
     private Scene scene;
     private ArrayList<Coordinates> moves = new ArrayList<>(); //possible coordinates for selected piece
     private chessBoard cb;
+    private Coordinates lastCoor;
 
     gamePlayScene() {
         cb = new chessBoard();
-        final int HEIGHT =  8;
+        final int HEIGHT = 8;
         final int WIDTH = 8;
         GridPane gp;
 
         gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
         gp.setPadding(new Insets(10,10,10,10));
+        gp.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
+        // TODO figure out how to place border around the chess board only
 
         boolean whiteOrBlack = true;
 
@@ -31,10 +35,10 @@ public class gamePlayScene {
             for (int column = 0; column < HEIGHT; column++) {
                 whiteOrBlack ^= true;
 
-                Rectangle tempR= new Rectangle(50,50);
+                Rectangle tempR= new Rectangle(80,80);
                 tempR.setId("" + column + row);
-                tempR.widthProperty().bind(gp.widthProperty().divide(WIDTH));
-                tempR.heightProperty().bind(gp.heightProperty().divide(HEIGHT));
+//                tempR.widthProperty().bind(gp.widthProperty().divide(WIDTH));
+//                tempR.heightProperty().bind(gp.heightProperty().divide(HEIGHT));
                 if (whiteOrBlack) tempR.setFill(Color.WHITE);
                 else tempR.setFill(Color.BLACK);
 
@@ -49,9 +53,15 @@ public class gamePlayScene {
                             moves = cb.getAvailableMoves(coor);
                         }
 
+                        //TODO highlight the squares that are in the moves list
+
 
                     } else { // second click
+
+                        //TODO if second space is in the moves list, then cb.move(lastCoor, coor). updateBoard()
+
                         System.out.println("a second click");
+
                     }
                 });
                 gp.add(tempR, column, row);
@@ -62,6 +72,7 @@ public class gamePlayScene {
 
         BorderPane bp = new BorderPane();
         bp.setCenter(gp);
+        bp.setTop(new Text("You are the best at chess!"));
         this.scene = new Scene(bp);
 
     }
@@ -75,6 +86,11 @@ public class gamePlayScene {
     }
 
     private void updateBoard() {
+        gamePiece[][] grid = cb.getGrid();
 
+    }
+
+    private void highlightLegalMoves() {
+        //TODO write this
     }
 }

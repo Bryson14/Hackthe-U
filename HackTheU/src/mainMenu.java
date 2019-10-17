@@ -15,6 +15,7 @@ public class mainMenu extends Application {
     }
 
     private void openMainMenu(Stage s){
+
         s.setTitle("Chess (Main Menu)");
 
         Text title = new Text("Chess");
