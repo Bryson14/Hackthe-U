@@ -11,18 +11,18 @@ import java.util.ArrayList;
 public class gamePlayScene {
 
     private Scene scene;
-    private ArrayList<Coordinates> moves; //possible coordinates for selected piece
+    private ArrayList<Coordinates> moves = new ArrayList<>(); //possible coordinates for selected piece
     private chessBoard cb;
 
     gamePlayScene() {
         cb = new chessBoard();
         final int HEIGHT =  8;
         final int WIDTH = 8;
-        TilePane tp;
+        GridPane gp;
 
-        tp = new TilePane();
-        tp.setAlignment(Pos.CENTER);
-        tp.setPadding(new Insets(10,10,10,10));
+        gp = new GridPane();
+        gp.setAlignment(Pos.CENTER);
+        gp.setPadding(new Insets(10,10,10,10));
 
         boolean whiteOrBlack = true;
 
@@ -31,34 +31,37 @@ public class gamePlayScene {
             for (int column = 0; column < HEIGHT; column++) {
                 whiteOrBlack ^= true;
 
-                Rectangle tempR= new Rectangle();
+                Rectangle tempR= new Rectangle(50,50);
                 tempR.setId("" + column + row);
-                tempR.widthProperty().bind(tp.widthProperty().divide(WIDTH));
-                tempR.heightProperty().bind(tp.heightProperty().divide(HEIGHT));
+                tempR.widthProperty().bind(gp.widthProperty().divide(WIDTH));
+                tempR.heightProperty().bind(gp.heightProperty().divide(HEIGHT));
                 if (whiteOrBlack) tempR.setFill(Color.WHITE);
                 else tempR.setFill(Color.BLACK);
 
                 tempR.setOnMouseClicked(e -> {
+                    System.out.println(tempR.getId());
 
                     if (moves.isEmpty()) { // first click
-                        Coordinates coor = new Coordinates((int)tempR.getId().charAt(0), (int)tempR.getId().charAt(1))
+                        // subtract 48 for correction of ascii '0' = 48
+                        Coordinates coor = new Coordinates((int)tempR.getId().charAt(0) - 48, (int)tempR.getId().charAt(1) - 48);
+
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             moves = cb.getAvailableMoves(coor);
                         }
 
 
                     } else { // second click
-
+                        System.out.println("a second click");
                     }
                 });
-                tp.getChildren().add(tempR);
+                gp.add(tempR, column, row);
             }
         }
 
 
 
         BorderPane bp = new BorderPane();
-        bp.setCenter(tp);
+        bp.setCenter(gp);
         this.scene = new Scene(bp);
 
     }
