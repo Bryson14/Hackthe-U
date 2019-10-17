@@ -17,6 +17,7 @@ public class test extends Application {
         bt.setTranslateX(50);
         bt.setOnAction(e -> {
             primaryStage.setScene(gameScene);
+            primaryStage.setTitle("Why not a Game of Chess?");
         });
         primaryStage.setScene(new Scene(new Pane(bt)));
         primaryStage.setHeight(700);
