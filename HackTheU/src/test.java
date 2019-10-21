@@ -14,13 +14,13 @@ public class test extends Application {
 
         Button bt = new Button("Go to next Game");
         bt.setTranslateY(50);
-        bt.setTranslateX(50);
+        bt.setTranslateX(200);
         bt.setOnAction(e -> {
             primaryStage.setScene(gameScene);
             primaryStage.setTitle("Why not a Game of Chess?");
         });
         primaryStage.setScene(new Scene(new Pane(bt)));
-        primaryStage.setHeight(700);
+        primaryStage.setHeight(750);
         primaryStage.setWidth(1000);
         primaryStage.show();
     }

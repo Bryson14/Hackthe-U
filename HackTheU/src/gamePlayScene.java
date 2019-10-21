@@ -1,12 +1,20 @@
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import static javafx.scene.layout.GridPane.getColumnIndex;
 
 
 public class gamePlayScene {
@@ -15,12 +23,12 @@ public class gamePlayScene {
     private ArrayList<Coordinates> moves = new ArrayList<>(); //possible coordinates for selected piece
     private chessBoard cb;
     private Coordinates lastCoor;
+    private GridPane gp;
 
     gamePlayScene() {
         cb = new chessBoard();
         final int HEIGHT = 8;
         final int WIDTH = 8;
-        GridPane gp;
 
         gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
@@ -52,6 +60,7 @@ public class gamePlayScene {
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             moves = cb.getAvailableMoves(coor);
                         }
+                        highlightLegalMoves();
 
                         //TODO highlight the squares that are in the moves list
 
@@ -61,6 +70,7 @@ public class gamePlayScene {
                         //TODO if second space is in the moves list, then cb.move(lastCoor, coor). updateBoard()
 
                         System.out.println("a second click");
+                        highlightLegalMoves();
 
                     }
                 });
@@ -68,12 +78,12 @@ public class gamePlayScene {
             }
         }
 
-
-
         BorderPane bp = new BorderPane();
         bp.setCenter(gp);
         bp.setTop(new Text("You are the best at chess!"));
         this.scene = new Scene(bp);
+
+        updateBoard();
 
     }
 
@@ -87,10 +97,41 @@ public class gamePlayScene {
 
     private void updateBoard() {
         gamePiece[][] grid = cb.getGrid();
+        System.out.println(System.getProperty("user.dir"));
+        String dir = "\\HackTheU\\src\\pictures\\";
+
+        ObservableList<Node> children = gp.getChildren();
+
+        for (Node child : children) {
+            gamePiece piece = grid[gp.getColumnIndex(child)][gp.getRowIndex(child)];
+            System.out.println(piece);
+            if (piece != null) {
+                File file = new File(System.getProperty("user.dir") + dir + piece.getName() + ".png");
+                Image image = new Image(file.toURI().toString());
+                ((Rectangle) child).setFill(new ImagePattern(image));
+
+            } else {
+            }
+        }
+
+
 
     }
 
     private void highlightLegalMoves() {
-        //TODO write this
+
+        ObservableList<Node> children = gp.getChildren();
+        gamePiece[][] grid = cb.getGrid();
+        DropShadow borderShadow = new DropShadow(10, 0f, 0f, Color.RED);
+        borderShadow.setHeight(30);
+
+        for (Node child : children) {
+            if (moves.contains(new Coordinates(gp.getColumnIndex(child),gp.getRowIndex(child)))) {
+                child.setEffect(borderShadow);
+            } else {
+                child.setEffect(null);
+            }
+        }
+
     }
 }

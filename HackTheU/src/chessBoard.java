@@ -19,30 +19,30 @@ public class chessBoard {
      */
     void setNewBoard() {
         // rooks
-        grid[0][0] = new Rook("BlackRook1 ", 0,0,false);
-        grid[7][0] = new Rook("BlackRook2 ", 7,0,false);
-        grid[0][7] = new Rook("WhiteRook1 ", 0,7,true);
-        grid[7][7] = new Rook("WhiteRook2 ", 7,7,true);
+        grid[0][0] = new Rook("BlackRook", 0,0,false);
+        grid[7][0] = new Rook("BlackRook", 7,0,false);
+        grid[0][7] = new Rook("WhiteRook", 0,7,true);
+        grid[7][7] = new Rook("WhiteRook", 7,7,true);
         //queens
-        grid[3][0] = new Queen("BlackQueen   ", 3, 0, false);
-        grid[3][7] = new Queen("WhiteQueen   ", 3, 7, true);
+        grid[3][0] = new Queen("BlackQueen", 3, 0, false);
+        grid[3][7] = new Queen("WhiteQueen", 3, 7, true);
         //kings
-        grid[4][0] = new King("BlackKing    ", 4, 0, false);
-        grid[4][7] = new King("WhiteKing    ", 4, 7, true);
+        grid[4][0] = new King("BlackKing", 4, 0, false);
+        grid[4][7] = new King("WhiteKing", 4, 7, true);
         //bishops
-        grid[2][0] = new Bishop("BlackBishop1 ", 2,0,false);
-        grid[5][0] = new Bishop("BlackBishop2 ",5,0,false);
-        grid[2][7] = new Bishop("WhiteBishop1 ",2,7,true);
-        grid[5][7] = new Bishop("WhiteBishop2 ", 5,7,true);
+        grid[2][0] = new Bishop("BlackBishop", 2,0,false);
+        grid[5][0] = new Bishop("BlackBishop",5,0,false);
+        grid[2][7] = new Bishop("WhiteBishop",2,7,true);
+        grid[5][7] = new Bishop("WhiteBishop", 5,7,true);
         //knights
-        grid[1][0] = new Knight("BlackKnight1", 1,0,false);
-        grid[6][0] = new Knight("BlackKnight2",6,0,false);
-        grid[1][7] = new Knight("WhiteKnight1",1,7,true);
-        grid[6][7] = new Knight("WhiteKnight2", 6,7,true);
+        grid[1][0] = new Knight("BlackKnight", 1,0,false);
+        grid[6][0] = new Knight("BlackKnight",6,0,false);
+        grid[1][7] = new Knight("WhiteKnight",1,7,true);
+        grid[6][7] = new Knight("WhiteKnight", 6,7,true);
         //pawns
         for (int i = 0; i < 8; i++) {
-            grid[i][1] = new Pawn("BlackPawn"+i +" ", i, 1, false);
-            grid[i][6] = new Pawn("WhitePawn"+i+ " ", i,6,true);
+            grid[i][1] = new Pawn("BlackPawn", i, 1, false);
+            grid[i][6] = new Pawn("WhitePawn", i,6,true);
         }
     }
 
@@ -60,8 +60,6 @@ public class chessBoard {
         ArrayList<Integer> test = new ArrayList<>();
         test.add(5, 6);
     }
-
-
 
     /**
      * GUI tells chessBoard that it moves an object from oldspot to newspot
