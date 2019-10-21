@@ -55,10 +55,10 @@ public class gamePlayScene {
 //                tempR.widthProperty().bind(primaryStage.widthProperty().divide(WIDTH*2));
 //                tempR.heightProperty().bind(primaryStage.heightProperty().divide(HEIGHT*2));
                 if (whiteOrBlack) tempR.setFill(Color.WHITE);
-                else tempR.setFill(Color.BLACK);
+                else tempR.setFill(Color.BLUE);
 
                 tempR.setOnMouseClicked(e -> {
-                    System.out.println("Position" + tempR.getId());
+                    System.out.println("Position: " + tempR.getId());
                     // subtract 48 for correction of ascii '0' = 48
                     Coordinates coor = new Coordinates((int)tempR.getId().charAt(0) - 48, (int)tempR.getId().charAt(1) - 48);
 
@@ -94,8 +94,11 @@ public class gamePlayScene {
         BorderPane bp = new BorderPane();
         bp.setCenter(this.gp);
         bp.setTop(topMessage);
+        bp.setAlignment(topMessage, Pos.CENTER);
+        bp.setAlignment(this.gp, Pos.CENTER);
         bp.setLeft(this.whiteGraveYard);
         bp.setRight(this.blackGraveYard);
+        //TODO figure out why board starts out off the screen
         whiteGraveYard.setOrientation(Orientation.VERTICAL);
         blackGraveYard.setOrientation(Orientation.VERTICAL);
         this.scene = new Scene(bp);
@@ -155,7 +158,6 @@ public class gamePlayScene {
     }
 
     private void updateGraveYard() {
-        //TODO make pictures smaller haha
         String sep = System.getProperty("file.separator");
         String dir = sep + sep + "HackTheU" + sep + sep + "src" + sep + sep + "pictures" + sep + sep;
         whiteGraveYard.getChildren().clear();
@@ -163,15 +165,15 @@ public class gamePlayScene {
         for (gamePiece white : cb.teamTrueGraveyard) {
             File file = new File(System.getProperty("user.dir") + dir + white.getName() + ".png");
             ImageView image = new ImageView(new Image(file.toURI().toString()));
-            image.setX(50);
-            image.setY(50);
+            image.setFitWidth(50);
+            image.setFitHeight(50);
             whiteGraveYard.getChildren().add(image);
         }
         for (gamePiece black : cb.teamFalseGraveyard) {
             File file = new File(System.getProperty("user.dir") + dir + black.getName() + ".png");
             ImageView image = new ImageView(new Image(file.toURI().toString()));
-            image.setX(50);
-            image.setY(50);
+            image.setFitHeight(50);
+            image.setFitWidth(50);
             blackGraveYard.getChildren().add(image);
         }
     }
