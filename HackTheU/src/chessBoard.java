@@ -84,6 +84,7 @@ public class chessBoard {
         grid[newSpot.x][newSpot.y].incrementNumberOfMoves();
         grid[newSpot.x][newSpot.y].setPosX(newSpot.x);
         grid[newSpot.x][newSpot.y].setPosY(newSpot.y);
+        currentTeam ^= true;
 
     }
 

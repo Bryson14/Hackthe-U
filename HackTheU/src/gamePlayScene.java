@@ -1,10 +1,12 @@
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -14,9 +16,6 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.util.ArrayList;
 
-import static javafx.scene.layout.GridPane.getColumnIndex;
-
-
 public class gamePlayScene {
 
     private Scene scene;
@@ -24,6 +23,8 @@ public class gamePlayScene {
     private chessBoard cb;
     private Coordinates lastCoor;
     private GridPane gp;
+    private FlowPane whiteGraveYard = new FlowPane();
+    private FlowPane blackGraveYard = new FlowPane();
 
     gamePlayScene() {
         cb = new chessBoard();
@@ -64,8 +65,6 @@ public class gamePlayScene {
                         highlightLegalMoves();
                         System.out.println(moves);
 
-                        //TODO highlight the squares that are in the moves list
-
 
                     } else { // second click
                         System.out.println("a second click, last coor: " + lastCoor);
@@ -82,13 +81,17 @@ public class gamePlayScene {
                         cb.printBoard();
                     }
                 });
-                gp.add(tempR, column, row);
+                this.gp.add(tempR, column, row);
             }
         }
 
         BorderPane bp = new BorderPane();
-        bp.setCenter(gp);
+        bp.setCenter(this.gp);
         bp.setTop(new Text("You are the best at chess!"));
+        bp.setLeft(this.whiteGraveYard);
+        bp.setRight(this.blackGraveYard);
+        whiteGraveYard.setOrientation(Orientation.VERTICAL);
+        blackGraveYard.setOrientation(Orientation.VERTICAL);
         this.scene = new Scene(bp);
 
         updateBoard();
@@ -96,20 +99,20 @@ public class gamePlayScene {
     }
 
     public Scene getScene() {
-        return scene;
+        return this.scene;
     }
 
     public void resetBoard() {
-        cb.setNewBoard();
+        this.cb.setNewBoard();
         updateBoard();
     }
 
     private void updateBoard() {
-        gamePiece[][] grid = cb.getGrid();
+        gamePiece[][] grid = this.cb.getGrid();
         System.out.println(System.getProperty("user.dir"));
         String dir = "\\HackTheU\\src\\pictures\\";
 
-        ObservableList<Node> children = gp.getChildren();
+        ObservableList<Node> children = this.gp.getChildren();
 
         for (Node child : children) {
             gamePiece piece = grid[gp.getColumnIndex(child)][gp.getRowIndex(child)];
@@ -124,21 +127,38 @@ public class gamePlayScene {
                 //TODO remove a picture if it is there
             }
         }
+        updateGraveYard();
     }
 
     private void highlightLegalMoves() {
 
-        ObservableList<Node> children = gp.getChildren();
-        gamePiece[][] grid = cb.getGrid();
+        ObservableList<Node> children = this.gp.getChildren();
+        gamePiece[][] grid = this.cb.getGrid();
         DropShadow borderShadow = new DropShadow(10, 0f, 0f, Color.RED);
         borderShadow.setHeight(30);
 
         for (Node child : children) {
-            if (moves.contains(new Coordinates(gp.getColumnIndex(child),gp.getRowIndex(child)))) {
+            if (this.moves.contains(new Coordinates(gp.getColumnIndex(child),gp.getRowIndex(child)))) {
                 child.setEffect(borderShadow);
             } else {
                 child.setEffect(null);
             }
+        }
+    }
+
+    private void updateGraveYard() {
+        String dir = "\\HackTheU\\src\\pictures\\";
+        whiteGraveYard.getChildren().clear();
+        blackGraveYard.getChildren().clear();
+        for (gamePiece white : cb.teamTrueGraveyard) {
+            File file = new File(System.getProperty("user.dir") + dir + white.getName() + ".png");
+            Image image = new Image(file.toURI().toString());
+            whiteGraveYard.getChildren().add(new ImageView(image));
+        }
+        for (gamePiece black : cb.teamFalseGraveyard) {
+            File file = new File(System.getProperty("user.dir") + dir + black.getName() + ".png");
+            Image image = new Image(file.toURI().toString());
+            blackGraveYard.getChildren().add(new ImageView(image));
         }
     }
 }
