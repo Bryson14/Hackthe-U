@@ -1,9 +1,12 @@
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class RulesPage {
     private Scene scene;
@@ -37,11 +40,14 @@ public class RulesPage {
                 "participate in a move known as \"castling\", where the piece can move up to three squares \n" +
                 "while exchanging places with a rook chess piece.");
 
-        FlowPane fp = new FlowPane(king, queen, knight, bishop, rook, pawn);
-
+        HBox hbox = new HBox();
+        Node[] nodes = {king, queen, knight, bishop, rook, pawn};
+        for (Node n: nodes) {
+            hbox.getChildren().add(n);
+        }
         BorderPane bp = new BorderPane();
-        bp.setCenter(fp);
-        scene = new Scene(bp);
+        scene = new Scene(hbox);
+        //TODO don't know why this is so weird
     }
 
     public Scene getScene() {
