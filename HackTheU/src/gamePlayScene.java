@@ -51,27 +51,35 @@ public class gamePlayScene {
                 else tempR.setFill(Color.BLACK);
 
                 tempR.setOnMouseClicked(e -> {
-                    System.out.println(tempR.getId());
+                    System.out.println("Position" + tempR.getId());
+                    // subtract 48 for correction of ascii '0' = 48
+                    Coordinates coor = new Coordinates((int)tempR.getId().charAt(0) - 48, (int)tempR.getId().charAt(1) - 48);
 
                     if (moves.isEmpty()) { // first click
-                        // subtract 48 for correction of ascii '0' = 48
-                        Coordinates coor = new Coordinates((int)tempR.getId().charAt(0) - 48, (int)tempR.getId().charAt(1) - 48);
-
+                        System.out.println("fIrst Click");
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             moves = cb.getAvailableMoves(coor);
+                            lastCoor = coor;
                         }
                         highlightLegalMoves();
+                        System.out.println(moves);
 
                         //TODO highlight the squares that are in the moves list
 
 
                     } else { // second click
+                        System.out.println("a second click, last coor: " + lastCoor);
 
-                        //TODO if second space is in the moves list, then cb.move(lastCoor, coor). updateBoard()
-
-                        System.out.println("a second click");
+                        if (moves.contains(coor)) { //TODO its never entering here
+                            cb.movePiece(lastCoor, coor);
+                            System.out.println("Moved the piece!");
+                            updateBoard();
+                        }
+                        System.out.println("clearing the list");
+                        moves.clear();
                         highlightLegalMoves();
-
+                        lastCoor = coor;
+                        cb.printBoard();
                     }
                 });
                 gp.add(tempR, column, row);
@@ -92,7 +100,8 @@ public class gamePlayScene {
     }
 
     public void resetBoard() {
-
+        cb.setNewBoard();
+        updateBoard();
     }
 
     private void updateBoard() {
@@ -109,13 +118,12 @@ public class gamePlayScene {
                 File file = new File(System.getProperty("user.dir") + dir + piece.getName() + ".png");
                 Image image = new Image(file.toURI().toString());
                 ((Rectangle) child).setFill(new ImagePattern(image));
+                //TODO find a way to put on a picture on rectangle without using setFILL
 
             } else {
+                //TODO remove a picture if it is there
             }
         }
-
-
-
     }
 
     private void highlightLegalMoves() {
@@ -132,6 +140,5 @@ public class gamePlayScene {
                 child.setEffect(null);
             }
         }
-
     }
 }

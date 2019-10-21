@@ -57,8 +57,6 @@ public class chessBoard {
             }
             System.out.println("");
         }
-        ArrayList<Integer> test = new ArrayList<>();
-        test.add(5, 6);
     }
 
     /**
