@@ -112,6 +112,10 @@ public class chessBoard {
         return grid[pos.x][pos.y].moves(getGrid());
     }
 
+    public boolean isCurrentTeam() {
+        return currentTeam;
+    }
+
     /**
      * a fixed 2d list of the current game board state
      * @return current game state

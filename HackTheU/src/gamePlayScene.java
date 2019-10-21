@@ -27,6 +27,7 @@ public class gamePlayScene {
     private FlowPane whiteGraveYard = new FlowPane();
     private FlowPane blackGraveYard = new FlowPane();
     private Stage primaryStage;
+    private Text topMessage = new Text();
 
     gamePlayScene(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -90,7 +91,8 @@ public class gamePlayScene {
 
         BorderPane bp = new BorderPane();
         bp.setCenter(this.gp);
-        bp.setTop(new Text("You are the best at chess!"));
+        topMessage.setText("You are the best at chess!");
+        bp.setTop(topMessage);
         bp.setLeft(this.whiteGraveYard);
         bp.setRight(this.blackGraveYard);
         whiteGraveYard.setOrientation(Orientation.VERTICAL);
@@ -131,6 +133,8 @@ public class gamePlayScene {
             }
         }
         updateGraveYard();
+        if (cb.isCurrentTeam()) topMessage.setText("White Team's Turn");
+        else topMessage.setText("Black Team's Turn");
     }
 
     private void highlightLegalMoves() {
@@ -149,19 +153,23 @@ public class gamePlayScene {
         }
     }
 
-    private void updateGraveYard() {
+    private void updateGraveYard() { //TODO make pictures smaller haha
         String dir = "\\HackTheU\\src\\pictures\\";
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
         for (gamePiece white : cb.teamTrueGraveyard) {
             File file = new File(System.getProperty("user.dir") + dir + white.getName() + ".png");
-            Image image = new Image(file.toURI().toString());
-            whiteGraveYard.getChildren().add(new ImageView(image));
+            ImageView image = new ImageView(new Image(file.toURI().toString()));
+            image.setX(50);
+            image.setY(50);
+            whiteGraveYard.getChildren().add(image);
         }
         for (gamePiece black : cb.teamFalseGraveyard) {
             File file = new File(System.getProperty("user.dir") + dir + black.getName() + ".png");
-            Image image = new Image(file.toURI().toString());
-            blackGraveYard.getChildren().add(new ImageView(image));
+            ImageView image = new ImageView(new Image(file.toURI().toString()));
+            image.setX(50);
+            image.setY(50);
+            blackGraveYard.getChildren().add(image);
         }
     }
 }
