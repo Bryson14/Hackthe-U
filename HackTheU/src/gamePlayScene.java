@@ -43,6 +43,8 @@ public class gamePlayScene {
 
         boolean whiteOrBlack = true;
 
+        // Setting the rectangles on the grid pane
+
         for (int row = 0; row < WIDTH; row++) {
             whiteOrBlack ^= true;
             for (int column = 0; column < HEIGHT; column++) {
@@ -91,7 +93,6 @@ public class gamePlayScene {
 
         BorderPane bp = new BorderPane();
         bp.setCenter(this.gp);
-        topMessage.setText("You are the best at chess!");
         bp.setTop(topMessage);
         bp.setLeft(this.whiteGraveYard);
         bp.setRight(this.blackGraveYard);
@@ -115,7 +116,8 @@ public class gamePlayScene {
     private void updateBoard() {
         gamePiece[][] grid = this.cb.getGrid();
         System.out.println(System.getProperty("user.dir"));
-        String dir = "\\HackTheU\\src\\pictures\\";
+        String sep = System.getProperty("file.separator");
+        String dir = sep + sep + "HackTheU" + sep + sep + "src" + sep + sep + "pictures" + sep + sep;
 
         ObservableList<Node> children = this.gp.getChildren();
 
@@ -140,7 +142,6 @@ public class gamePlayScene {
     private void highlightLegalMoves() {
 
         ObservableList<Node> children = this.gp.getChildren();
-        gamePiece[][] grid = this.cb.getGrid();
         DropShadow borderShadow = new DropShadow(10, 0f, 0f, Color.RED);
         borderShadow.setHeight(30);
 
@@ -153,8 +154,10 @@ public class gamePlayScene {
         }
     }
 
-    private void updateGraveYard() { //TODO make pictures smaller haha
-        String dir = "\\HackTheU\\src\\pictures\\";
+    private void updateGraveYard() {
+        //TODO make pictures smaller haha
+        String sep = System.getProperty("file.separator");
+        String dir = sep + sep + "HackTheU" + sep + sep + "src" + sep + sep + "pictures" + sep + sep;
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
         for (gamePiece white : cb.teamTrueGraveyard) {
