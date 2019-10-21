@@ -3,6 +3,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import java.awt.*;
+
 public class RulesPage {
     private Scene scene;
 

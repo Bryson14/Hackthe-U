@@ -10,7 +10,8 @@ public class test extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Scene gameScene = new gamePlayScene().getScene();
+        Scene gameScene = new gamePlayScene(primaryStage).getScene();
+        Scene rulesScene = new RulesPage().getScene();
 
         Button bt = new Button("Go to next Game");
         bt.setTranslateY(50);
@@ -19,9 +20,20 @@ public class test extends Application {
             primaryStage.setScene(gameScene);
             primaryStage.setTitle("Why not a Game of Chess?");
         });
-        primaryStage.setScene(new Scene(new Pane(bt)));
+
+        Button bt2 = new Button("Go to Rules");
+        bt2.setTranslateY(150);
+        bt2.setTranslateX(200);
+        bt2.setOnAction(e -> {
+            primaryStage.setScene(rulesScene);
+            primaryStage.setTitle("Learn to play sucka!");
+        });
+
+        primaryStage.setScene(new Scene(new Pane(bt, bt2)));
         primaryStage.setHeight(750);
         primaryStage.setWidth(1000);
         primaryStage.show();
+
+        //TODO learn how to make a call back so closing a game or rules return to the main page
     }
 }

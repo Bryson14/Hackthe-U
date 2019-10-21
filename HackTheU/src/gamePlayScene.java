@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,8 +26,10 @@ public class gamePlayScene {
     private GridPane gp;
     private FlowPane whiteGraveYard = new FlowPane();
     private FlowPane blackGraveYard = new FlowPane();
+    private Stage primaryStage;
 
-    gamePlayScene() {
+    gamePlayScene(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         cb = new chessBoard();
         final int HEIGHT = 8;
         final int WIDTH = 8;
@@ -44,10 +47,10 @@ public class gamePlayScene {
             for (int column = 0; column < HEIGHT; column++) {
                 whiteOrBlack ^= true;
 
-                Rectangle tempR= new Rectangle(80,80);
+                Rectangle tempR= new Rectangle(75,75);
                 tempR.setId("" + column + row);
-//                tempR.widthProperty().bind(gp.widthProperty().divide(WIDTH));
-//                tempR.heightProperty().bind(gp.heightProperty().divide(HEIGHT));
+//                tempR.widthProperty().bind(primaryStage.widthProperty().divide(WIDTH*2));
+//                tempR.heightProperty().bind(primaryStage.heightProperty().divide(HEIGHT*2));
                 if (whiteOrBlack) tempR.setFill(Color.WHITE);
                 else tempR.setFill(Color.BLACK);
 
@@ -69,7 +72,7 @@ public class gamePlayScene {
                     } else { // second click
                         System.out.println("a second click, last coor: " + lastCoor);
 
-                        if (moves.contains(coor)) { //TODO its never entering here
+                        if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
                             System.out.println("Moved the piece!");
                             updateBoard();
