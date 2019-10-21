@@ -49,6 +49,7 @@ public abstract class  gamePiece {
     }
 
     boolean isEnemy(gamePiece[][] grid, gamePiece piece) {
+        if (piece == null) return false;
         if (piece.getTeam() == getTeam()) return false;
         else return true;
     }
