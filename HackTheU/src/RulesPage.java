@@ -14,7 +14,7 @@ public class RulesPage {
     RulesPage() {
         Text pawn = new Text("Pawn = Pawn chess pieces can only directly forward one square, with two exceptions. Pawns can move directly forward two squares on \n" +
                 "their first move only. Pawns can move diagonally forward when capturing an opponent's chess piece. Once a pawn chess piece reaches \n" +
-                "the other side of the chess board, the player may \"trade\" the pawn in for any other chess piece if they choose, except another king.");
+                "the other side of the chess board, the player may \"trade\" the pawn in for any other chess piece if they choose, except another king.\n");
 
         Text rook = new Text("Rook = The rook piece can move forward, backward, left or right at any time. The rook piece can move anywhere from 1 to 7 squares \n" +
                 "in any direction, so long as it is not obstructed by any other piece.\n");
@@ -32,19 +32,15 @@ public class RulesPage {
         Text queen = new Text("The queen = can move in any direction on a straight or diagonal path. The queen \n" +
                 "cannot \"jump\" over any piece on the board, so its movements are restricted to any \n" +
                 "direction of unoccupied squares. The queen can be used to capture any of your opponent's \n" +
-                "pieces on the board.");
+                "pieces on the board.\n");
 
         Text king = new Text("The king = piece can move one single square in any direction. The king cannot \n" +
                 "move onto a square that is currently occupied by a piece from its own team. The king piece \n" +
                 "cannot move to any square that puts them into a \"check\" position. The king piece can \n" +
                 "participate in a move known as \"castling\", where the piece can move up to three squares \n" +
-                "while exchanging places with a rook chess piece.");
+                "while exchanging places with a rook chess piece.\n");
 
-        HBox hbox = new HBox();
-        Node[] nodes = {king, queen, knight, bishop, rook, pawn};
-        for (Node n: nodes) {
-            hbox.getChildren().add(n);
-        }
+        HBox hbox = new HBox(king, queen, knight, bishop, rook, pawn);
         BorderPane bp = new BorderPane();
         scene = new Scene(hbox);
         //TODO don't know why this is so weird
