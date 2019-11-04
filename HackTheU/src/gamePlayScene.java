@@ -53,10 +53,12 @@ public class gamePlayScene {
 
                 Rectangle tempR= new Rectangle(75,75);
                 tempR.setId("" + column + row);
+                Color c = Color.web("#f8f8f8");
+                Color b = Color.web("#0f2439");
 //                tempR.widthProperty().bind(primaryStage.widthProperty().divide(WIDTH*2));
 //                tempR.heightProperty().bind(primaryStage.heightProperty().divide(HEIGHT*2));
-                if (whiteOrBlack) tempR.setFill(Color.WHITE);
-                else tempR.setFill(Color.BLUE);
+                if (whiteOrBlack) tempR.setFill(c);
+                else tempR.setFill(b);
 
                 tempR.setOnMouseClicked(e -> {
                     System.out.println("Position: " + tempR.getId());
