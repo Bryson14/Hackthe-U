@@ -66,7 +66,7 @@ public class Rook extends gamePiece{
             if (getPosY() + i < 8 && downOpen) {
                 if (grid[getPosX()][getPosY() + i] != null) {
                     downOpen = false;
-                    if (isEnemy(grid, grid[getPosX()][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX(), getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
                     }
                 } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
@@ -76,7 +76,7 @@ public class Rook extends gamePiece{
                 if (grid[getPosX()][getPosY() - i] != null) {
 
                     upOpen = false;
-                    if (isEnemy(grid, grid[getPosX()][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX(),getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
                     }
 
@@ -87,7 +87,7 @@ public class Rook extends gamePiece{
                 if (grid[getPosX() + i][getPosY()] != null) {
 
                     rightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY()]  )) {
+                    if (isEnemy(grid, getPosX() + i, getPosY())) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
                     }
 
@@ -98,7 +98,7 @@ public class Rook extends gamePiece{
                 if (grid[getPosX() - i][getPosY()] != null) {
 
                     leftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY()]  )) {
+                    if (isEnemy(grid, getPosX() - i, getPosY())) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
                     }
 

@@ -66,7 +66,7 @@ public class Bishop extends gamePiece{
             if (getPosY() + i < 8 && getPosX() + i < 8 && downRightOpen) {
                 if (grid[getPosX() + i][getPosY() + i] != null) {
                     downRightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX() + i, getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
                     }
                 } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
@@ -76,7 +76,7 @@ public class Bishop extends gamePiece{
                 if (grid[getPosX() - i][getPosY() + i] != null) {
 
                     downLeftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX() - i, getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY() + i));
                     }
 
@@ -87,7 +87,7 @@ public class Bishop extends gamePiece{
                 if (grid[getPosX() + i][getPosY() - i] != null) {
 
                     upRightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX() + i, getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i));
                     }
 
@@ -98,7 +98,7 @@ public class Bishop extends gamePiece{
                 if (grid[getPosX() - i][getPosY() - i] != null) {
 
                     upLeftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX() - i, getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i));
                     }
 

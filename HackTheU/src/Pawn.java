@@ -65,19 +65,22 @@ public class Pawn extends gamePiece{
                 //pawns cant do crap
             } else {
                 possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch));
-                if (getNumberOfMoves() == 0 && isEnemy(grid, grid[getPosX()][getPosY() + ySwitch*2])) {
+                if (getNumberOfMoves() == 0 && grid[getPosX()][ getPosY() + ySwitch*2] == null) {
                     possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch * 2)); //special first move jump
                 }
             }
         }
-        //kill to diagonal left
-        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() - 1 >= 0 && grid[getPosY() + ySwitch][getPosX() - 1] != null) {
-            possibleMoves.add(new Coordinates(getPosX() -1, getPosY() + ySwitch));
+
+        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() - 1 >= 0 && grid[getPosX() - 1][getPosY() + ySwitch] != null) {
+            if (isEnemy(grid, getPosX() - 1, getPosY() + ySwitch)){
+                possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + ySwitch)); //kill to diagonal left
+            }
+            if (isEnemy(grid, getPosX() + 1, getPosY() + ySwitch)) {
+                possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch)); //kill to diagonal right
+            }
         }
-        //kill to diagonal right
-        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() + 1 >= 0 && grid[getPosY() + ySwitch][getPosX() + 1] != null) {
-            possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch));
-        }
+
+
 
 
         return possibleMoves;

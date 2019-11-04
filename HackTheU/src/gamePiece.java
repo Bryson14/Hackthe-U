@@ -48,9 +48,15 @@ public abstract class  gamePiece {
         return numberOfMoves;
     }
 
-    boolean isEnemy(gamePiece[][] grid, gamePiece piece) {
-        if (piece == null) return false;
-        if (piece.getTeam() == getTeam()) return false;
-        else return true;
+    boolean isEnemy(gamePiece[][] grid, int x, int y) {
+        if (x >= 0 || y >= 0 || x < grid.length || y < grid[0].length) { //out of Bounds
+            return false;
+        } else {
+            System.out.println("x: " +x + "y: " + y);
+            if (grid[x][y].getTeam() != getTeam() && grid[x][y] != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

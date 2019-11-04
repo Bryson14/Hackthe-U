@@ -124,17 +124,10 @@ public class chessBoard {
         return grid;
     }
 
-    public static void main(String[] args) {
-        chessBoard cb = new chessBoard();
-        cb.printBoard();
-//        cb.movePiece(new Coordinates(0,0), new Coordinates(7,4));
-//        System.out.println(cb.teamTrueGraveyard);
+//    public static void main(String[] args) {
+//        chessBoard cb = new chessBoard();
 //        cb.printBoard();
-//        System.out.println(cb.grid[1][0].toString());
-//        cb.movePiece(new Coordinates(4,0), new Coordinates(4,3));
-//        cb.printBoard();
-//        System.out.println("moving" + cb.grid[3][7].toString());
 //        System.out.println(cb.getAvailableMoves(new Coordinates(4,1)));
-    }
+//    }
 }
 

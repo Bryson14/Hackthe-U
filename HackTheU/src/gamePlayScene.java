@@ -28,10 +28,10 @@ public class gamePlayScene {
     private FlowPane blackGraveYard = new FlowPane();
     private Text topMessage = new Text();
     private String srcDir;
-    private String sep = System.getProperty("file.separator");
+    private String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
 
     gamePlayScene(Stage primaryStage) {
-        this.srcDir = System.getProperty("user.dir") + sep + sep + "HackTheU" + sep + sep + "src" + sep + sep;
+        this.srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
         cb = new chessBoard();
         final int HEIGHT = 8;
         final int WIDTH = 8;
@@ -102,8 +102,10 @@ public class gamePlayScene {
         //TODO figure out why board starts out off the screen
         whiteGraveYard.setOrientation(Orientation.VERTICAL);
         blackGraveYard.setOrientation(Orientation.VERTICAL);
-        File file = new File(this.srcDir + "pictures" + sep+sep +"cute-cookie-background.jpg");
+        File file = new File(this.srcDir + "pictures" + sep +"dank_4k_wood.jpg");
         ImageView background = new ImageView(new Image(file.toURI().toString()));
+        background.fitHeightProperty().bind(primaryStage.heightProperty());
+        background.fitWidthProperty().bind(primaryStage.widthProperty());
         this.scene = new Scene(new StackPane(background, bp));
 
         updateBoard();
@@ -123,7 +125,7 @@ public class gamePlayScene {
         gamePiece[][] grid = this.cb.getGrid();
         System.out.println(System.getProperty("user.dir"));
         String sep = System.getProperty("file.separator");
-        String dir = sep + sep + "HackTheU" + sep + sep + "src" + sep + sep + "pictures" + sep + sep;
+        String dir = sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
 
         ObservableList<Node> children = this.gp.getChildren();
 
@@ -164,14 +166,14 @@ public class gamePlayScene {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
         for (gamePiece white : cb.teamTrueGraveyard) {
-            File file = new File(this.srcDir + "pictures" +sep+sep +  white.getName() + ".png");
+            File file = new File(this.srcDir + "pictures" + sep +  white.getName() + ".png");
             ImageView image = new ImageView(new Image(file.toURI().toString()));
             image.setFitWidth(50);
             image.setFitHeight(50);
             whiteGraveYard.getChildren().add(image);
         }
         for (gamePiece black : cb.teamFalseGraveyard) {
-            File file = new File(this.srcDir + "pictures" +sep+sep+  black.getName() + ".png");
+            File file = new File(this.srcDir + "pictures" +  sep +  black.getName() + ".png");
             ImageView image = new ImageView(new Image(file.toURI().toString()));
             image.setFitHeight(50);
             image.setFitWidth(50);

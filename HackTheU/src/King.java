@@ -69,7 +69,7 @@ class King extends gamePiece {
             if (getPosY() + i < 8 && getPosX() + i < 8 && downRightOpen) {
                 if (grid[getPosX() + i][getPosY() + i] != null) {
                     downRightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX() + i, getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
                     }
                 } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY() + i));
@@ -79,7 +79,7 @@ class King extends gamePiece {
                 if (grid[getPosX() - i][getPosY() + i] != null) {
 
                     downLeftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX() - i, getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY() + i));
                     }
 
@@ -90,7 +90,7 @@ class King extends gamePiece {
                 if (grid[getPosX() + i][getPosY() - i] != null) {
 
                     upRightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX() + i,getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY() - i));
                     }
 
@@ -101,7 +101,7 @@ class King extends gamePiece {
                 if (grid[getPosX() - i][getPosY() - i] != null) {
 
                     upLeftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX() - i,getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY() - i));
                     }
 
@@ -111,7 +111,7 @@ class King extends gamePiece {
             if (getPosY() + i < 8 && downOpen) {
                 if (grid[getPosX()][getPosY() + i] != null) {
                     downOpen = false;
-                    if (isEnemy(grid, grid[getPosX()][getPosY() + i]  )) {
+                    if (isEnemy(grid, getPosX(), getPosY() + i)) {
                         possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
                     }
                 } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i)); //up
@@ -121,7 +121,7 @@ class King extends gamePiece {
                 if (grid[getPosX()][getPosY() - i] != null) {
 
                     upOpen = false;
-                    if (isEnemy(grid, grid[getPosX()][getPosY() - i]  )) {
+                    if (isEnemy(grid, getPosX(), getPosY() - i)) {
                         possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
                     }
 
@@ -132,7 +132,7 @@ class King extends gamePiece {
                 if (grid[getPosX() + i][getPosY()] != null) {
 
                     rightOpen = false;
-                    if (isEnemy(grid, grid[getPosX() + i][getPosY()]  )) {
+                    if (isEnemy(grid, getPosX() + i, getPosY())) {
                         possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
                     }
 
@@ -143,7 +143,7 @@ class King extends gamePiece {
                 if (grid[getPosX() - i][getPosY()] != null) {
 
                     leftOpen = false;
-                    if (isEnemy(grid, grid[getPosX() - i][getPosY()]  )) {
+                    if (isEnemy(grid, getPosX() - i, getPosY())) {
                         possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
                     }
 
