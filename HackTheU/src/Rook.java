@@ -60,50 +60,27 @@ public class Rook extends gamePiece{
         downOpen = true;
         leftOpen = true;
         rightOpen = true;
+        int j = 1;
 
-        for (int i = 1; i < 8; i++) {
+        while (( upOpen || downOpen || rightOpen ||leftOpen) && j < 8) {
+            if ((isEnemy(grid, getPosX() + j, getPosY()) || isOpenSpace(grid, getPosX() + j, getPosY())) && rightOpen) {
+                possibleMoves.add(new Coordinates(getPosX() + j, getPosY()));
+                if (isEnemy(grid, getPosX() + j, getPosY())) rightOpen = false;
+            } else rightOpen = false;
+            if ((isEnemy(grid, getPosX() - j, getPosY()) || isOpenSpace(grid, getPosX() - j, getPosY())) && leftOpen) {
+                possibleMoves.add(new Coordinates(getPosX() - j, getPosY()));
+                if (isEnemy(grid, getPosX() - j, getPosY())) leftOpen = false;
+            } else leftOpen = false;
+            if ((isEnemy(grid, getPosX(), getPosY() + j) || isOpenSpace(grid, getPosX(), getPosY() + j)) && upOpen) {
+                possibleMoves.add(new Coordinates(getPosX(), getPosY() + j));
+                if (isEnemy(grid, getPosX(), getPosY() + j)) upOpen = false;
+            } else upOpen = false;
+            if ((isEnemy(grid, getPosX(), getPosY() - j) || isOpenSpace(grid, getPosX(), getPosY() - j)) && downOpen) {
+                possibleMoves.add(new Coordinates(getPosX(), getPosY() - j));
+                if (isEnemy(grid, getPosX(), getPosY() - j)) downOpen = false;
+            } else downOpen = false;
 
-            if (getPosY() + i < 8 && downOpen) {
-                if (grid[getPosX()][getPosY() + i] != null) {
-                    downOpen = false;
-                    if (isEnemy(grid, getPosX(), getPosY() + i)) {
-                        possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
-                    }
-                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() + i));
-            }
-
-            if (getPosY() - i >= 0 && upOpen) {
-                if (grid[getPosX()][getPosY() - i] != null) {
-
-                    upOpen = false;
-                    if (isEnemy(grid, getPosX(),getPosY() - i)) {
-                        possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
-                    }
-
-                } else possibleMoves.add(new Coordinates(getPosX(),getPosY() - i));
-            }
-
-            if (getPosX() + i < 8 && rightOpen) {
-                if (grid[getPosX() + i][getPosY()] != null) {
-
-                    rightOpen = false;
-                    if (isEnemy(grid, getPosX() + i, getPosY())) {
-                        possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
-                    }
-
-                } else possibleMoves.add(new Coordinates(getPosX() + i,getPosY()));
-            }
-
-            if (getPosX() - i >= 0 && leftOpen) {
-                if (grid[getPosX() - i][getPosY()] != null) {
-
-                    leftOpen = false;
-                    if (isEnemy(grid, getPosX() - i, getPosY())) {
-                        possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
-                    }
-
-                } else possibleMoves.add(new Coordinates(getPosX() - i,getPosY()));
-            }
+            j++;
         }
 
         return possibleMoves;

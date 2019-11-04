@@ -49,14 +49,18 @@ public abstract class  gamePiece {
     }
 
     boolean isEnemy(gamePiece[][] grid, int x, int y) {
-        if (x >= 0 || y >= 0 || x < grid.length || y < grid[0].length) { //out of Bounds
+        if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length) { //out of Bounds
             return false;
         } else {
-            System.out.println("x: " +x + "y: " + y);
-            if (grid[x][y].getTeam() != getTeam() && grid[x][y] != null) {
-                return true;
+            return (grid[x][y] != null && grid[x][y].getTeam() != getTeam());
             }
+    }
+
+    boolean isOpenSpace(gamePiece[][] grid, int x, int y) {
+        if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length) { //out of Bounds
+            return false;
+        } else {
+            return (grid[x][y] == null);
         }
-        return false;
     }
 }

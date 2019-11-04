@@ -61,6 +61,8 @@ public class Pawn extends gamePiece{
         else ySwitch = 1; // black team going down
 
         if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8) { //within bounds
+
+            // normal forward moves
             if (grid[getPosX()][ getPosY() + ySwitch] != null) {
                 //pawns cant do crap
             } else {
@@ -69,19 +71,15 @@ public class Pawn extends gamePiece{
                     possibleMoves.add(new Coordinates(getPosX(), getPosY() + ySwitch * 2)); //special first move jump
                 }
             }
-        }
+            //attack diagonally moves
 
-        if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8 && getPosX() - 1 >= 0 && grid[getPosX() - 1][getPosY() + ySwitch] != null) {
-            if (isEnemy(grid, getPosX() - 1, getPosY() + ySwitch)){
-                possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + ySwitch)); //kill to diagonal left
+            if (isEnemy(grid, getPosX() - 1 , getPosY() + ySwitch)) {
+                possibleMoves.add(new Coordinates(getPosX() - 1, getPosY() + ySwitch));
             }
-            if (isEnemy(grid, getPosX() + 1, getPosY() + ySwitch)) {
-                possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch)); //kill to diagonal right
+            if (isEnemy(grid, getPosX() + 1 , getPosY() + ySwitch)) {
+                possibleMoves.add(new Coordinates(getPosX() + 1, getPosY() + ySwitch));
             }
         }
-
-
-
 
         return possibleMoves;
     }
