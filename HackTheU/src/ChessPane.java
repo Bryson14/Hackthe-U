@@ -20,11 +20,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class chessPane {
+public class ChessPane {
 
     private Scene scene;
     private ArrayList<Coordinates> moves = new ArrayList<>(); //possible coordinates for selected piece
-    private chessBoard cb;
+    private ChessBoard cb;
     private Coordinates lastCoor;
     private GridPane gp;
     private FlowPane whiteGraveYard = new FlowPane();
@@ -34,9 +34,9 @@ public class chessPane {
     private String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
     private Hashtable<String, ImageView> images;
 
-    chessPane(Stage primaryStage) {
+    ChessPane(Stage primaryStage) {
         this.srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        cb = new chessBoard();
+        cb = new ChessBoard();
         final int HEIGHT = 8;
         final int WIDTH = 8;
 

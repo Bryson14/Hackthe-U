@@ -9,7 +9,7 @@ public class test extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Scene gameScene = new chessPane(primaryStage).getScene();
+        Scene gameScene = new ChessPane(primaryStage).getScene();
         Scene rulesScene = new RulesPage().getScene();
 
         Button bt = new Button("Go to next Game");

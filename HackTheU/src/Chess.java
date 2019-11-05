@@ -21,7 +21,7 @@ import java.util.Hashtable;
 public class Chess extends Pane {
 
     private ArrayList<Coordinates> moves;
-    private chessBoard cb;
+    private ChessBoard cb;
     private Coordinates lastCoor;
     private GridPane gp;
     private String srcDir;
@@ -202,7 +202,7 @@ public class Chess extends Pane {
         //preloaded table for fast image movement
         players = new Hashtable<>();
 
-        this.cb = new chessBoard();
+        this.cb = new ChessBoard();
 
         tileColorA = "#f8f8f8";
         tileColorB = "#0f2439";

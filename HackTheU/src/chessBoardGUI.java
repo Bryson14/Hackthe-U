@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class chessBoardGUI {
 
     public static void start2(Stage stage) {
-        chessBoard cb = new chessBoard();
+        ChessBoard cb = new ChessBoard();
 
         HashMap<Coordinates, String> map = new HashMap<>();
 

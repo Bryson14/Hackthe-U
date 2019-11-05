@@ -2,14 +2,14 @@ import pieces.*;
 
 import java.util.ArrayList;
 
-public class chessBoard {
+public class ChessBoard {
 
     private boolean currentTeam;
     private gamePiece grid[][] = new gamePiece[8][8];
     public ArrayList<gamePiece> teamTrueGraveyard = new ArrayList<>();
     public ArrayList<gamePiece> teamFalseGraveyard = new ArrayList<>();
 
-    chessBoard() {
+    ChessBoard() {
         setNewBoard();
         currentTeam = true; // white team
     }
