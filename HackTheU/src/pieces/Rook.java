@@ -1,8 +1,11 @@
+package pieces;
+
 import java.util.ArrayList;
+
 
 public class Rook extends gamePiece{
 
-    Rook(String name, int posX, int posY, boolean team) {
+    public Rook(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
     }
 
@@ -61,6 +64,7 @@ public class Rook extends gamePiece{
         leftOpen = true;
         rightOpen = true;
         int j = 1;
+
 
         while (( upOpen || downOpen || rightOpen ||leftOpen) && j < 8) {
             if ((isEnemy(grid, getPosX() + j, getPosY()) || isOpenSpace(grid, getPosX() + j, getPosY())) && rightOpen) {

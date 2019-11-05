@@ -1,8 +1,10 @@
+package pieces;
+
 import java.util.*;
 
-class King extends gamePiece {
+public class King extends gamePiece {
 
-    King(String name, int posX, int posY, boolean team) {
+    public King(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
     }
 

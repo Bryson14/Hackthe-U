@@ -1,8 +1,10 @@
+package pieces;
+
 import java.util.ArrayList;
 
 public class Bishop extends gamePiece{
 
-    Bishop(String name, int posX, int posY, boolean team) {
+    public Bishop(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
     }
 

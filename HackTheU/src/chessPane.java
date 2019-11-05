@@ -13,9 +13,12 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import pieces.Coordinates;
+import pieces.gamePiece;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class chessPane {
 
@@ -29,6 +32,7 @@ public class chessPane {
     private Text topMessage = new Text();
     private String srcDir;
     private String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+    private Hashtable<String, ImageView> images;
 
     chessPane(Stage primaryStage) {
         this.srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;

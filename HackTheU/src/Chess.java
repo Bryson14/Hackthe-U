@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import pieces.Coordinates;
+import pieces.gamePiece;
 
 import java.io.File;
 import java.util.ArrayList;

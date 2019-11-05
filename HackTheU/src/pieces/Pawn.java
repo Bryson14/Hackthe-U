@@ -1,8 +1,10 @@
+package pieces;
+
 import java.util.ArrayList;
 
 public class Pawn extends gamePiece{
 
-    Pawn(String name, int posX, int posY, boolean team) {
+    public Pawn(String name, int posX, int posY, boolean team) {
         super(name, posX, posY, team);
     }
 

@@ -1,4 +1,4 @@
-import javafx.scene.layout.CornerRadii;
+import pieces.*;
 
 import java.util.ArrayList;
 
@@ -69,7 +69,7 @@ public class chessBoard {
 
         if (grid[newSpot.x][newSpot.y] != null) {
 
-            if (grid[newSpot.x][newSpot.y].getName().contains("King")) {
+            if (grid[newSpot.x][newSpot.y].getName().contains("pieces.King")) {
                 System.out.println("You Win");
                 System.exit(1);
             }
@@ -105,7 +105,7 @@ public class chessBoard {
     /**
      *
      * @param pos position on the grid that user wants to move
-     * @return Coordinates of all possible moves for the piece
+     * @return pieces.Coordinates of all possible moves for the piece
      */
     public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
         if (grid[pos.x][pos.y] == null) return new ArrayList<>();
@@ -127,7 +127,7 @@ public class chessBoard {
 //    public static void main(String[] args) {
 //        chessBoard cb = new chessBoard();
 //        cb.printBoard();
-//        System.out.println(cb.getAvailableMoves(new Coordinates(4,1)));
+//        System.out.println(cb.getAvailableMoves(new pieces.Coordinates(4,1)));
 //    }
 }
 
