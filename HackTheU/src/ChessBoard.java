@@ -125,7 +125,7 @@ public class ChessBoard {
     }
 
 //    public static void main(String[] args) {
-//        chessBoard cb = new chessBoard();
+//        ChessBoard cb = new ChessBoard();
 //        cb.printBoard();
 //        System.out.println(cb.getAvailableMoves(new pieces.Coordinates(4,1)));
 //    }

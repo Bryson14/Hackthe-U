@@ -23,7 +23,7 @@ public class Chess extends Pane {
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
-    private GridPane gp;
+    private GridPane squaresGrid;
     private String srcDir;
     private String sep;
     private Hashtable<String, Image> players;
@@ -70,7 +70,6 @@ public class Chess extends Pane {
                 else rec.setFill(b);
 
                 rec.setOnMouseClicked(e -> {
-                    //TODO because the squares are underneath another girdpane and images, they don't recognize click
                     Coordinates coor = new Coordinates(Character.getNumericValue(rec.getId().charAt(0)),
                             Character.getNumericValue(rec.getId().charAt(1)));
 
@@ -87,18 +86,19 @@ public class Chess extends Pane {
                         }
                         moves.clear();
                         lastCoor = coor;
+                        cb.printBoard();
                     }
                 });
 
-                this.gp.add(rec, column, row);
+                this.squaresGrid.add(rec, column, row);
             }
         }
     }
 
     private void movePlayers() {
-        double w = gp.getWidth();
-        double h = gp.getHeight();
-        //TODO not sure how get a specific image on an arbitray position on a pane
+        double w = squaresGrid.getWidth();
+        double h = squaresGrid.getHeight();
+        //TODO not sure how get a specific image on an arbitrary position on a pane
 
     }
 
@@ -116,9 +116,13 @@ public class Chess extends Pane {
                 gamePiece piece = cb.getGrid()[column][row];
                 if (piece != null) {
                     ImageView image = new ImageView(players.get(piece.getName()));
-                    image.setFitHeight(cellSize - 5);
-                    image.setFitWidth(cellSize - 5);
+                    image.setFitHeight(cellSize );
+                    image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
+                } else {
+                    Rectangle rec = new Rectangle(cellSize,cellSize);  //TODO adding invisible rectangle might cause problems in the future
+                    rec.setFill(Color.TRANSPARENT);
+                    imagePane.add(rec, column, row);
                 }
             }
         }
@@ -127,10 +131,10 @@ public class Chess extends Pane {
     //TODO make is so the squares can flash until another click is made
     private void flashMoves() {
 
-        ObservableList<Node> children = this.gp.getChildren();
+        ObservableList<Node> children = this.squaresGrid.getChildren();
 
         for (Node child : children) {
-            if (this.moves.contains(new Coordinates(gp.getColumnIndex(child),gp.getRowIndex(child)))) {
+            if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                //child make flash
             }
         }
@@ -154,7 +158,7 @@ public class Chess extends Pane {
     }
 
 
-    public void changeSyle(String key) {
+    void changeSyle(String key) {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
@@ -187,16 +191,17 @@ public class Chess extends Pane {
         bp.setLeft(blackGraveYard);
 
         //center panes, square pane, and players pane
-        gp = new GridPane();
-        gp.setAlignment(Pos.CENTER);
-        gp.setPadding(new Insets(10,10,10,10));
+        squaresGrid = new GridPane();
+
+        squaresGrid.setAlignment(Pos.CENTER);
+        squaresGrid.setPadding(new Insets(10,10,10,10));
 
         playerPane = new Pane();
+        playerPane.setMouseTransparent(true);
         imagePane = new GridPane();
-        imagePane.snapSpaceX(cellSize);
-        imagePane.snapSpaceY(cellSize);
+        imagePane.setMouseTransparent(true);
 
-        center = new StackPane(gp, playerPane, imagePane);
+        center = new StackPane(squaresGrid, playerPane, imagePane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
@@ -207,15 +212,22 @@ public class Chess extends Pane {
         tileColorA = "#f8f8f8";
         tileColorB = "#0f2439";
         cellSize = 65;
+        moves = new ArrayList<>();
 
         drawSquares();
         changeSyle("normal");
         placeImages();
+        for (int i = 0; i < 8; i++) {
+            RowConstraints rc = new RowConstraints();
+            rc.setMinHeight(cellSize);
+            ColumnConstraints cc = new ColumnConstraints();
+            cc.setMinWidth(cellSize);
+        }
         updateBoard();
         updateText("hello");
     }
 
-    public void updateText(String text) {
+    void updateText(String text) {
         Text message = new Text(text);
         message.setFont(Font.font(35));
         bp.setTop(message);
