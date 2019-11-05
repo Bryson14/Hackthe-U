@@ -53,10 +53,12 @@ public class gamePlayScene {
 
                 Rectangle tempR= new Rectangle(75,75);
                 tempR.setId("" + column + row);
+
+                if (whiteOrBlack) tempR.setFill(Color.WHITE);
+                else tempR.setFill(Color.BLUE);
+
                 Color c = Color.web("#f8f8f8");
                 Color b = Color.web("#0f2439");
-//                tempR.widthProperty().bind(primaryStage.widthProperty().divide(WIDTH*2));
-//                tempR.heightProperty().bind(primaryStage.heightProperty().divide(HEIGHT*2));
                 if (whiteOrBlack) tempR.setFill(c);
                 else tempR.setFill(b);
 
@@ -116,11 +118,6 @@ public class gamePlayScene {
 
     public Scene getScene() {
         return this.scene;
-    }
-
-    public void resetBoard() {
-        this.cb.setNewBoard();
-        updateBoard();
     }
 
     private void updateBoard() {
