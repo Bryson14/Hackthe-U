@@ -12,11 +12,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class chessPane extends Pane{
+public class chessPane {
 
     private Scene scene;
     private ArrayList<Coordinates> moves = new ArrayList<>(); //possible coordinates for selected piece
@@ -29,20 +30,13 @@ public class chessPane extends Pane{
     private String srcDir;
     private String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
 
-    chessPane() {
+    chessPane(Stage primaryStage) {
         this.srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
         cb = new chessBoard();
         final int HEIGHT = 8;
         final int WIDTH = 8;
+
         gp = new GridPane();
-
-        newGame();
-
-
-
-        private void setSquares() {
-
-
         gp.setAlignment(Pos.CENTER);
         gp.setPadding(new Insets(10,10,10,10));
         gp.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
@@ -69,6 +63,7 @@ public class chessPane extends Pane{
                 else tempR.setFill(b);
 
                 tempR.setOnMouseClicked(e -> {
+                    System.out.println("Position: " + tempR.getId());
                     // subtract 48 for correction of ascii '0' = 48
                     Coordinates coor = new Coordinates((int)tempR.getId().charAt(0) - 48, (int)tempR.getId().charAt(1) - 48);
 
@@ -79,14 +74,18 @@ public class chessPane extends Pane{
                             lastCoor = coor;
                         }
                         highlightLegalMoves();
+                        System.out.println(moves);
 
 
                     } else { // second click
+                        System.out.println("a second click, last coor: " + lastCoor);
 
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
+                            System.out.println("Moved the piece!");
                             updateBoard();
                         }
+                        System.out.println("clearing the list");
                         moves.clear();
                         highlightLegalMoves();
                         lastCoor = coor;
@@ -97,13 +96,6 @@ public class chessPane extends Pane{
             }
         }
 
-
-
-        updateBoard();
-
-    }
-
-    private void newGame() {
         BorderPane bp = new BorderPane();
         bp.setCenter(this.gp);
         bp.setTop(topMessage);
@@ -116,17 +108,24 @@ public class chessPane extends Pane{
         blackGraveYard.setOrientation(Orientation.VERTICAL);
         File file = new File(this.srcDir + "pictures" + sep +"dank_4k_wood.jpg");
         ImageView background = new ImageView(new Image(file.toURI().toString()));
-        background.fitHeightProperty().bind(heightProperty());
-        background.fitWidthProperty().bind(widthProperty());
-        StackPane basePane = new StackPane(background, bp);
-        getChildren().add(basePane);
+        background.fitHeightProperty().bind(primaryStage.heightProperty());
+        background.fitWidthProperty().bind(primaryStage.widthProperty());
+        this.scene = new Scene(new StackPane(background, bp));
+
+        updateBoard();
+
+    }
+
+    public Scene getScene() {
+        return this.scene;
     }
 
     private void updateBoard() {
         gamePiece[][] grid = this.cb.getGrid();
         System.out.println(System.getProperty("user.dir"));
         String sep = System.getProperty("file.separator");
-        String dir = sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
+        String dir = sep + "HackTheU" + sep + "src" + sep + "pictures" +sep+ "AvengersChess" + sep;
+
 
         ObservableList<Node> children = this.gp.getChildren();
 
@@ -180,6 +179,5 @@ public class chessPane extends Pane{
             image.setFitWidth(50);
             blackGraveYard.getChildren().add(image);
         }
-    }
     }
 }
