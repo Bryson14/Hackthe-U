@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class Chess extends Pane {
     private GridPane gp;
     private String srcDir;
     private String sep;
-    private Hashtable<String, ImageView> players;
+    private Hashtable<String, Image> players;
     private BorderPane bp;
     private StackPane base;
     private FlowPane whiteGraveYard;
@@ -32,6 +33,7 @@ public class Chess extends Pane {
     private String tileColorB;
     private StackPane center;
     private Pane playerPane;
+    private GridPane imagePane;
     private int cellSize;
 
 
@@ -66,6 +68,7 @@ public class Chess extends Pane {
                 else rec.setFill(b);
 
                 rec.setOnMouseClicked(e -> {
+                    //TODO because the squares are underneath another girdpane and images, they don't recognize click
                     Coordinates coor = new Coordinates(Character.getNumericValue(rec.getId().charAt(0)),
                             Character.getNumericValue(rec.getId().charAt(1)));
 
@@ -93,15 +96,35 @@ public class Chess extends Pane {
     private void movePlayers() {
         double w = gp.getWidth();
         double h = gp.getHeight();
+        //TODO not sure how get a specific image on an arbitray position on a pane
 
     }
 
     private void updateBoard() {
 
+    updateGraveyard();
     }
 
+    private void placeImages() {
+        for (int row = 0; row < 8; row++) {
+            if (row == 7) {
+                int a = 0;
+            }
+            for (int column = 0; column < 8; column++) {
+                gamePiece piece = cb.getGrid()[column][row];
+                if (piece != null) {
+                    ImageView image = new ImageView(players.get(piece.getName()));
+                    image.setFitHeight(cellSize - 5);
+                    image.setFitWidth(cellSize - 5);
+                    imagePane.add(image, column, row);
+                }
+            }
+        }
+    }
+
+    //TODO make is so the squares can flash until another click is made
     private void flashMoves() {
-//make is so the squares can flash until another click is made
+
         ObservableList<Node> children = this.gp.getChildren();
 
         for (Node child : children) {
@@ -115,10 +138,16 @@ public class Chess extends Pane {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
         for (gamePiece white : cb.teamTrueGraveyard) {
-            whiteGraveYard.getChildren().add(players.get(white.getName()));
+            ImageView image = new ImageView(players.get(white.getName()));
+            image.setFitHeight(cellSize - 20);
+            image.setFitWidth(cellSize - 20);
+            whiteGraveYard.getChildren().add(image);
         }
         for (gamePiece black : cb.teamFalseGraveyard) {
-            blackGraveYard.getChildren().add(players.get(black.getName()));
+            ImageView image = new ImageView(players.get(black.getName()));
+            image.setFitHeight(cellSize - 20);
+            image.setFitWidth(cellSize - 20);
+            blackGraveYard.getChildren().add(image);
         }
     }
 
@@ -136,20 +165,22 @@ public class Chess extends Pane {
 
         for (String piece: pieces) {
             File file = new File(imgDir + piece + ".png");
-            ImageView image = new ImageView(new Image(file.toURI().toString()));
-            image.setFitHeight(cellSize - 20);
-            image.setFitWidth(cellSize - 20);
+            Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
     }
 
     private void newGame() {
+        bp = new BorderPane();
+        //TODO add background image first
+        base.getChildren().add(bp);
+
         //graveyards
-        FlowPane whiteGraveYard = new FlowPane();
+        whiteGraveYard = new FlowPane();
         whiteGraveYard.setOrientation(Orientation.VERTICAL);
         bp.setRight(whiteGraveYard);
 
-        FlowPane blackGraveYard = new FlowPane();
+        blackGraveYard = new FlowPane();
         blackGraveYard.setOrientation(Orientation.VERTICAL);
         bp.setLeft(blackGraveYard);
 
@@ -159,8 +190,11 @@ public class Chess extends Pane {
         gp.setPadding(new Insets(10,10,10,10));
 
         playerPane = new Pane();
+        imagePane = new GridPane();
+        imagePane.snapSpaceX(cellSize);
+        imagePane.snapSpaceY(cellSize);
 
-        center = new StackPane(gp, playerPane);
+        center = new StackPane(gp, playerPane, imagePane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
@@ -170,14 +204,18 @@ public class Chess extends Pane {
 
         tileColorA = "#f8f8f8";
         tileColorB = "#0f2439";
-        cellSize = 75;
+        cellSize = 65;
 
         drawSquares();
+        changeSyle("normal");
+        placeImages();
         updateBoard();
+        updateText("hello");
     }
 
     public void updateText(String text) {
         Text message = new Text(text);
+        message.setFont(Font.font(35));
         bp.setTop(message);
     }
 }
