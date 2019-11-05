@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class test extends Application {
@@ -10,7 +9,7 @@ public class test extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Scene gameScene = new gamePlayScene(primaryStage).getScene();
+        Scene gameScene = new chessPane(primaryStage).getScene();
         Scene rulesScene = new RulesPage().getScene();
 
         Button bt = new Button("Go to next Game");

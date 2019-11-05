@@ -56,9 +56,7 @@ public class Pawn extends gamePiece{
 
         ArrayList<Coordinates> possibleMoves = new ArrayList<>();
 
-        int ySwitch;
-        if (getTeam()) ySwitch = -1; // white team going up
-        else ySwitch = 1; // black team going down
+        int ySwitch = getTeam() ? -1 : 1;
 
         if (getPosY() + ySwitch >= 0 && getPosY() + ySwitch < 8) { //within bounds
 
