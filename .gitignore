@@ -12,3 +12,7 @@
 
 *.iml
 *.idea
+*.kotlin_module
+
+#out folder so we dont get a bunch of crud in the github
+out/

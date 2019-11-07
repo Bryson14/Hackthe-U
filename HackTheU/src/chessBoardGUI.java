@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import pieces.Coordinates;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 public class chessBoardGUI {
 
     public static void start2(Stage stage) {
-        chessBoard cb = new chessBoard();
+        ChessBoard cb = new ChessBoard();
 
         HashMap<Coordinates, String> map = new HashMap<>();
 
@@ -23,31 +24,31 @@ public class chessBoardGUI {
         ArrayList<Coordinates> movesList = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
-        icons.add("rookBlack.png");
-        icons.add("KnightBlack.png");
-        icons.add("BishopBlack.png");
-        icons.add("queenBlack.png");
-        icons.add("KingBlack.png");
-        icons.add("BishopBlack.png");
-        icons.add("KnightBlack.png");
-        icons.add("rookBlack.png");
+        icons.add("pictures/BlackRook.png");
+        icons.add("pictures/BlackKnight.png");
+        icons.add("pictures/BlackBishop.png");
+        icons.add("pictures/BlackQueen.png");
+        icons.add("pictures/BlackKing.png");
+        icons.add("pictures/BlackBishop.png");
+        icons.add("pictures/BlackKnight.png");
+        icons.add("pictures/BlackRook.png");
         for (int i=0; i<8; i++){
-            icons.add("pawnBlack.png");
+            icons.add("pictures/BlackPawn.png");
         }
         for (int j=0; j<32; j++){
             icons.add(" ");
         }
         for (int i=0; i<8; i++){
-            icons.add("pawnWhite.png");
+            icons.add("pictures/WhitePawn.png");
         }
-        icons.add("rookWhite.png");
-        icons.add("KnightWhite.png");
-        icons.add("BishopWhite.png");
+        icons.add("pictures/WhiteRook.png");
+        icons.add("pictures/WhiteKnight.png");
+        icons.add("pictures/WhiteBishop.png");
         icons.add("queenWhite.png");
-        icons.add("KingWhite.png");
-        icons.add("BishopWhite.png");
-        icons.add("KnightWhite.png");
-        icons.add("rookWhite.png");
+        icons.add("pictures/WhiteKing.png");
+        icons.add("pictures/WhiteBishop.png");
+        icons.add("pictures/WhiteKnight.png");
+        icons.add("pictures/WhiteRook.png");
         icons.add(" ");
 
         int count = 0;
