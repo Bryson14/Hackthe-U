@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -12,23 +13,27 @@ public class mainMenu extends Application {
     }
 
     public void openMainMenu(Stage s){
+        // Set up Title and other title
         s.setTitle("Chess (Main Menu)");
         Text title = new Text("Chess");
-        title.setTranslateX(0);
-        title.setTranslateY(-110);
+        title.setTranslateX(300);
+        title.setTranslateY(250);
         title.setFont(new Font("Algerian",70));
 
+        // Initialize Buttons
         Button gameButton = new Button("Play Chess");
         Button rulesButton = new Button("Rules");
         Button quitButton = new Button("Quit");
 
-        gameButton.setTranslateX(0);
-        gameButton.setTranslateY(-35);
-        rulesButton.setTranslateX(0);
-        rulesButton.setTranslateY(10);
-        quitButton.setTranslateX(0);
-        quitButton.setTranslateY(55);
+        // Set Button locations
+        gameButton.setTranslateX(350);
+        gameButton.setTranslateY(315);
+        rulesButton.setTranslateX(350);
+        rulesButton.setTranslateY(360);
+        quitButton.setTranslateX(350);
+        quitButton.setTranslateY(405);
 
+        // Play Game button logic
         gameButton.setOnAction(event -> {
             StackPane root2 = new StackPane();
             Scene secondScene = new Scene(root2, 750,650);
@@ -40,8 +45,9 @@ public class mainMenu extends Application {
             s.close();
         });
 
+        // Rules Button logic
         rulesButton.setOnAction(event -> {
-            StackPane rulesPane = new StackPane();
+            Pane rulesPane = new Pane();
             rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
 
             Text title2 = new Text("Rules");
@@ -67,14 +73,14 @@ public class mainMenu extends Application {
             s.close();
         });
 
+        // Quit Button logic
         quitButton.setOnAction(event -> s.close());
 
 
-
-        StackPane buttonHolder = new StackPane();
+        // Set Up Stage and Scene
+        Pane buttonHolder = new Pane();
         buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);
         buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
-
         Scene sc = new Scene(buttonHolder, 750, 650);
         s.setScene(sc);
         s.show();
