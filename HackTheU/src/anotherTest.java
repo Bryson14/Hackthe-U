@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+// Also what's this?
+
 public class anotherTest extends Application {
 
     @Override

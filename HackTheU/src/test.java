@@ -4,13 +4,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+// Bryson, what is this?
+
 public class test extends Application {
 
     @Override
     public void start(Stage primaryStage) {
 
         Scene gameScene = new ChessPane(primaryStage).getScene();
-        Scene rulesScene = new RulesPage().getScene();
+//        Scene rulesScene = new RulesPage().getScene();
 
         Button bt = new Button("Go to next Game");
         bt.setTranslateY(50);
@@ -24,7 +26,7 @@ public class test extends Application {
         bt2.setTranslateY(150);
         bt2.setTranslateX(200);
         bt2.setOnAction(e -> {
-            primaryStage.setScene(rulesScene);
+//            primaryStage.setScene(rulesScene);
             primaryStage.setTitle("Learn to play sucka!");
         });
 
