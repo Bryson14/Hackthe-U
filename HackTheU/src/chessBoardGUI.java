@@ -92,18 +92,19 @@ public class chessBoardGUI extends  mainMenu {
                 }
             }
         }
-                Button main = new Button("Main Menu");
+
+        Button main = new Button("Main Menu");
         main.setOnAction(event -> {
             mainMenu.openMainMenu(new Stage());
             stage.close();
         });
-                layout.getChildren().add(main);
-                main.setTranslateX(0);
-                main.setTranslateY(300);
-                Scene scene = new Scene(layout, 750, 650);
-                stage.setTitle("Chess Board");
-                stage.setScene(scene);
+        layout.getChildren().add(main);
+        main.setTranslateX(0);
+        main.setTranslateY(300);
 
-                stage.show();
-            }
-        }
+        Scene scene = new Scene(layout, 750, 650);
+        stage.setTitle("Chess Board");
+        stage.setScene(scene);
+        stage.show();
+    }
+}

@@ -47,7 +47,6 @@ public class mainMenu extends Application {
         // Quit Button logic
         quitButton.setOnAction(event -> stage.close());
 
-
         // Set Up Stage and Scene
         Pane buttonHolder = new Pane();
         buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);

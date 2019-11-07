@@ -8,18 +8,21 @@ import javafx.stage.Stage;
 
 public class RulesPage extends mainMenu{
     public static void rulesPage(Stage stage) {
-        int wrapText = 600;
+        // Setup Pane and Title
+        Text title2 = new Text("Rules");
+        title2.setFont(new Font("Algerian",70));
         Pane rulesPane = new Pane();
         rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
 
-        Text title2 = new Text("Rules");
-        title2.setFont(new Font("Algerian",70));
-
+        //Main Menu button
         Button respawn = new Button("Main Menu");
         respawn.setOnAction(event1 -> {
             mainMenu.openMainMenu(new Stage());
             stage.close();
         });
+
+        // Test parameters and Text
+        int wrapText = 600;
         javafx.scene.text.Font ruleFont = new Font("Comic Sans", 12);
         Text pawn = new Text("THE PAWN\nPawn chess pieces can only directly forward one square, with two exceptions. " +
                 "Pawns can move directly forward two squares on their first move only. Pawns can move diagonally " +
@@ -63,7 +66,8 @@ public class RulesPage extends mainMenu{
                 "while exchanging places with a rook chess piece.\n");
         king.setFont(ruleFont);
         king.setWrappingWidth(wrapText);
-
+        
+        // Scene, VBox, and Border Set Up
         VBox vBox = new VBox(title2, pawn, rook, bishop, knight, queen, king, respawn);
         BorderPane bp = new BorderPane();
         bp.setCenter(vBox);
