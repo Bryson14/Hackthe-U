@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 
 
 public class chessBoardGUI extends  mainMenu {
+    static class Delta { double x, y; }
 
     public static void start2(Stage stage) {
         stage.setTitle("Chess (Main Menu)");
@@ -83,15 +85,43 @@ public class chessBoardGUI extends  mainMenu {
         icons.add("pictures/WhiteRook.png");
         icons.add(" ");
 
-        int count = 0;
-        for (int i = 0; i < icons.size(); i++) {
-            for (int k = 0; k < 8; k++) {
-                for (int j = 0; j < 8; j++) {
-//                    map.put(new Coordinates(j, k), icons.get(count));
-                    count++;
+        int rowNum2 = 7;
+        int colNum2 = 8;
+        int startY2 = -250;
+        int listValue2 = 0;
+
+        for (int row = 0; row < rowNum2; row++) {
+            int startX2 = -180;
+            startY2 += 52;
+            for (int col = 0; col < colNum2; col++) {
+                if(icons.get(listValue2) != " "){
+                    ImageView piece = new ImageView(icons.get(listValue2));
+                    piece.setTranslateX(startX2);
+                    piece.setTranslateY(startY2);
+                    piece.setFitHeight(50);
+                    piece.setFitWidth(50);
+                    piece.setId("" + col + row);
+                    layout.getChildren().add(piece);
                 }
+                listValue2++;
+                startX2 += 52;
+
+
+//                Delta dragDelta = new Delta();
+//                piece.setOnMousePressed(mouseEvent -> {
+//                    dragDelta.x = piece.getLayoutX() - mouseEvent.getSceneX();
+//                    dragDelta.y = piece.getLayoutY() - mouseEvent.getSceneY();
+//                    piece.setCursor(Cursor.MOVE);
+//                });
+//                piece.setOnMouseReleased(mouseEvent -> piece.setCursor(Cursor.HAND));
+//                piece.setOnMouseDragged(mouseEvent -> {
+//                    piece.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
+//                    piece.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
+//                });
+//                piece.setOnMouseEntered(mouseEvent -> piece.setCursor(Cursor.HAND));
             }
         }
+
 
         Button main = new Button("Main Menu");
         main.setOnAction(event -> {

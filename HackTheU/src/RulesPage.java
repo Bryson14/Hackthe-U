@@ -66,7 +66,7 @@ public class RulesPage extends mainMenu{
                 "while exchanging places with a rook chess piece.\n");
         king.setFont(ruleFont);
         king.setWrappingWidth(wrapText);
-        
+
         // Scene, VBox, and Border Set Up
         VBox vBox = new VBox(title2, pawn, rook, bishop, knight, queen, king, respawn);
         BorderPane bp = new BorderPane();
