@@ -124,7 +124,7 @@ public class chessBoardGUI {
                         }
                         movesList.clear(); // setting up for the first click again
 
-                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(map.get(coor))));
+                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(imgHolder[0])));
                         imageView2.setFitWidth(40);
                         imageView2.setFitHeight(40);
                         button.setGraphic(imageView2);
