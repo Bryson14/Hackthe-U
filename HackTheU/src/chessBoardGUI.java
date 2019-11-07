@@ -92,50 +92,14 @@ public class chessBoardGUI extends  mainMenu {
                 }
             }
         }
-//
-//
-//                final String[] imgHolder = {""};
-//                final Coordinates[] savedcoor = {};
-//                button.setOnAction(event -> {
-//                    //first click
-//                    Coordinates coor = new Coordinates((int)(button.getId().toCharArray())[0], (int)(button.getId().toCharArray())[1]);
-//                    if (movesList.isEmpty()) {
-//
-//                        //user clicked on the right team whose turn it is
-//                        if (cb.isOccupiedWithCorrectTeam(coor)) {
-//                            movesList.retainAll(cb.getAvailableMoves(coor));
-//                        }
-//                        else { //user clicked on an empty spot or on the team whose turn it is not
-//                            //do nothing
-//                        }
-//
-////                        String number = icons.get(Integer.parseInt(button.getId()) - 1);
-////                        movesList.add(number);
-//                        savedcoor[0] = coor;
-//                        imgHolder[0] = map.get(coor);
-//                        ImageView imageView3 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(" ")));
-//                        button.setGraphic(imageView3);
-//                    }
-//                    // second click
-//                    else{
-//                        if (movesList.contains(coor)) {
-//                            cb.movePiece(savedcoor[0], coor);
-//                            //this is then the destination spot
-//
-//
-//                        } else {
-//                            //do nothing
-//                        }
-//                        movesList.clear(); // setting up for the first click again
-//
-//                        ImageView imageView2 = new ImageView(new Image(chessBoardGUI.class.getResourceAsStream(imgHolder[0])));
-//                        imageView2.setFitWidth(40);
-//                        imageView2.setFitHeight(40);
-//                        button.setGraphic(imageView2);
-//                        movesList.remove(0);
-//                    }
-//                });
-
+                Button main = new Button("Main Menu");
+        main.setOnAction(event -> {
+            mainMenu.openMainMenu(new Stage());
+            stage.close();
+        });
+                layout.getChildren().add(main);
+                main.setTranslateX(0);
+                main.setTranslateY(300);
                 Scene scene = new Scene(layout, 750, 650);
                 stage.setTitle("Chess Board");
                 stage.setScene(scene);
