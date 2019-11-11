@@ -174,6 +174,7 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
+        placeImages();
     }
 
     private void newGame() {
