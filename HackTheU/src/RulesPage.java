@@ -2,9 +2,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
+
 
 public class RulesPage extends mainMenu{
     public static void rulesPage(Stage stage) {
@@ -14,9 +21,14 @@ public class RulesPage extends mainMenu{
         Pane rulesPane = new Pane();
         rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
 
+        Media media = new Media("/sounds/WhiteKing.mp3");
+        MediaPlayer media2 = new MediaPlayer(media);
+
+
         //Main Menu button
         Button respawn = new Button("Main Menu");
         respawn.setOnAction(event1 -> {
+            media2.play();
             mainMenu.openMainMenu(new Stage());
             stage.close();
         });

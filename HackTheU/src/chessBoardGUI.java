@@ -1,22 +1,14 @@
-import javafx.application.Application;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import pieces.Coordinates;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class chessBoardGUI extends  mainMenu {
-    static class Delta { double x, y; }
-
     public static void start2(Stage stage) {
         stage.setTitle("Chess (Main Menu)");
         StackPane layout = new StackPane();
@@ -51,11 +43,6 @@ public class chessBoardGUI extends  mainMenu {
                 startX += 52;
             }
         }
-
-
-        ChessBoard cb = new ChessBoard();
-        HashMap<Coordinates, String> map = new HashMap<>();
-        ArrayList<Coordinates> movesList = new ArrayList<>();
 
         ArrayList<String> icons = new ArrayList<>();
         icons.add("pictures/BlackRook.png");
@@ -105,20 +92,6 @@ public class chessBoardGUI extends  mainMenu {
                 }
                 listValue2++;
                 startX2 += 52;
-
-
-//                Delta dragDelta = new Delta();
-//                piece.setOnMousePressed(mouseEvent -> {
-//                    dragDelta.x = piece.getLayoutX() - mouseEvent.getSceneX();
-//                    dragDelta.y = piece.getLayoutY() - mouseEvent.getSceneY();
-//                    piece.setCursor(Cursor.MOVE);
-//                });
-//                piece.setOnMouseReleased(mouseEvent -> piece.setCursor(Cursor.HAND));
-//                piece.setOnMouseDragged(mouseEvent -> {
-//                    piece.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
-//                    piece.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
-//                });
-//                piece.setOnMouseEntered(mouseEvent -> piece.setCursor(Cursor.HAND));
             }
         }
 
