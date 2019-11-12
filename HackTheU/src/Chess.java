@@ -47,6 +47,10 @@ public class Chess extends Pane {
         getChildren().add(base);
     }
 
+    /**
+     * Draws the colored squares that make up the chess board.
+     * The squares contain the logic that communicates with the backend
+     */
     private void drawSquares() {
         final int HEIGHT = 8;
         final int WIDTH = 8;
@@ -77,7 +81,9 @@ public class Chess extends Pane {
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
-//                            flashMoves(); // do this later if we got time
+//                            possibleMoveDots(); // do this later if we got time
+                        } else {
+                            // playErrorSound(); //TODO Write this
                         }
                     } else { // second click
                         if (moves.contains(coor)) {
@@ -89,12 +95,15 @@ public class Chess extends Pane {
                         cb.printBoard();
                     }
                 });
-
                 this.squaresGrid.add(rec, column, row);
             }
         }
     }
 
+    /**
+     * This function is not currently doing anything. This is just an idea in process
+     *
+     */
     private void movePlayers() {
         double w = squaresGrid.getWidth();
         double h = squaresGrid.getHeight();
@@ -102,19 +111,26 @@ public class Chess extends Pane {
 
     }
 
+    /**
+     * After a valid move, the board is updated to reflect the change in the state of the backend
+     */
     private void updateBoard() {
-
+    updateImages();
     updateGraveyard();
     }
 
-    private void placeImages() {
+    /**
+     * Redraws the images in the grid pane to show moving pieces
+     */
+    private void updateImages() {
         for (int row = 0; row < 8; row++) {
             if (row == 7) {
                 int a = 0;
             }
             for (int column = 0; column < 8; column++) {
                 gamePiece piece = cb.getGrid()[column][row];
-                if (piece != null) {
+                if (piece != null) { // TODO if image is already in spot in the grid pane, you have to remove it to avoid stack images
+
                     ImageView image = new ImageView(players.get(piece.getName()));
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
@@ -128,8 +144,13 @@ public class Chess extends Pane {
         }
     }
 
+    /**
+     * When the user clicks a valid first move, dots appear on potential open squares that the highlighted piece could move to
+     *
+     */
     //TODO make is so the squares can flash until another click is made
-    private void flashMoves() {
+    //TODO Not sure if we should put the dots on the squares or above the squares on their own grid pane
+    private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
 
@@ -140,6 +161,9 @@ public class Chess extends Pane {
         }
     }
 
+    /**
+     *draws the killed pieces on the sides
+     */
     private void updateGraveyard() {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
@@ -157,7 +181,10 @@ public class Chess extends Pane {
         }
     }
 
-
+    /**
+     * Finds the pictures for pieces and saves it to a hash table for fast access
+     * @param key normal or nothing for regular pieces, 'avengers' for you know what
+     */
     void changeSyle(String key) {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
@@ -174,9 +201,24 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
-        placeImages();
+        updateImages();
     }
 
+
+    /**
+     * Displays text on the board. Used if we decide to say whose turn it is after every move
+     * Also can display checkmate and stuff
+     * @param text
+     */
+    void updateText(String text) {
+        Text message = new Text(text);
+        message.setFont(Font.font(35));
+        bp.setTop(message);
+    }
+
+    /**
+     * initializes all class variables and panes
+     */
     private void newGame() {
         bp = new BorderPane();
         //TODO add background image first
@@ -197,11 +239,15 @@ public class Chess extends Pane {
         squaresGrid.setAlignment(Pos.CENTER);
         squaresGrid.setPadding(new Insets(10,10,10,10));
 
+        // player pane is not being used right now
         playerPane = new Pane();
         playerPane.setMouseTransparent(true);
+
+        //image pane is a grid pane that holds the image views
         imagePane = new GridPane();
         imagePane.setMouseTransparent(true);
 
+        //stack pane that holds the main components of the chess board
         center = new StackPane(squaresGrid, playerPane, imagePane);
         this.bp.setCenter(center);
 
@@ -210,27 +256,20 @@ public class Chess extends Pane {
 
         this.cb = new ChessBoard();
 
+        //aggie blue
         tileColorA = "#f8f8f8";
+        //some white color
         tileColorB = "#0f2439";
+
+        //pixel size for each grid cell
         cellSize = 65;
+
+        //available moves for a selected piece
         moves = new ArrayList<>();
 
         drawSquares();
         changeSyle("normal");
-        placeImages();
-        for (int i = 0; i < 8; i++) {
-            RowConstraints rc = new RowConstraints();
-            rc.setMinHeight(cellSize);
-            ColumnConstraints cc = new ColumnConstraints();
-            cc.setMinWidth(cellSize);
-        }
-        updateBoard();
+        updateImages();
         updateText("hello");
-    }
-
-    void updateText(String text) {
-        Text message = new Text(text);
-        message.setFont(Font.font(35));
-        bp.setTop(message);
     }
 }
