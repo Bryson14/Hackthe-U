@@ -97,7 +97,6 @@ public class Chess extends Pane {
 
                         lastCoor = coor;
                         moves.clear();
-                        cb.printBoard();
                     }
                 });
                 this.squaresGrid.add(rec, column, row);
