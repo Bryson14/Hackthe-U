@@ -11,14 +11,14 @@ public class test extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Scene gameScene = new ChessPane(primaryStage).getScene();
+//        Scene gameScene = new ChessPane(primaryStage).getScene();
 //        Scene rulesScene = new RulesPage().getScene();
 
         Button bt = new Button("Go to next Game");
         bt.setTranslateY(50);
         bt.setTranslateX(200);
         bt.setOnAction(e -> {
-            primaryStage.setScene(gameScene);
+//            primaryStage.setScene(gameScene);
             primaryStage.setTitle("Why not a Game of Chess?");
         });
 
