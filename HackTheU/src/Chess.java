@@ -35,7 +35,6 @@ public class Chess extends Pane {
     private String tileColorA;
     private String tileColorB;
     private StackPane center;
-    private Pane playerPane;
     private GridPane imagePane;
     private int cellSize;
 
@@ -264,16 +263,12 @@ public class Chess extends Pane {
         squaresGrid.setAlignment(Pos.CENTER);
         squaresGrid.setPadding(new Insets(10,10,10,10));
 
-        // player pane is not being used right now
-        playerPane = new Pane();
-        playerPane.setMouseTransparent(true);
-
         //image pane is a grid pane that holds the image views
         imagePane = new GridPane();
         imagePane.setMouseTransparent(true);
 
         //stack pane that holds the main components of the chess board
-        center = new StackPane(squaresGrid, playerPane, imagePane, dotPane);
+        center = new StackPane(squaresGrid, imagePane, dotPane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
