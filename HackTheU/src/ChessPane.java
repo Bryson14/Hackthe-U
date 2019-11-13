@@ -128,7 +128,7 @@ public class ChessPane {
         gamePiece[][] grid = this.cb.getGrid();
         System.out.println(System.getProperty("user.dir"));
         String sep = System.getProperty("file.separator");
-        String dir = sep + "HackTheU" + sep + "src" + sep + "pictures" +sep+ "AvengersChess" + sep;
+        String dir = sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
 
 
         ObservableList<Node> children = this.gp.getChildren();
