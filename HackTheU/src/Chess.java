@@ -84,7 +84,7 @@ public class Chess extends Pane {
                             lastCoor = coor;
 //                            possibleMoveDots(); // do this later if we got time
                         } else {
-                            // playErrorSound(); //TODO Write this
+//                             playErrorSound(); //TODO Write this
                         }
                     } else { // second click
 
@@ -235,7 +235,9 @@ public class Chess extends Pane {
     void updateText(String text) {
         Text message = new Text(text);
         message.setFont(Font.font(35));
-        bp.setTop(message);
+        HBox box = new HBox(message);
+        box.setAlignment(Pos.CENTER);
+        bp.setTop(box);
     }
 
     /**
@@ -292,7 +294,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
-        changeSyle("avengers");
+        changeSyle("normal");
         drawImages();
         updateText("hello");
     }
