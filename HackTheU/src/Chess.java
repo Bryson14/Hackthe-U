@@ -31,6 +31,7 @@ public class Chess extends Pane {
     private StackPane base;
     private FlowPane whiteGraveYard;
     private FlowPane blackGraveYard;
+    private GridPane dotPane;
     private String tileColorA;
     private String tileColorB;
     private StackPane center;
@@ -86,12 +87,16 @@ public class Chess extends Pane {
                             // playErrorSound(); //TODO Write this
                         }
                     } else { // second click
+
+                        dotPane.getChildren().clear(); // removes dots from the board
+
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
-                            updateBoard();
+                            updateBoard(lastCoor, coor);
                         }
-                        moves.clear();
+
                         lastCoor = coor;
+                        moves.clear();
                         cb.printBoard();
                     }
                 });
@@ -114,32 +119,59 @@ public class Chess extends Pane {
     /**
      * After a valid move, the board is updated to reflect the change in the state of the backend
      */
-    private void updateBoard() {
-    updateImages();
+    private void updateBoard(Coordinates lastCoor, Coordinates newCoor) {
     updateGraveyard();
+    updateImages(lastCoor, newCoor);
+    }
+
+    private void updateImages(Coordinates lastCoor, Coordinates newCoor) {
+        removeImage(lastCoor.x, lastCoor.y); //removing image
+        removeImage(newCoor.x, newCoor.y); //removing old invisibox
+        Rectangle rec = new Rectangle(cellSize,cellSize);
+        rec.setFill(Color.TRANSPARENT);
+        imagePane.add(rec, lastCoor.x, lastCoor.y); //adding the invisiBox
+
+        ImageView image = new ImageView(players.get(cb.getGrid()[newCoor.x][newCoor.y].getName()));
+        image.setFitHeight(cellSize );
+        image.setFitWidth(cellSize );
+        imagePane.add(image, newCoor.x, newCoor.y);
     }
 
     /**
-     * Redraws the images in the grid pane to show moving pieces
+     * Only called once to initially draw all the images
      */
-    private void updateImages() {
+    private void drawImages() {
         for (int row = 0; row < 8; row++) {
             if (row == 7) {
                 int a = 0;
             }
             for (int column = 0; column < 8; column++) {
                 gamePiece piece = cb.getGrid()[column][row];
-                if (piece != null) { // TODO if image is already in spot in the grid pane, you have to remove it to avoid stack images
-
+                if (piece != null) {
                     ImageView image = new ImageView(players.get(piece.getName()));
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
                 } else {
-                    Rectangle rec = new Rectangle(cellSize,cellSize);  //TODO adding invisible rectangle might cause problems in the future
+                    Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
                 }
+            }
+        }
+    }
+
+    /**
+     * removes any node inside a certain index in imagePane
+     * @param col column index
+     * @param row row index
+     */
+    private void removeImage(int col, int row) {
+        ObservableList<Node> children = this.imagePane.getChildren();
+
+        for (Node child : children) {
+            if (col == squaresGrid.getColumnIndex(child) && row ==  squaresGrid.getRowIndex(child)) {
+                imagePane.getChildren().remove(child);
             }
         }
     }
@@ -150,6 +182,7 @@ public class Chess extends Pane {
      */
     //TODO make is so the squares can flash until another click is made
     //TODO Not sure if we should put the dots on the squares or above the squares on their own grid pane
+    //TODO we can make a new grid pane every time we have to display
     private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
@@ -201,7 +234,7 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
-        updateImages();
+        drawImages();
     }
 
 
@@ -235,6 +268,8 @@ public class Chess extends Pane {
 
         //center panes, square pane, and players pane
         squaresGrid = new GridPane();
+        dotPane = new GridPane();
+        dotPane.setMouseTransparent(true);
 
         squaresGrid.setAlignment(Pos.CENTER);
         squaresGrid.setPadding(new Insets(10,10,10,10));
@@ -248,7 +283,7 @@ public class Chess extends Pane {
         imagePane.setMouseTransparent(true);
 
         //stack pane that holds the main components of the chess board
-        center = new StackPane(squaresGrid, playerPane, imagePane);
+        center = new StackPane(squaresGrid, playerPane, imagePane, dotPane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
@@ -269,7 +304,7 @@ public class Chess extends Pane {
 
         drawSquares();
         changeSyle("normal");
-        updateImages();
+        drawImages();
         updateText("hello");
     }
 }
