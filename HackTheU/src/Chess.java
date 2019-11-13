@@ -106,17 +106,6 @@ public class Chess extends Pane {
     }
 
     /**
-     * This function is not currently doing anything. This is just an idea in process
-     *
-     */
-    private void movePlayers() {
-        double w = squaresGrid.getWidth();
-        double h = squaresGrid.getHeight();
-        //TODO not sure how get a specific image on an arbitrary position on a pane
-
-    }
-
-    /**
      * After a valid move, the board is updated to reflect the change in the state of the backend
      */
     private void updateBoard(Coordinates lastCoor, Coordinates newCoor) {
@@ -142,9 +131,6 @@ public class Chess extends Pane {
      */
     private void drawImages() {
         for (int row = 0; row < 8; row++) {
-            if (row == 7) {
-                int a = 0;
-            }
             for (int column = 0; column < 8; column++) {
                 gamePiece piece = cb.getGrid()[column][row];
                 if (piece != null) {
@@ -172,6 +158,7 @@ public class Chess extends Pane {
         for (Node child : children) {
             if (col == squaresGrid.getColumnIndex(child) && row ==  squaresGrid.getRowIndex(child)) {
                 imagePane.getChildren().remove(child);
+                break;
             }
         }
     }
@@ -180,7 +167,6 @@ public class Chess extends Pane {
      * When the user clicks a valid first move, dots appear on potential open squares that the highlighted piece could move to
      *
      */
-    //TODO make is so the squares can flash until another click is made
     //TODO Not sure if we should put the dots on the squares or above the squares on their own grid pane
     //TODO we can make a new grid pane every time we have to display
     private void possibleMoveDots() {
@@ -234,7 +220,6 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
-        drawImages();
     }
 
 
