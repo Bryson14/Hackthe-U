@@ -202,8 +202,7 @@ public class Chess extends Pane {
      * Finds the pictures for pieces and saves it to a hash table for fast access
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
-    void changeSyle(String key) {
-        //TODO currently this doesn't work unless called at initialization. Change to work at anytime and retain game progress
+    void changeStyle(String key, boolean redraw) {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
@@ -219,9 +218,11 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
-        //TODO This makes the old image stay but idk why
-//        imagePane.getChildren().clear();
-//        drawImages();
+        if (redraw) {
+            imagePane.getChildren().clear();
+            drawImages();
+        }
+
     }
 
 
@@ -288,7 +289,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
-        changeSyle("normal");
+        changeStyle("normal", false);
         drawImages();
         updateText("hello");
     }

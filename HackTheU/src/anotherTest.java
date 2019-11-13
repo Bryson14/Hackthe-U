@@ -1,11 +1,8 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 // Sorry Bryson, I was tweaking this to see if this drag thing would work.
@@ -39,7 +36,15 @@ public class anotherTest extends Application {
 
         Chess chess = new Chess();
         chess.updateText("you suck");
-        primaryStage.setScene(new Scene(chess));
+        Button bt = new Button("AVENGERS");
+        bt.setOnAction(e->{
+            chess.changeStyle("avengers", true);
+        });
+//        Button bt2 = new Button("NORMAL");
+//        bt.setOnAction(e->{
+//            chess.changeStyle("normal", true);
+//        });
+        primaryStage.setScene(new Scene(new VBox(chess, new HBox(bt))));
 
         primaryStage.show();
 }
