@@ -38,11 +38,11 @@ public class anotherTest extends Application {
         chess.updateText("AVENGERS ASSEMBLE");
         Button bt = new Button("AVENGERS");
         bt.setOnAction(e->{
-            chess.changeStyle("avengers", true);
+            chess.changeStyle("avengers");
         });
         Button bt2 = new Button("NORMAL");
         bt2.setOnAction(e->{
-            chess.changeStyle("normal", true);
+            chess.changeStyle("normal");
         });
         primaryStage.setScene(new Scene(new VBox(chess, new HBox(bt, bt2))));
 

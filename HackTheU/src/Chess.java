@@ -208,12 +208,12 @@ public class Chess extends Pane {
      * Finds the pictures for pieces and saves it to a hash table for fast access
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
-    void changeStyle(String key, boolean redraw) {
+    void changeStyle(String key) {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
 
-        if (key.equals("avengers")) {
+        if (key.toLowerCase().equals("avengers")) {
             imgDir += "AvengersChess" + sep;
         }
 
@@ -224,11 +224,9 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
-        if (redraw) {
-            imagePane.getChildren().clear();
-            drawImages();
-        }
 
+        imagePane.getChildren().clear();
+        drawImages();
     }
 
 
@@ -295,8 +293,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
-        changeStyle("normal", false);
-        drawImages();
+        changeStyle("normal");
         updateText("hello");
     }
 }
