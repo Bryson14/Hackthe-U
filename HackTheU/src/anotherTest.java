@@ -4,6 +4,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.media.*;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 // Sorry Bryson, I was tweaking this to see if this drag thing would work.
 
@@ -37,12 +40,22 @@ public class anotherTest extends Application {
         Chess chess = new Chess();
         chess.updateText("AVENGERS ASSEMBLE");
         Button bt = new Button("AVENGERS");
+        String assemble = "C:\\Users\\bluec\\Desktop\\Hackthe-U\\HackTheU\\src\\sounds\\assemble.mp3";
+        Media sound = new Media( new File(assemble).toURI().toString());
+        MediaPlayer player = new MediaPlayer(sound);
         bt.setOnAction(e->{
             chess.changeStyle("avengers");
+//            player.setAutoPlay(true);
+            player.play();
+            player.setVolume(0.5);
         });
         Button bt2 = new Button("NORMAL");
+        String fart = "C:\\Users\\bluec\\Desktop\\Hackthe-U\\HackTheU\\src\\sounds\\short-definite-fart.wav";
+        Media sound1 = new Media( new File(fart).toURI().toString());
+        MediaPlayer player1 = new MediaPlayer(sound1);
         bt2.setOnAction(e->{
             chess.changeStyle("normal");
+            player1.play();
         });
         primaryStage.setScene(new Scene(new VBox(chess, new HBox(bt, bt2))));
 
