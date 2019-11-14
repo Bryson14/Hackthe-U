@@ -112,7 +112,7 @@ public class ChessBoard {
         return grid[pos.x][pos.y].moves(getGrid());
     }
 
-    public boolean isCurrentTeam() {
+    public boolean getCurrentTeam() {
         return currentTeam;
     }
 

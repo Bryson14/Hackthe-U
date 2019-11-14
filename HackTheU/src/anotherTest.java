@@ -35,16 +35,16 @@ public class anotherTest extends Application {
 //        piece.setOnMouseEntered(mouseEvent -> piece.setCursor(Cursor.HAND));
 
         Chess chess = new Chess();
-        chess.updateText("you suck");
+        chess.updateText("AVENGERS ASSEMBLE");
         Button bt = new Button("AVENGERS");
         bt.setOnAction(e->{
             chess.changeStyle("avengers", true);
         });
-//        Button bt2 = new Button("NORMAL");
-//        bt.setOnAction(e->{
-//            chess.changeStyle("normal", true);
-//        });
-        primaryStage.setScene(new Scene(new VBox(chess, new HBox(bt))));
+        Button bt2 = new Button("NORMAL");
+        bt2.setOnAction(e->{
+            chess.changeStyle("normal", true);
+        });
+        primaryStage.setScene(new Scene(new VBox(chess, new HBox(bt, bt2))));
 
         primaryStage.show();
 }
