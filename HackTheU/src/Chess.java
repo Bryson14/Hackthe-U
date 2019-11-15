@@ -1,13 +1,12 @@
+import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -81,7 +80,7 @@ public class Chess extends Pane {
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
-//                            possibleMoveDots(); // do this later if we got time
+                            possibleMoveDots(); // do this later if we got time
                         } else {
 //                             playErrorSound(); //TODO Write this
                         }
@@ -174,7 +173,16 @@ public class Chess extends Pane {
 
         for (Node child : children) {
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
-               //child make flash
+                Circle dot = new Circle();
+                dot.setFill(Color.GRAY);
+                dot.setRadius(10);
+                GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
+                GridPane.setValignment(dot, VPos.CENTER);
+                GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
+                GridPane.setRowIndex(dot, squaresGrid.getRowIndex(child));
+                //dotPane.setConstraints(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child) );
+//                dotPane.add(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child));
+                dotPane.getChildren().add(dot);
             }
         }
     }
@@ -264,7 +272,15 @@ public class Chess extends Pane {
         squaresGrid = new GridPane();
         dotPane = new GridPane();
         dotPane.setMouseTransparent(true);
+        for (int i = 0; i < 8; i++) {
+            dotPane.getColumnConstraints().add(new ColumnConstraints(65));
 
+        }
+        for (int i = 0; i < 8; i++) {
+            dotPane.getRowConstraints().add(new RowConstraints(65));
+
+        }
+        dotPane.setPadding(new Insets(10,10,10,10));
         squaresGrid.setAlignment(Pos.CENTER);
         squaresGrid.setPadding(new Insets(10,10,10,10));
 
