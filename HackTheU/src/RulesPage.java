@@ -20,15 +20,10 @@ public class RulesPage extends mainMenu{
         title2.setFont(new Font("Algerian",70));
         Pane rulesPane = new Pane();
         rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
-
-        Media media = new Media("/sounds/WhiteKing.mp3");
-        MediaPlayer media2 = new MediaPlayer(media);
-
-
+        
         //Main Menu button
         Button respawn = new Button("Main Menu");
         respawn.setOnAction(event1 -> {
-            media2.play();
             mainMenu.openMainMenu(new Stage());
             stage.close();
         });
