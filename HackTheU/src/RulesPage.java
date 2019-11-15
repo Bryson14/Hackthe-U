@@ -20,7 +20,7 @@ public class RulesPage extends mainMenu{
         title2.setFont(new Font("Algerian",70));
         Pane rulesPane = new Pane();
         rulesPane.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
-        
+
         //Main Menu button
         Button respawn = new Button("Main Menu");
         respawn.setOnAction(event1 -> {
