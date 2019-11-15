@@ -170,12 +170,16 @@ public class Chess extends Pane {
     private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
+        gamePiece[][] grid = cb.getGrid();
 
         for (Node child : children) {
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                 Circle dot = new Circle();
+                dot.setRadius(8);
                 dot.setFill(Color.GRAY);
-                dot.setRadius(10);
+//                if(grid[squaresGrid.getColumnIndex(child)][squaresGrid.getRowIndex(child)].getTeam() != cb.getCurrentTeam())
+//                    dot.setFill(Color.RED);
+//                else{ dot.setFill(Color.GRAY); }
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
                 GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));

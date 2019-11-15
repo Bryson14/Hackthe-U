@@ -47,9 +47,8 @@ public class anotherTest extends Application {
         MediaPlayer player = new MediaPlayer(sound);
         bt.setOnAction(e->{
             chess.changeStyle("avengers");
-//            player.setAutoPlay(true);
             player.play();
-            player.setVolume(0.5);
+//            player.setVolume(0.5);
         });
         String sep1 = System.getProperty("file.separator") + System.getProperty("file.separator");
         String srcDir1 = System.getProperty("user.dir") + sep1 + "HackTheU" + sep1 + "src" + sep1;
