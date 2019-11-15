@@ -36,12 +36,14 @@ public class anotherTest extends Application {
 //        piece.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
 //    });
 //        piece.setOnMouseEntered(mouseEvent -> piece.setCursor(Cursor.HAND));
-
+        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+        File file = new File(srcDir + "sounds" + sep +"assemble.mp3");
         Chess chess = new Chess();
         chess.updateText("AVENGERS ASSEMBLE");
         Button bt = new Button("AVENGERS");
-        String assemble = "/src/sounds/assemble.mp3";
-        Media sound = new Media( new File(assemble).toURI().toString());
+//        String assemble = ("file");
+        Media sound = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(sound);
         bt.setOnAction(e->{
             chess.changeStyle("avengers");
@@ -49,9 +51,12 @@ public class anotherTest extends Application {
             player.play();
             player.setVolume(0.5);
         });
+        String sep1 = System.getProperty("file.separator") + System.getProperty("file.separator");
+        String srcDir1 = System.getProperty("user.dir") + sep1 + "HackTheU" + sep1 + "src" + sep1;
+        File file1 = new File(srcDir1 + "sounds" + sep1 +"short-definite-fart.wav");
         Button bt2 = new Button("NORMAL");
-        String fart = "/src/sounds\\short-definite-fart.wav";
-        Media sound1 = new Media( new File(fart).toURI().toString());
+//        String fart = "/src/sounds\\short-definite-fart.wav";
+        Media sound1 = new Media((file1).toURI().toString());
         MediaPlayer player1 = new MediaPlayer(sound1);
         bt2.setOnAction(e->{
             chess.changeStyle("normal");
