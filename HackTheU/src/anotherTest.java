@@ -40,7 +40,7 @@ public class anotherTest extends Application {
         Chess chess = new Chess();
         chess.updateText("AVENGERS ASSEMBLE");
         Button bt = new Button("AVENGERS");
-        String assemble = "C:\\Users\\bluec\\Desktop\\Hackthe-U\\HackTheU\\src\\sounds\\assemble.mp3";
+        String assemble = "/src/sounds/assemble.mp3";
         Media sound = new Media( new File(assemble).toURI().toString());
         MediaPlayer player = new MediaPlayer(sound);
         bt.setOnAction(e->{
@@ -50,7 +50,7 @@ public class anotherTest extends Application {
             player.setVolume(0.5);
         });
         Button bt2 = new Button("NORMAL");
-        String fart = "C:\\Users\\bluec\\Desktop\\Hackthe-U\\HackTheU\\src\\sounds\\short-definite-fart.wav";
+        String fart = "/src/sounds\\short-definite-fart.wav";
         Media sound1 = new Media( new File(fart).toURI().toString());
         MediaPlayer player1 = new MediaPlayer(sound1);
         bt2.setOnAction(e->{
