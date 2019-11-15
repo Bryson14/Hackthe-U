@@ -147,8 +147,8 @@ public class ChessPane {
             }
         }
         updateGraveYard();
-        if (cb.isCurrentTeam()) topMessage.setText("White Team's Turn");
-        else topMessage.setText("Black Team's Turn");
+//        if (cb.isCurrentTeam()) topMessage.setText("White Team's Turn");
+//        else topMessage.setText("Black Team's Turn");
     }
 
     private void highlightLegalMoves() {

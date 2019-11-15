@@ -35,7 +35,6 @@ public class Chess extends Pane {
     private String tileColorA;
     private String tileColorB;
     private StackPane center;
-    private Pane playerPane;
     private GridPane imagePane;
     private int cellSize;
 
@@ -84,7 +83,7 @@ public class Chess extends Pane {
                             lastCoor = coor;
 //                            possibleMoveDots(); // do this later if we got time
                         } else {
-                            // playErrorSound(); //TODO Write this
+//                             playErrorSound(); //TODO Write this
                         }
                     } else { // second click
 
@@ -93,11 +92,11 @@ public class Chess extends Pane {
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
                             updateBoard(lastCoor, coor);
+                            displayWhosTurn();
                         }
 
                         lastCoor = coor;
                         moves.clear();
-                        cb.printBoard();
                     }
                 });
                 this.squaresGrid.add(rec, column, row);
@@ -180,6 +179,11 @@ public class Chess extends Pane {
         }
     }
 
+    private void displayWhosTurn() {
+        if (cb.getCurrentTeam()) updateText("White Team's Turn");
+        else updateText("Black Team's Turn");
+    }
+
     /**
      *draws the killed pieces on the sides
      */
@@ -204,12 +208,12 @@ public class Chess extends Pane {
      * Finds the pictures for pieces and saves it to a hash table for fast access
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
-    void changeSyle(String key) {
+    void changeStyle(String key) {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
 
-        if (key.equals("avengers")) {
+        if (key.toLowerCase().equals("avengers")) {
             imgDir += "AvengersChess" + sep;
         }
 
@@ -220,6 +224,9 @@ public class Chess extends Pane {
             Image image = new Image(file.toURI().toString());
             players.put(piece, image);
         }
+
+        imagePane.getChildren().clear();
+        drawImages();
     }
 
 
@@ -231,7 +238,9 @@ public class Chess extends Pane {
     void updateText(String text) {
         Text message = new Text(text);
         message.setFont(Font.font(35));
-        bp.setTop(message);
+        HBox box = new HBox(message);
+        box.setAlignment(Pos.CENTER);
+        bp.setTop(box);
     }
 
     /**
@@ -259,16 +268,12 @@ public class Chess extends Pane {
         squaresGrid.setAlignment(Pos.CENTER);
         squaresGrid.setPadding(new Insets(10,10,10,10));
 
-        // player pane is not being used right now
-        playerPane = new Pane();
-        playerPane.setMouseTransparent(true);
-
         //image pane is a grid pane that holds the image views
         imagePane = new GridPane();
         imagePane.setMouseTransparent(true);
 
         //stack pane that holds the main components of the chess board
-        center = new StackPane(squaresGrid, playerPane, imagePane, dotPane);
+        center = new StackPane(squaresGrid, imagePane, dotPane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
@@ -288,8 +293,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
-        changeSyle("normal");
-        drawImages();
+        changeStyle("normal");
         updateText("hello");
     }
 }
