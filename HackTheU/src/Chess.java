@@ -91,7 +91,7 @@ public class Chess extends Pane {
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
                             updateBoard(lastCoor, coor);
-                            displayWhosTurn();
+                            displayTurn();
                         }
 
                         lastCoor = coor;
@@ -189,7 +189,7 @@ public class Chess extends Pane {
         }
     }
 
-    private void displayWhosTurn() {
+    private void displayTurn() {
         if (cb.getCurrentTeam()) updateText("White Team's Turn");
         else updateText("Black Team's Turn");
     }
