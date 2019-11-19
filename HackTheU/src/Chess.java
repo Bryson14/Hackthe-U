@@ -165,8 +165,6 @@ public class Chess extends Pane {
      * When the user clicks a valid first move, dots appear on potential open squares that the highlighted piece could move to
      *
      */
-    //TODO Not sure if we should put the dots on the squares or above the squares on their own grid pane
-    //TODO we can make a new grid pane every time we have to display
     private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
@@ -245,7 +243,7 @@ public class Chess extends Pane {
     /**
      * Displays text on the board. Used if we decide to say whose turn it is after every move
      * Also can display checkmate and stuff
-     * @param text
+     * @param text text to be displayed
      */
     void updateText(String text) {
         Text message = new Text(text);

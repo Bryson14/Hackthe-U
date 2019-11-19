@@ -34,8 +34,7 @@ public class mainMenu extends Application {
 
         // Play Game button logic
         gameButton.setOnAction(event -> {
-            chessBoardGUI.start2(new Stage());
-            stage.close();
+
         });
 
         // Rules Button logic
