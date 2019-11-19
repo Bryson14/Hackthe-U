@@ -10,6 +10,16 @@ public class Coordinates{
         this.y = y;
     }
 
+    /**
+     * Used to parse in updates made in the other board across server-client connection
+     * @param moveString expects format of Coordinate.toString() "(5,6)"
+     */
+    public Coordinates(String moveString) {
+        moveString = moveString.replaceAll("\\s+",""); //removing accidental white space
+        this.x = Character.getNumericValue(moveString.charAt(1));
+        this.y = Character.getNumericValue(moveString.charAt(3));
+    }
+
 
     @Override
     public String toString() {
