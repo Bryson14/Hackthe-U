@@ -15,27 +15,6 @@ public class anotherTest extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        Pane pane = new Pane();
-//        Scene scene = new Scene(pane, 500, 500);
-//    javafx.scene.image.ImageView piece = new ImageView("pictures/BlackPawn.png");
-//        piece.setFitHeight(60);
-//        piece.setFitWidth(60);
-//        piece.setTranslateX(200);
-//        piece.setTranslateY(200);
-//        pane.getChildren().add(piece);
-//
-//    Delta dragDelta = new Delta();
-//        piece.setOnMousePressed(mouseEvent -> {
-//        dragDelta.x = piece.getLayoutX() - mouseEvent.getSceneX();
-//        dragDelta.y = piece.getLayoutY() - mouseEvent.getSceneY();
-//        piece.setCursor(Cursor.MOVE);
-//    });
-//        piece.setOnMouseReleased(mouseEvent -> piece.setCursor(Cursor.HAND));
-//        piece.setOnMouseDragged(mouseEvent -> {
-//        piece.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
-//        piece.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
-//    });
-//        piece.setOnMouseEntered(mouseEvent -> piece.setCursor(Cursor.HAND));
         String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
         File file = new File(srcDir + "sounds" + sep +"assemble.mp3");
