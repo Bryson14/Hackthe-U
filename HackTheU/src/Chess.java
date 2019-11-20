@@ -42,7 +42,6 @@ public class Chess extends Pane {
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
-        base.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         newGame();
         getChildren().add(base);
     }

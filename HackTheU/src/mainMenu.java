@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -38,7 +39,8 @@ public class mainMenu extends Application {
             BorderPane stack = new BorderPane();
             Chess chess = new Chess();
             stack.setCenter(chess);
-            final ComboBox menu = new ComboBox();
+            stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
+            stack.setPadding(new Insets(30, 100, 30, 100));
             stage.setScene(new Scene(stack, 750, 650));
             stage.show();
         });
