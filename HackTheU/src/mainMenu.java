@@ -1,7 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -34,7 +36,10 @@ public class mainMenu extends Application {
 
         // Play Game button logic
         gameButton.setOnAction(event -> {
-
+            Chess chess = new Chess();
+            final ComboBox menu = new ComboBox();
+            stage.setScene(new Scene(new VBox(menu, chess)));
+            stage.show();
         });
 
         // Rules Button logic
