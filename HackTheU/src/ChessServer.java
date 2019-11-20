@@ -48,6 +48,12 @@ public class ChessServer extends Pane{
         base = new StackPane();
         newGame();
         getChildren().add(base);
+        try {
+            connect();
+            receiveMove();
+        } catch (IOException e) {
+            System.out.println("There was a problem with the server io" + e.toString());
+        }
     }
 
     private void connect() throws IOException {
@@ -65,7 +71,7 @@ public class ChessServer extends Pane{
         writer.flush();
     }
 
-    private void recieveMove() throws IOException{
+    private void receiveMove() throws IOException{
         String from = reader.readLine().trim();
         String to = reader.readLine().trim();
         cb.movePiece(new Coordinates(from), new Coordinates(to));
@@ -119,7 +125,7 @@ public class ChessServer extends Pane{
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
-                                recieveMove();
+                                receiveMove();
                             } catch (IOException ex) {
                                 System.out.println("There was a problem sending the move (Server)" + ex.toString());
                             }
@@ -346,13 +352,6 @@ public class ChessServer extends Pane{
         drawSquares();
         changeStyle("normal");
         updateText("hello");
-        try {
-            connect();
-            recieveMove();
-        } catch (IOException e) {
-            System.out.println("There was a problem with the server io" + e.toString());
-        }
-
     }
 }
 

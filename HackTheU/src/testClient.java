@@ -9,12 +9,12 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 
-public class Test extends Application {
+public class testClient extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
-        ChessServer chess = new ChessServer();
+        ChessClient chess = new ChessClient();
 
         // Drop down menu
         Button Avengers = new Button("AVENGERS");
@@ -22,7 +22,7 @@ public class Test extends Application {
 
         final ComboBox menu = new ComboBox();
         menu.getItems().addAll(
-                "Avengers", "Normal");
+                Avengers, Normal);
         menu.setPromptText("Settings");
 
         // Add sounds if buttons are clicked on
@@ -46,5 +46,5 @@ public class Test extends Application {
 
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
-}
+    }
 }
