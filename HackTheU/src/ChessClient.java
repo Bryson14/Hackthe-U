@@ -48,6 +48,11 @@ public class ChessClient extends Pane{
         base = new StackPane();
         newGame();
         getChildren().add(base);
+        try {
+            connect();
+        } catch (IOException e) {
+            System.out.println("There was a problem with the client io" + e.toString());
+        }
     }
 
     ChessClient() {
@@ -349,11 +354,6 @@ public class ChessClient extends Pane{
         drawSquares();
         changeStyle("normal");
         updateText("hello");
-        try {
-            connect();
-        } catch (IOException e) {
-            System.out.println("There was a problem with the client io" + e.toString());
-        }
     }
 }
 

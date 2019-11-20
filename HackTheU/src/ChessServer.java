@@ -48,6 +48,12 @@ public class ChessServer extends Pane{
         base = new StackPane();
         newGame();
         getChildren().add(base);
+        try {
+            connect();
+            receiveMove();
+        } catch (IOException e) {
+            System.out.println("There was a problem with the server io" + e.toString());
+        }
     }
 
     private void connect() throws IOException {
@@ -346,13 +352,6 @@ public class ChessServer extends Pane{
         drawSquares();
         changeStyle("normal");
         updateText("hello");
-        try {
-            connect();
-            receiveMove();
-        } catch (IOException e) {
-            System.out.println("There was a problem with the server io" + e.toString());
-        }
-
     }
 }
 
