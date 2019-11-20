@@ -19,7 +19,6 @@ import java.util.Hashtable;
 
 public class ChessClient extends Pane{
 
-    private Socket socket = null;
     private BufferedReader reader = null;
     private BufferedWriter writer = null;
     private ArrayList<Coordinates> moves;
@@ -39,9 +38,11 @@ public class ChessClient extends Pane{
     private StackPane center;
     private GridPane imagePane;
     private int cellSize;
+    private String host;
 
 
-    ChessClient() {
+    ChessClient(String host) {
+        host = host;
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
@@ -49,8 +50,12 @@ public class ChessClient extends Pane{
         getChildren().add(base);
     }
 
+    ChessClient() {
+        this("localhost");
+    }
+
     private void connect() throws IOException {
-        socket = new Socket("localhost", 5558);
+        Socket socket = new Socket("144.39.207.167", 5558);
         System.out.println("Client connection established");
 
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
