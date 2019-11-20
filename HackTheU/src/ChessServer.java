@@ -1,6 +1,5 @@
-import javafx.geometry.*;
-import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,12 +12,17 @@ import javafx.scene.text.Text;
 import pieces.Coordinates;
 import pieces.gamePiece;
 
-import java.io.File;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class Chess extends Pane {
+public class ChessServer extends Pane{
 
+    private Socket socket = null;
+    private BufferedReader reader = null;
+    private BufferedWriter writer = null;
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
@@ -38,12 +42,33 @@ public class Chess extends Pane {
     private int cellSize;
 
 
-    Chess() {
+    ChessServer() {
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
         newGame();
         getChildren().add(base);
+    }
+
+    private void connect() throws IOException {
+        ServerSocket server = new ServerSocket(5678);
+        socket = server.accept();
+        System.out.println("Server connection established");
+
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    }
+
+    private void sendMove(Coordinates coor) throws IOException {
+        writer.write(lastCoor.toString() + "\r\n");
+        writer.write(coor.toString() + "\r\n");
+        writer.flush();
+    }
+
+    private void recieveMove() throws IOException{
+        String from = reader.readLine().trim();
+        String to = reader.readLine().trim();
+        cb.movePiece(new Coordinates(from), new Coordinates(to));
     }
 
     /**
@@ -89,10 +114,16 @@ public class Chess extends Pane {
                         dotPane.getChildren().clear(); // removes dots from the board
 
                         if (moves.contains(coor)) {
-                            cb.movePiece(lastCoor, coor);
-                            //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
-                            updateBoard(lastCoor, coor);
-                            displayTurn();
+                            try {
+                                sendMove(coor);
+                                cb.movePiece(lastCoor, coor);
+                                updateBoard(lastCoor, coor);
+                                displayTurn();
+                                recieveMove();
+                            } catch (IOException ex) {
+                                System.out.println("There was a problem sending the move (Server)" + ex.toString());
+                            }
+
                         }
 
                         lastCoor = coor;
@@ -108,8 +139,8 @@ public class Chess extends Pane {
      * After a valid move, the board is updated to reflect the change in the state of the backend
      */
     private void updateBoard(Coordinates lastCoor, Coordinates newCoor) {
-    updateGraveyard();
-    updateImages(lastCoor, newCoor);
+        updateGraveyard();
+        updateImages(lastCoor, newCoor);
     }
 
     private void updateImages(Coordinates lastCoor, Coordinates newCoor) {
@@ -192,7 +223,8 @@ public class Chess extends Pane {
 
     private void displayTurn() {
         if (cb.getCurrentTeam()) updateText("White Team's Turn");
-        else updateText("Black Team's Turn");
+        else updateText("Waiting for Black Team's Turn");
+        //TODO play pinwheel of death while waiting
     }
 
     /**
@@ -313,6 +345,14 @@ public class Chess extends Pane {
 
         drawSquares();
         changeStyle("normal");
-        updateText(" ");
+        updateText("hello");
+        try {
+            connect();
+            recieveMove();
+        } catch (IOException e) {
+            System.out.println("There was a problem with the server io" + e.toString());
+        }
+
     }
 }
+
