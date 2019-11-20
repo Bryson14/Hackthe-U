@@ -10,7 +10,6 @@ import java.io.File;
 
 
 public class Test extends Application {
-    static class Delta { double x, y; }
 
     @Override
     public void start(Stage primaryStage) {
