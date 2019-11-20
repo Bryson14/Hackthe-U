@@ -22,7 +22,7 @@ public class Test extends Application {
 
         final ComboBox menu = new ComboBox();
         menu.getItems().addAll(
-                Avengers, Normal);
+                "Avengers", "Normal");
         menu.setPromptText("Settings");
 
         // Add sounds if buttons are clicked on
