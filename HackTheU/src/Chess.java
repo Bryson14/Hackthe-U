@@ -42,6 +42,7 @@ public class Chess extends Pane {
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
+        base.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         newGame();
         getChildren().add(base);
     }
@@ -123,6 +124,7 @@ public class Chess extends Pane {
         image.setFitHeight(cellSize );
         image.setFitWidth(cellSize );
         imagePane.add(image, newCoor.x, newCoor.y);
+        imagePane.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -137,10 +139,12 @@ public class Chess extends Pane {
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 }
             }
         }

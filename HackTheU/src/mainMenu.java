@@ -2,8 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,9 +35,11 @@ public class mainMenu extends Application {
 
         // Play Game button logic
         gameButton.setOnAction(event -> {
+            BorderPane stack = new BorderPane();
             Chess chess = new Chess();
+            stack.setCenter(chess);
             final ComboBox menu = new ComboBox();
-            stage.setScene(new Scene(new VBox(menu, chess)));
+            stage.setScene(new Scene(stack, 750, 650));
             stage.show();
         });
 
@@ -56,6 +57,7 @@ public class mainMenu extends Application {
         buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);
         buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene sc = new Scene(buttonHolder, 750, 650);
+        stage.setResizable(false);
         stage.setScene(sc);
         stage.show();
     }
