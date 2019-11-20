@@ -313,6 +313,6 @@ public class Chess extends Pane {
 
         drawSquares();
         changeStyle("normal");
-        updateText("hello");
+        updateText(" ");
     }
 }
