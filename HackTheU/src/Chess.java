@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -78,11 +80,17 @@ public class Chess extends Pane {
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
+                            playSound(5);
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
                         } else {
-//                             playErrorSound(); //TODO Write this
+                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
+                            Media sound = new Media(file.toURI().toString());
+                            MediaPlayer player = new MediaPlayer(sound);
+                            player.play();
                         }
                     } else { // second click
 
@@ -93,6 +101,14 @@ public class Chess extends Pane {
                             //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                             updateBoard(lastCoor, coor);
                             displayTurn();
+                        }
+                        else{
+                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
+                            Media sound = new Media(file.toURI().toString());
+                            MediaPlayer player = new MediaPlayer(sound);
+                            player.play();
                         }
 
                         lastCoor = coor;
@@ -123,6 +139,7 @@ public class Chess extends Pane {
         image.setFitHeight(cellSize );
         image.setFitWidth(cellSize );
         imagePane.add(image, newCoor.x, newCoor.y);
+        imagePane.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -137,10 +154,12 @@ public class Chess extends Pane {
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 }
             }
         }
@@ -175,10 +194,10 @@ public class Chess extends Pane {
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                dot.setFill(Color.GRAY);
-//                if(grid[squaresGrid.getColumnIndex(child)][squaresGrid.getRowIndex(child)].getTeam() != cb.getCurrentTeam())
-//                    dot.setFill(Color.RED);
-//                else{ dot.setFill(Color.GRAY); }
+                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                    dot.setFill(Color.GREEN);
+                }
+                else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
                 GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
@@ -252,6 +271,16 @@ public class Chess extends Pane {
         HBox box = new HBox(message);
         box.setAlignment(Pos.CENTER);
         bp.setTop(box);
+    }
+
+    void playSound(int piece){
+        // TODO it's erroring out
+//        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+//        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+//        File file = new File(srcDir + "sounds" + sep + "BlackKing");
+//        Media sound = new Media(file.toURI().toString());
+//        MediaPlayer player = new MediaPlayer(sound);
+//        player.play();
     }
 
     /**

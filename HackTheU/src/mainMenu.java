@@ -1,7 +1,9 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -34,7 +36,13 @@ public class mainMenu extends Application {
 
         // Play Game button logic
         gameButton.setOnAction(event -> {
-
+            BorderPane stack = new BorderPane();
+            Chess chess = new Chess();
+            stack.setCenter(chess);
+            stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
+            stack.setPadding(new Insets(30, 100, 30, 100));
+            stage.setScene(new Scene(stack, 750, 650));
+            stage.show();
         });
 
         // Rules Button logic
@@ -51,6 +59,7 @@ public class mainMenu extends Application {
         buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);
         buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         Scene sc = new Scene(buttonHolder, 750, 650);
+        stage.setResizable(false);
         stage.setScene(sc);
         stage.show();
     }
