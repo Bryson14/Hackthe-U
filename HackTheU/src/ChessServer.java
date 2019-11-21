@@ -48,18 +48,18 @@ public class ChessServer extends Pane{
         base = new StackPane();
         newGame();
         getChildren().add(base);
-        try {
-            connect();
-            receiveMove();
-        } catch (IOException e) {
-            System.out.println("There was a problem with the server io" + e.toString());
-        }
     }
 
-    private void connect() throws IOException {
-        ServerSocket server = new ServerSocket(5678);
-        socket = server.accept();
-        System.out.println("Server connection established");
+    public void connect() throws IOException {
+        try {
+
+            ServerSocket server = new ServerSocket(5678);
+            socket = server.accept();
+            System.out.println("Server connection established");
+
+        } catch (Exception ex) {
+            System.err.println("Server couldn't connect.");
+        }
 
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -71,7 +71,7 @@ public class ChessServer extends Pane{
         writer.flush();
     }
 
-    private void receiveMove() throws IOException{
+    public void receiveMove() throws IOException{
         String from = reader.readLine().trim();
         String to = reader.readLine().trim();
         cb.movePiece(new Coordinates(from), new Coordinates(to));
@@ -351,7 +351,7 @@ public class ChessServer extends Pane{
 
         drawSquares();
         changeStyle("normal");
-        updateText("hello");
+        updateText("Chess Server");
     }
 }
 

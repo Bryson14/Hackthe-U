@@ -353,7 +353,7 @@ public class ChessClient extends Pane{
 
         drawSquares();
         changeStyle("normal");
-        updateText("hello");
+        updateText("Chess Client");
     }
 }
 

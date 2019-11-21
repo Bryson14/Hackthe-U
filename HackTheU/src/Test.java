@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.io.IOException;
 
 
 public class Test extends Application {
@@ -14,16 +15,17 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
+//        ChessServer chess = new ChessServer();
         ChessServer chess = new ChessServer();
 
         // Drop down menu
         Button Avengers = new Button("AVENGERS");
         Button Normal = new Button("NORMAL");
 
-        final ComboBox menu = new ComboBox();
-        menu.getItems().addAll(
-                Avengers, Normal);
-        menu.setPromptText("Settings");
+//        final ComboBox menu = new ComboBox();
+//        menu.getItems().addAll(
+//                Avengers, Normal);
+//        menu.setPromptText("Settings");
 
         // Add sounds if buttons are clicked on
         String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
@@ -44,7 +46,15 @@ public class Test extends Application {
             player1.play();
         });
 
-        primaryStage.setScene(new Scene(new VBox(menu, chess)));
+        primaryStage.setScene(new Scene(new VBox( chess)));
         primaryStage.show();
+
+        try {
+            System.out.println("connecting... ");
+            chess.connect();
+            chess.receiveMove();
+        } catch (IOException e) {
+            System.out.println("There was a problem with the server io" + e.toString());
+        }
 }
 }
