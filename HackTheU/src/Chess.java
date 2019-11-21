@@ -186,10 +186,10 @@ public class Chess extends Pane {
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                dot.setFill(Color.GRAY);
-//                if(grid[squaresGrid.getColumnIndex(child)][squaresGrid.getRowIndex(child)].getTeam() != cb.getCurrentTeam())
-//                    dot.setFill(Color.RED);
-//                else{ dot.setFill(Color.GRAY); }
+                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                    dot.setFill(Color.GREEN);
+                }
+                else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
                 GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
