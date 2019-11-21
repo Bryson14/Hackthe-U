@@ -80,6 +80,7 @@ public class Chess extends Pane {
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
+                            playSound(5);
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
@@ -270,6 +271,16 @@ public class Chess extends Pane {
         HBox box = new HBox(message);
         box.setAlignment(Pos.CENTER);
         bp.setTop(box);
+    }
+
+    void playSound(int piece){
+        // TODO it's erroring out
+//        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+//        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+//        File file = new File(srcDir + "sounds" + sep + "BlackKing");
+//        Media sound = new Media(file.toURI().toString());
+//        MediaPlayer player = new MediaPlayer(sound);
+//        player.play();
     }
 
     /**
