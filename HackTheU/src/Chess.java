@@ -83,11 +83,10 @@ public class Chess extends Pane {
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
-                        } else { // TODO It works after you get through the first couple turns but it doesn't work exactly
-                                // TODO how we want it to. Also java doesn't like .flac files so we need a new error sound
+                        } else {
                             String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
                             String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-                            File file = new File(srcDir + "sounds" + sep + "short-definite-fart.wav");
+                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
                             Media sound = new Media(file.toURI().toString());
                             MediaPlayer player = new MediaPlayer(sound);
                             player.play();
@@ -101,6 +100,14 @@ public class Chess extends Pane {
                             //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                             updateBoard(lastCoor, coor);
                             displayTurn();
+                        }
+                        else{
+                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
+                            Media sound = new Media(file.toURI().toString());
+                            MediaPlayer player = new MediaPlayer(sound);
+                            player.play();
                         }
 
                         lastCoor = coor;
