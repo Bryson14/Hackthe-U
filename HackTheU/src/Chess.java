@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -81,8 +83,14 @@ public class Chess extends Pane {
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
-                        } else {
-//                             playErrorSound(); //TODO Write this
+                        } else { // TODO It works after you get through the first couple turns but it doesn't work exactly
+                                // TODO how we want it to. Also java doesn't like .flac files so we need a new error sound
+                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                            File file = new File(srcDir + "sounds" + sep + "short-definite-fart.wav");
+                            Media sound = new Media(file.toURI().toString());
+                            MediaPlayer player = new MediaPlayer(sound);
+                            player.play();
                         }
                     } else { // second click
 
