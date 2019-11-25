@@ -1,13 +1,22 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class mainMenu extends Application {
     public void start(Stage stage){
@@ -39,6 +48,37 @@ public class mainMenu extends Application {
         gameButton.setOnAction(event -> {
             BorderPane stack = new BorderPane();
             Chess chess = new Chess();
+
+            String[] settings = {"Avengers", "Normal"};
+
+            ChoiceBox menu = new ChoiceBox(FXCollections.observableArrayList(settings));
+
+            // Add sounds if buttons are clicked on
+            Label label = new Label("");
+
+            // if the item of the list is changed
+            menu.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> {
+                label.setText(settings[new_value.intValue()]);
+                String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+
+                if (label.getText().equals("Avengers")) {
+                    String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                    File file = new File(srcDir + "sounds" + sep + "assemble.mp3");
+                    Media sound = new Media(file.toURI().toString());
+                    MediaPlayer player = new MediaPlayer(sound);
+                    chess.changeStyle("avengers");
+                    player.play();
+                }
+                else if (label.getText().equals("Normal")) {
+                    String srcDir1 = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                    File file1 = new File(srcDir1 + "sounds" + sep +"short-definite-fart.wav");
+                    Media sound1 = new Media((file1).toURI().toString());
+                    MediaPlayer player1 = new MediaPlayer(sound1);
+                    chess.changeStyle("normal");
+                    player1.play();
+                }
+            });
+            stack.setTop(menu);
             stack.setCenter(chess);
             stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
             stack.setPadding(new Insets(30, 0, 30, 60));
