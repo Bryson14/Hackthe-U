@@ -14,7 +14,7 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
-        ChessServer chess = new ChessServer();
+        Chess chess = new Chess();
 
         // Drop down menu
         Button Avengers = new Button("AVENGERS");
