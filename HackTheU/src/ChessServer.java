@@ -77,7 +77,9 @@ public class ChessServer extends Pane {
 
     public void receiveMove() throws IOException{
         String from = reader.readLine().trim();
+        System.out.println("server recieved from move" + from);
         String to = reader.readLine().trim();
+        System.out.println("server recieved to move" + to);
         cb.movePiece(new Coordinates(from), new Coordinates(to));
     }
 
