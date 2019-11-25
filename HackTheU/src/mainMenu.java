@@ -27,7 +27,7 @@ public class mainMenu extends Application {
         // Set up Title and other title
         stage.setTitle("Chess (Main Menu)");
         Text title = new Text("Chess");
-        title.setTranslateX(300);
+        title.setTranslateX(275);
         title.setTranslateY(250);
         title.setFont(new Font("Algerian",70));
 
@@ -37,11 +37,11 @@ public class mainMenu extends Application {
         Button quitButton = new Button("Quit");
 
         // Set Button locations
-        gameButton.setTranslateX(350);
+        gameButton.setTranslateX(345);
         gameButton.setTranslateY(315);
-        rulesButton.setTranslateX(350);
+        rulesButton.setTranslateX(357);
         rulesButton.setTranslateY(360);
-        quitButton.setTranslateX(350);
+        quitButton.setTranslateX(359);
         quitButton.setTranslateY(405);
 
         // Play Game button logic
