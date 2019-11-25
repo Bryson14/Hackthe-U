@@ -275,12 +275,12 @@ public class Chess extends Pane {
 
     void playSound(int piece){
         // TODO it's erroring out
-//        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-//        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-//        File file = new File(srcDir + "sounds" + sep + "BlackKing");
-//        Media sound = new Media(file.toURI().toString());
-//        MediaPlayer player = new MediaPlayer(sound);
-//        player.play();
+        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+        File file = new File(srcDir + "sounds" + sep + "BlackKing.mp3");
+        Media sound = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(sound);
+        player.play();
     }
 
     /**
@@ -289,6 +289,9 @@ public class Chess extends Pane {
     private void newGame() {
         bp = new BorderPane();
         //TODO add background image first
+
+        base.setStyle("/pictures/dank_4k_wood.jpg/");
+//        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
         //graveyards
