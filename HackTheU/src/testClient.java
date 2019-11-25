@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.io.IOException;
 
 
 public class testClient extends Application {
@@ -46,5 +47,10 @@ public class testClient extends Application {
 
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
+        try {
+            chess.connect();
+        } catch (IOException ex) {
+            System.out.println("problem with client");
+        }
     }
 }

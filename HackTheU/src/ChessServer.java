@@ -116,8 +116,6 @@ public class ChessServer extends Pane {
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
-                        } else {
-                            playSound("Error.mp3");
                         }
                     } else { // second click
 
@@ -374,6 +372,6 @@ public class ChessServer extends Pane {
 
         drawSquares();
         changeStyle("normal");
-        updateText(" ");
+        updateText("SERVER");
     }
 }
