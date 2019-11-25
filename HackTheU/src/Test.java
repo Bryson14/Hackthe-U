@@ -46,5 +46,5 @@ public class Test extends Application {
 
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
-}
+    }
 }

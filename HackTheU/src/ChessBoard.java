@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ChessBoard {
 
     private boolean currentTeam;
-    private gamePiece grid[][] = new gamePiece[8][8];
+    private static gamePiece[][] grid = new gamePiece[8][8];
     public ArrayList<gamePiece> teamTrueGraveyard = new ArrayList<>();
     public ArrayList<gamePiece> teamFalseGraveyard = new ArrayList<>();
 
@@ -57,6 +57,10 @@ public class ChessBoard {
             }
             System.out.println("");
         }
+    }
+
+    public static boolean isEnemy(Coordinates newSpot){
+        return grid[newSpot.x][newSpot.y] == null;
     }
 
     /**
