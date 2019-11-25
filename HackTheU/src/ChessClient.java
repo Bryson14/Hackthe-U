@@ -128,8 +128,8 @@ public class ChessClient extends Pane {
                             try {
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
-                                sendMove(coor);
                                 displayTurn();
+                                sendMove(coor);
                                 receiveMove();
                             } catch (IOException ex) {
                                 System.out.println("There was a problem sending the move (Client)" + ex.toString());

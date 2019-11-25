@@ -128,8 +128,8 @@ public class ChessServer extends Pane {
                             try {
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
-                                sendMove(coor);
                                 displayTurn();
+                                sendMove(coor);
                                 receiveMove();
                             } catch (IOException ex) {
                                 System.out.println("chess server failed in lambda");
