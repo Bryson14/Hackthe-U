@@ -42,7 +42,7 @@ public class ChessClient extends Pane{
 
 
     ChessClient(String host) {
-        host = host;
+        this.host = host;
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
@@ -60,7 +60,7 @@ public class ChessClient extends Pane{
     }
 
     private void connect() throws IOException {
-        Socket socket = new Socket("144.39.207.167", 5558);
+        Socket socket = new Socket(this.host, 5558);
         System.out.println("Client connection established");
 
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
