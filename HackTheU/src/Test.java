@@ -63,6 +63,7 @@ public class Test extends Application {
 
         try {
             chess.connect();
+            chess.receiveMove();
         } catch (IOException ex) {
             System.out.println("problem with client");
         }
