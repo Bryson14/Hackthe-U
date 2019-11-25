@@ -134,8 +134,6 @@ public class ChessServer extends Pane {
                             } catch (IOException ex) {
                                 System.out.println("chess server failed in lambda");
                             }
-
-
                         }
                         else{
                             playSound("Error.mp3");

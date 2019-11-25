@@ -135,7 +135,6 @@ public class ChessClient extends Pane {
                             } catch (IOException ex) {
                                 System.out.println("There was a problem sending the move (Client)" + ex.toString());
                             }
-
                         }
                         else{
                             playSound("Error.mp3");
