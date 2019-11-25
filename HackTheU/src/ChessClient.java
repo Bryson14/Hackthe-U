@@ -129,6 +129,7 @@ public class ChessClient extends Pane {
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
+                                System.out.println("updated and moved");
                                 sendMove(coor);
                                 receiveMove();
                             } catch (IOException ex) {
