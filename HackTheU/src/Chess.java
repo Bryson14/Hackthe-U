@@ -231,9 +231,12 @@ public class Chess extends Pane {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
+        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
+
 
         if (key.toLowerCase().equals("avengers")) {
             imgDir += "AvengersChess" + sep;
+            soundDir += "AvengersChess" + sep;
         }
 
         players.clear();
@@ -246,6 +249,8 @@ public class Chess extends Pane {
 
         imagePane.getChildren().clear();
         drawImages();
+
+
     }
 
 
@@ -277,7 +282,7 @@ public class Chess extends Pane {
             MediaPlayer player = new MediaPlayer(sound);
             player.play();
         } catch (MediaException e) {
-            System.out.println("Couldn't load image" + pieceName + "\n" + e.getMessage());
+            System.out.println("Couldn't load image " + pieceName + "\n" + e.getMessage());
         }
     }
 
