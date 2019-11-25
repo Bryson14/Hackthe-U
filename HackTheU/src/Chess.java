@@ -276,8 +276,6 @@ public class Chess extends Pane {
             pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
         }
         try {
-            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
             File file = new File(srcDir + "sounds" + sep + pieceName + ".mp3");
             Media sound = new Media(file.toURI().toString());
             MediaPlayer player = new MediaPlayer(sound);
