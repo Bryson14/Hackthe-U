@@ -84,8 +84,6 @@ public class Chess extends Pane {
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
-                        } else {
-                            playSound("Error.mp3");
                         }
                     } else { // second click
 
