@@ -55,7 +55,6 @@ public class ChessServer extends Pane {
 
     public void connect() throws IOException {
         try {
-
             ServerSocket server = new ServerSocket(5678);
             System.out.println("waiting on acception");
             socket = server.accept();
