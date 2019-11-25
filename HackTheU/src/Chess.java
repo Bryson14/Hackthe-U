@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,6 +16,7 @@ import javafx.scene.text.Text;
 import pieces.Coordinates;
 import pieces.gamePiece;
 
+import javax.net.ssl.HandshakeCompletedEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -80,7 +82,7 @@ public class Chess extends Pane {
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
-                            playSound("WhiteKing.mp3");
+                            playSound(coor);
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
@@ -96,7 +98,7 @@ public class Chess extends Pane {
                             displayTurn();
                         }
                         else{
-                            playSound("Error.mp3");
+                            playSound(null);
                         }
 
                         lastCoor = coor;
@@ -176,7 +178,6 @@ public class Chess extends Pane {
     private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
-        gamePiece[][] grid = cb.getGrid();
 
         for (Node child : children) {
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
@@ -261,13 +262,23 @@ public class Chess extends Pane {
         bp.setTop(box);
     }
 
-    void playSound(String piece){
-        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        File file = new File(srcDir + "sounds" + sep + piece);
-        Media sound = new Media(file.toURI().toString());
-        MediaPlayer player = new MediaPlayer(sound);
-        player.play();
+    void playSound(Coordinates coor){
+        String pieceName;
+        if (coor == null) {
+            pieceName = "Error";
+        } else {
+            pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
+        }
+        try {
+            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+            File file = new File(srcDir + "sounds" + sep + pieceName + ".mp3");
+            Media sound = new Media(file.toURI().toString());
+            MediaPlayer player = new MediaPlayer(sound);
+            player.play();
+        } catch (MediaException e) {
+            System.out.println("Couldn't load image" + pieceName + "\n" + e.getMessage());
+        }
     }
 
     /**
