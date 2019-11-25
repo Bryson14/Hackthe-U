@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
+import java.io.IOException;
 
 
 public class Test extends Application {
@@ -14,7 +15,10 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
-        Chess chess = new Chess();
+//        Chess chess = new Chess();
+
+        // comment this out to run  a regular chess game.
+        ChessServer chess = new ChessServer();
 
         // Drop down menu
         Button Avengers = new Button("AVENGERS");
@@ -46,5 +50,12 @@ public class Test extends Application {
 
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
+
+        try {
+            chess.connect();
+        } catch (IOException ex) {
+            System.out.println("Problem with the server connect.");
+        }
+
     }
 }
