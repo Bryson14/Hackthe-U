@@ -1,9 +1,12 @@
-import javafx.collections.ObservableList;
 import javafx.geometry.*;
+import javafx.scene.layout.Pane;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -17,10 +20,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class ChessClient extends Pane{
+public class ChessClient extends Pane {
 
-    private BufferedReader reader = null;
-    private BufferedWriter writer = null;
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
@@ -39,32 +40,34 @@ public class ChessClient extends Pane{
     private GridPane imagePane;
     private int cellSize;
     private String host;
+    private Socket socket;
+    private BufferedReader reader;
+    private BufferedWriter writer;
 
 
-    ChessClient(String host) {
-        this.host = host;
+    ChessClient(String hostAddress) {
+        this.host = hostAddress;
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
         newGame();
         getChildren().add(base);
-        try {
-            connect();
-        } catch (IOException e) {
-            System.out.println("There was a problem with the client io" + e.toString());
-        }
     }
 
     ChessClient() {
         this("localhost");
     }
 
-    private void connect() throws IOException {
-        Socket socket = new Socket(this.host, 5558);
-        System.out.println("Client connection established");
+    public void connect() throws IOException {
+        try {
+            this.socket = new Socket(this.host, 5558);
+            System.out.println("Client connection established");
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        } catch (Exception ex) {
+            System.err.println("Server couldn't connect.");
+        }
     }
 
     private void sendMove(Coordinates coor) throws IOException {
@@ -73,7 +76,7 @@ public class ChessClient extends Pane{
         writer.flush();
     }
 
-    private void receiveMove() throws IOException{
+    public void receiveMove() throws IOException{
         String from = reader.readLine().trim();
         String to = reader.readLine().trim();
         cb.movePiece(new Coordinates(from), new Coordinates(to));
@@ -111,11 +114,12 @@ public class ChessClient extends Pane{
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
+                            playSound("WhiteKing.mp3");
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
                         } else {
-//                             playErrorSound(); //TODO Write this
+                            playSound("Error.mp3");
                         }
                     } else { // second click
 
@@ -132,6 +136,9 @@ public class ChessClient extends Pane{
                                 System.out.println("There was a problem sending the move (Client)" + ex.toString());
                             }
 
+                        }
+                        else{
+                            playSound("Error.mp3");
                         }
 
                         lastCoor = coor;
@@ -162,6 +169,7 @@ public class ChessClient extends Pane{
         image.setFitHeight(cellSize );
         image.setFitWidth(cellSize );
         imagePane.add(image, newCoor.x, newCoor.y);
+        imagePane.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -176,10 +184,12 @@ public class ChessClient extends Pane{
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 }
             }
         }
@@ -214,10 +224,10 @@ public class ChessClient extends Pane{
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                dot.setFill(Color.GRAY);
-//                if(grid[squaresGrid.getColumnIndex(child)][squaresGrid.getRowIndex(child)].getTeam() != cb.getCurrentTeam())
-//                    dot.setFill(Color.RED);
-//                else{ dot.setFill(Color.GRAY); }
+                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                    dot.setFill(Color.GREEN);
+                }
+                else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
                 GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
@@ -231,8 +241,7 @@ public class ChessClient extends Pane{
 
     private void displayTurn() {
         if (cb.getCurrentTeam()) updateText("White Team's Turn");
-        else updateText("Waiting for Black Team's Turn");
-        //TODO play pinwheel of death while waiting
+        else updateText("Black Team's Turn");
     }
 
     /**
@@ -294,12 +303,24 @@ public class ChessClient extends Pane{
         bp.setTop(box);
     }
 
+    void playSound(String piece){
+        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+        File file = new File(srcDir + "sounds" + sep + piece);
+        Media sound = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(sound);
+        player.play();
+    }
+
     /**
      * initializes all class variables and panes
      */
     private void newGame() {
         bp = new BorderPane();
         //TODO add background image first
+
+        base.setStyle("/pictures/dank_4k_wood.jpg/");
+//        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
         //graveyards
@@ -353,8 +374,6 @@ public class ChessClient extends Pane{
 
         drawSquares();
         changeStyle("normal");
-        updateText("Chess Client");
+        updateText("CLIENT");
     }
 }
-
-

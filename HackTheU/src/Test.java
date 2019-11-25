@@ -53,6 +53,8 @@ public class Test extends Application {
 
         try {
             chess.connect();
+            System.out.println("server is connected");
+            chess.receiveMove();
         } catch (IOException ex) {
             System.out.println("Problem with the server connect.");
         }

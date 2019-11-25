@@ -374,6 +374,6 @@ public class ChessServer extends Pane {
 
         drawSquares();
         changeStyle("normal");
-        updateText(" ");
+        updateText("SERVER");
     }
 }
