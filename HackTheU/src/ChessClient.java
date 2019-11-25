@@ -80,6 +80,7 @@ public class ChessClient extends Pane {
         String from = reader.readLine().trim();
         String to = reader.readLine().trim();
         cb.movePiece(new Coordinates(from), new Coordinates(to));
+        updateBoard(new Coordinates(from), new Coordinates(to));
     }
 
     /**
@@ -125,10 +126,10 @@ public class ChessClient extends Pane {
 
                         if (moves.contains(coor)) {
                             try {
-                                sendMove(coor);
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
+                                sendMove(coor);
                                 receiveMove();
                             } catch (IOException ex) {
                                 System.out.println("There was a problem sending the move (Client)" + ex.toString());

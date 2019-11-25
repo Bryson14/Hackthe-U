@@ -55,7 +55,6 @@ public class ChessServer extends Pane {
 
     public void connect() throws IOException {
         try {
-
             ServerSocket server = new ServerSocket(5678);
             System.out.println("waiting on acception");
             socket = server.accept();
@@ -77,8 +76,11 @@ public class ChessServer extends Pane {
 
     public void receiveMove() throws IOException{
         String from = reader.readLine().trim();
+        System.out.println("server recieved from move" + from);
         String to = reader.readLine().trim();
+        System.out.println("server recieved to move" + to);
         cb.movePiece(new Coordinates(from), new Coordinates(to));
+        updateBoard(new Coordinates(from), new Coordinates(to));
     }
 
     /**
@@ -124,11 +126,10 @@ public class ChessServer extends Pane {
 
                         if (moves.contains(coor)) {
                             try {
-                                sendMove(coor);
                                 cb.movePiece(lastCoor, coor);
-                                //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
+                                sendMove(coor);
                                 receiveMove();
                             } catch (IOException ex) {
                                 System.out.println("chess server failed in lambda");

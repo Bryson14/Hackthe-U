@@ -93,7 +93,6 @@ public class Chess extends Pane {
 
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
-                            //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                             updateBoard(lastCoor, coor);
                             displayTurn();
                         }
@@ -209,6 +208,12 @@ public class Chess extends Pane {
     private void updateGraveyard() {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
+        if (cb.teamTrueGraveyard.size() == 0) {
+            whiteGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
+        if (cb.teamFalseGraveyard.size() == 0) {
+            blackGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
         for (gamePiece white : cb.teamTrueGraveyard) {
             ImageView image = new ImageView(players.get(white.getName()));
             image.setFitHeight(cellSize - 20);
@@ -275,8 +280,6 @@ public class Chess extends Pane {
             pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
         }
         try {
-            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
             File file = new File(srcDir + "sounds" + sep + pieceName + ".mp3");
             Media sound = new Media(file.toURI().toString());
             MediaPlayer player = new MediaPlayer(sound);
@@ -347,6 +350,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
+        updateGraveyard();
         changeStyle("normal");
         updateText(" ");
     }
