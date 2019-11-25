@@ -1,13 +1,19 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
-import java.io.IOException;
 
 
 public class Test extends Application {
@@ -15,47 +21,45 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
-//        Chess chess = new Chess();
-
-        // comment this out to run  a regular chess game.
-        ChessServer chess = new ChessServer();
+        Chess chess = new Chess();
 
         // Drop down menu
-        Button Avengers = new Button("AVENGERS");
-        Button Normal = new Button("NORMAL");
+        String settings[] = {"Avengers", "Normal"};
 
-        final ComboBox menu = new ComboBox();
-        menu.getItems().addAll(
-                "Avengers", "Normal");
-        menu.setPromptText("Settings");
+        ChoiceBox menu = new ChoiceBox(FXCollections.observableArrayList(settings));
 
         // Add sounds if buttons are clicked on
-        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        File file = new File(srcDir + "sounds" + sep + "assemble.mp3");
-        Media sound = new Media(file.toURI().toString());
-        MediaPlayer player = new MediaPlayer(sound);
-        Avengers.setOnAction(e->{
-            chess.changeStyle("avengers");
-            player.play();
-        });
-        String srcDir1 = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        File file1 = new File(srcDir1 + "sounds" + sep +"short-definite-fart.wav");
-        Media sound1 = new Media((file1).toURI().toString());
-        MediaPlayer player1 = new MediaPlayer(sound1);
-        Normal.setOnAction(e->{
-            chess.changeStyle("normal");
-            player1.play();
+        Label label = new Label("");
+
+        menu.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+            // if the item of the list is changed
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                label.setText(settings[new_value.intValue()]);
+                String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+
+                if (label.getText() == "Avengers") {
+                    String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                    File file = new File(srcDir + "sounds" + sep + "assemble.mp3");
+                    Media sound = new Media(file.toURI().toString());
+                    MediaPlayer player = new MediaPlayer(sound);
+                    chess.changeStyle("avengers");
+                    player.play();
+                }
+                else if (label.getText() == "Normal") {
+                    String srcDir1 = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+                    File file1 = new File(srcDir1 + "sounds" + sep +"short-definite-fart.wav");
+                    Media sound1 = new Media((file1).toURI().toString());
+                    MediaPlayer player1 = new MediaPlayer(sound1);
+                    chess.changeStyle("normal");
+                    player1.play();
+                }
+            }
+
         });
 
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
-
-        try {
-            chess.connect();
-        } catch (IOException ex) {
-            System.out.println("Problem with the server connect.");
-        }
-
     }
 }
