@@ -60,7 +60,7 @@ public class ChessClient extends Pane {
 
     public void connect() throws IOException {
         try {
-            this.socket = new Socket(this.host, 5558);
+            this.socket = new Socket(this.host, 5678);
             System.out.println("Client connection established");
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

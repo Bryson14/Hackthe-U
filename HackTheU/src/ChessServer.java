@@ -57,6 +57,7 @@ public class ChessServer extends Pane {
         try {
 
             ServerSocket server = new ServerSocket(5678);
+            System.out.println("waiting on acception");
             socket = server.accept();
             System.out.println("Server connection established");
 
