@@ -93,7 +93,6 @@ public class Chess extends Pane {
 
                         if (moves.contains(coor)) {
                             cb.movePiece(lastCoor, coor);
-                            //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                             updateBoard(lastCoor, coor);
                             displayTurn();
                         }

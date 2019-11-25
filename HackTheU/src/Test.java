@@ -18,9 +18,9 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create instance of Chess game
-        Chess chess = new Chess();
+//        Chess chess = new Chess();
 
-//        ChessServer chess = new ChessServer();
+        ChessServer chess = new ChessServer();
 
         // Drop down menu
         String settings[] = {"Avengers", "Normal"};
@@ -61,11 +61,11 @@ public class Test extends Application {
         primaryStage.setScene(new Scene(new VBox(menu, chess)));
         primaryStage.show();
 
-//        try {
-//            chess.connect();
-//            chess.receiveMove();
-//        } catch (IOException ex) {
-//            System.out.println("problem with client");
-//        }
+        try {
+            chess.connect();
+            chess.receiveMove();
+        } catch (IOException ex) {
+            System.out.println("problem with client");
+        }
     }
 }
