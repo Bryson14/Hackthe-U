@@ -209,6 +209,12 @@ public class Chess extends Pane {
     private void updateGraveyard() {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
+        if (cb.teamTrueGraveyard.size() == 0) {
+            whiteGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
+        if (cb.teamFalseGraveyard.size() == 0) {
+            blackGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
         for (gamePiece white : cb.teamTrueGraveyard) {
             ImageView image = new ImageView(players.get(white.getName()));
             image.setFitHeight(cellSize - 20);
@@ -342,6 +348,7 @@ public class Chess extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
+        updateGraveyard();
         changeStyle("normal");
         updateText(" ");
     }
