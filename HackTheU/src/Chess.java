@@ -80,17 +80,12 @@ public class Chess extends Pane {
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
-                            playSound(5);
+                            playSound("WhiteKing.mp3");
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
                         } else {
-                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
-                            Media sound = new Media(file.toURI().toString());
-                            MediaPlayer player = new MediaPlayer(sound);
-                            player.play();
+                            playSound("Error.mp3");
                         }
                     } else { // second click
 
@@ -103,12 +98,7 @@ public class Chess extends Pane {
                             displayTurn();
                         }
                         else{
-                            String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-                            String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-                            File file = new File(srcDir + "sounds" + sep + "Error.mp3");
-                            Media sound = new Media(file.toURI().toString());
-                            MediaPlayer player = new MediaPlayer(sound);
-                            player.play();
+                            playSound("Error.mp3");
                         }
 
                         lastCoor = coor;
@@ -273,11 +263,10 @@ public class Chess extends Pane {
         bp.setTop(box);
     }
 
-    void playSound(int piece){
-        // TODO it's erroring out
+    void playSound(String piece){
         String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        File file = new File(srcDir + "sounds" + sep + "BlackKing.mp3");
+        File file = new File(srcDir + "sounds" + sep + piece);
         Media sound = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(sound);
         player.play();
