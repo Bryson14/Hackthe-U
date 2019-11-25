@@ -1,9 +1,12 @@
-import javafx.collections.ObservableList;
 import javafx.geometry.*;
+import javafx.scene.layout.Pane;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -18,11 +21,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class ChessServer extends Pane{
+public class ChessServer extends Pane {
 
-    private Socket socket = null;
-    private BufferedReader reader = null;
-    private BufferedWriter writer = null;
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
@@ -40,6 +40,9 @@ public class ChessServer extends Pane{
     private StackPane center;
     private GridPane imagePane;
     private int cellSize;
+    private Socket socket;
+    private BufferedWriter writer;
+    private BufferedReader reader;
 
 
     ChessServer() {
@@ -109,11 +112,12 @@ public class ChessServer extends Pane{
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
+                            playSound("WhiteKing.mp3");
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
                         } else {
-//                             playErrorSound(); //TODO Write this
+                            playSound("Error.mp3");
                         }
                     } else { // second click
 
@@ -123,13 +127,18 @@ public class ChessServer extends Pane{
                             try {
                                 sendMove(coor);
                                 cb.movePiece(lastCoor, coor);
+                                //tellServer(lastCoor.toString() + coor.toString()) TODO will look something like this
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
                                 receiveMove();
                             } catch (IOException ex) {
-                                System.out.println("There was a problem sending the move (Server)" + ex.toString());
+                                System.out.println("chess server failed in lambda");
                             }
 
+
+                        }
+                        else{
+                            playSound("Error.mp3");
                         }
 
                         lastCoor = coor;
@@ -160,6 +169,7 @@ public class ChessServer extends Pane{
         image.setFitHeight(cellSize );
         image.setFitWidth(cellSize );
         imagePane.add(image, newCoor.x, newCoor.y);
+        imagePane.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -174,10 +184,12 @@ public class ChessServer extends Pane{
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
+                    imagePane.setAlignment(Pos.CENTER);
                 }
             }
         }
@@ -212,10 +224,10 @@ public class ChessServer extends Pane{
             if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                dot.setFill(Color.GRAY);
-//                if(grid[squaresGrid.getColumnIndex(child)][squaresGrid.getRowIndex(child)].getTeam() != cb.getCurrentTeam())
-//                    dot.setFill(Color.RED);
-//                else{ dot.setFill(Color.GRAY); }
+                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                    dot.setFill(Color.GREEN);
+                }
+                else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
                 GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
@@ -229,8 +241,7 @@ public class ChessServer extends Pane{
 
     private void displayTurn() {
         if (cb.getCurrentTeam()) updateText("White Team's Turn");
-        else updateText("Waiting for Black Team's Turn");
-        //TODO play pinwheel of death while waiting
+        else updateText("Black Team's Turn");
     }
 
     /**
@@ -292,12 +303,24 @@ public class ChessServer extends Pane{
         bp.setTop(box);
     }
 
+    void playSound(String piece){
+        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+        File file = new File(srcDir + "sounds" + sep + piece);
+        Media sound = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(sound);
+        player.play();
+    }
+
     /**
      * initializes all class variables and panes
      */
     private void newGame() {
         bp = new BorderPane();
         //TODO add background image first
+
+        base.setStyle("/pictures/dank_4k_wood.jpg/");
+//        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
         //graveyards
@@ -351,7 +374,6 @@ public class ChessServer extends Pane{
 
         drawSquares();
         changeStyle("normal");
-        updateText("Chess Server");
+        updateText(" ");
     }
 }
-
