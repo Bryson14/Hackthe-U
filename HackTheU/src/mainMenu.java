@@ -30,11 +30,17 @@ public class mainMenu extends Application {
         title.setFont(new Font("Algerian",120));
 
         // Initialize Buttons
-        Button gameButton = new Button("Play Chess");
+        Button gameButton = new Button("Player vs Computer");
         gameButton.setTextFill(Color.WHITE);
         gameButton.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
         gameButton.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
-        gameButton.setPrefSize(150, 50);
+        gameButton.setPrefSize(250, 50);
+
+        Button gameButton2 = new Button("Player vs Player");
+        gameButton2.setTextFill(Color.WHITE);
+        gameButton2.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        gameButton2.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        gameButton2.setPrefSize(250, 50);
 
         Button rulesButton = new Button("Rules");
         rulesButton.setTextFill(Color.WHITE);
@@ -99,7 +105,11 @@ public class mainMenu extends Application {
 
         // Set Up Stage and Scene
         VBox buttonHolder = new VBox();
-        buttonHolder.getChildren().addAll(title, gameButton, rulesButton, quitButton);
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(gameButton2, gameButton);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(30);
+        buttonHolder.getChildren().addAll(title, hbox, rulesButton, quitButton);
         buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
         buttonHolder.setAlignment(Pos.CENTER);
         buttonHolder.setSpacing(30);
