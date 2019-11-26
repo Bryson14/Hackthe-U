@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -8,7 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,22 +27,26 @@ public class mainMenu extends Application {
         // Set up Title and other title
         stage.setTitle("Chess (Main Menu)");
         Text title = new Text("Chess");
-        title.setTranslateX(275);
-        title.setTranslateY(250);
-        title.setFont(new Font("Algerian",70));
+        title.setFont(new Font("Algerian",120));
 
         // Initialize Buttons
         Button gameButton = new Button("Play Chess");
-        Button rulesButton = new Button("Rules");
-        Button quitButton = new Button("Quit");
+        gameButton.setTextFill(Color.WHITE);
+        gameButton.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        gameButton.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        gameButton.setPrefSize(150, 50);
 
-        // Set Button locations
-        gameButton.setTranslateX(345);
-        gameButton.setTranslateY(315);
-        rulesButton.setTranslateX(357);
-        rulesButton.setTranslateY(360);
-        quitButton.setTranslateX(359);
-        quitButton.setTranslateY(405);
+        Button rulesButton = new Button("Rules");
+        rulesButton.setTextFill(Color.WHITE);
+        rulesButton.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        rulesButton.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        rulesButton.setPrefSize(150, 50);
+
+        Button quitButton = new Button("Quit");
+        quitButton.setTextFill(Color.WHITE);
+        quitButton.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        quitButton.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        quitButton.setPrefSize(150, 50);
 
         // Play Game button logic
         gameButton.setOnAction(event -> {
@@ -90,9 +98,11 @@ public class mainMenu extends Application {
         quitButton.setOnAction(event -> stage.close());
 
         // Set Up Stage and Scene
-        Pane buttonHolder = new Pane();
-        buttonHolder.getChildren().addAll(gameButton, rulesButton, quitButton, title);
+        VBox buttonHolder = new VBox();
+        buttonHolder.getChildren().addAll(title, gameButton, rulesButton, quitButton);
         buttonHolder.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
+        buttonHolder.setAlignment(Pos.CENTER);
+        buttonHolder.setSpacing(30);
         Scene sc = new Scene(buttonHolder, 750, 650);
         stage.setResizable(false);
         stage.setScene(sc);
