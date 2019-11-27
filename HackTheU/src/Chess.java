@@ -2,24 +2,16 @@ import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import pieces.Coordinates;
 import pieces.gamePiece;
-
-import javax.net.ssl.HandshakeCompletedEvent;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.*;
 
 public class Chess extends Pane {
 
@@ -338,10 +330,12 @@ public class Chess extends Pane {
 
         this.cb = new ChessBoard();
 
-        //aggie blue
-        tileColorA = "#f8f8f8";
-        //some white color
-        tileColorB = "#0f2439";
+
+        tileColorA = "#f8f8f8"; //aggie blue
+//        tileColorA = "7d3a02"; //dark brown
+
+        tileColorB = "#0f2439"; //some white color
+//        tileColorB = "#fae3be"; //light light brown
 
         //pixel size for each grid cell
         cellSize = 65;

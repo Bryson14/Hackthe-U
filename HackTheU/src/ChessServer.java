@@ -2,24 +2,17 @@ import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import pieces.Coordinates;
 import pieces.gamePiece;
-
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.net.*;
+import java.util.*;
 
 public class ChessServer extends Pane {
 
@@ -248,6 +241,12 @@ public class ChessServer extends Pane {
     private void updateGraveyard() {
         whiteGraveYard.getChildren().clear();
         blackGraveYard.getChildren().clear();
+        if (cb.teamTrueGraveyard.size() == 0) {
+            whiteGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
+        if (cb.teamFalseGraveyard.size() == 0) {
+            blackGraveYard.getChildren().add(new Rectangle(cellSize-20,cellSize, Color.TRANSPARENT));
+        }
         for (gamePiece white : cb.teamTrueGraveyard) {
             ImageView image = new ImageView(players.get(white.getName()));
             image.setFitHeight(cellSize - 20);

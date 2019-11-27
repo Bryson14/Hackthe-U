@@ -1,21 +1,15 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.media.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
-
 import java.io.File;
 
 public class mainMenu extends Application {
@@ -30,17 +24,17 @@ public class mainMenu extends Application {
         title.setFont(new Font("Algerian",120));
 
         // Initialize Buttons
-        Button gameButton = new Button("Player vs Computer");
-        gameButton.setTextFill(Color.WHITE);
-        gameButton.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
-        gameButton.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
-        gameButton.setPrefSize(250, 50);
+        Button gameButtonPC = new Button("Player vs Computer");
+        gameButtonPC.setTextFill(Color.WHITE);
+        gameButtonPC.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        gameButtonPC.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        gameButtonPC.setPrefSize(250, 50);
 
-        Button gameButton2 = new Button("Player vs Player");
-        gameButton2.setTextFill(Color.WHITE);
-        gameButton2.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
-        gameButton2.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
-        gameButton2.setPrefSize(250, 50);
+        Button gameButtonPP = new Button("Player vs Player");
+        gameButtonPP.setTextFill(Color.WHITE);
+        gameButtonPP.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+        gameButtonPP.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
+        gameButtonPP.setPrefSize(250, 50);
 
         Button rulesButton = new Button("Rules");
         rulesButton.setTextFill(Color.WHITE);
@@ -55,18 +49,26 @@ public class mainMenu extends Application {
         quitButton.setPrefSize(150, 50);
 
         // Play Game button logic
-        gameButton.setOnAction(event -> {
-            BorderPane stack = new BorderPane();
+        gameButtonPC.setOnAction(event -> {
+            StackPane stack = new StackPane();
             Chess chess = new Chess();
 
-            String[] settings = {"Avengers", "Normal"};
+            Rectangle background = new Rectangle(545, 543);
+            background.setTranslateY(-8);
+            background.setArcHeight(15.0d);
+            background.setArcWidth(15.0d);
+            Image img = new Image("/pictures/dank_4k_wood.jpg");
+            background.setFill(new ImagePattern(img));
+
+            String[] settings = {"Normal", "Avengers"};
 
             ChoiceBox<? extends String> menu = new ChoiceBox<>(FXCollections.observableArrayList(settings));
+            menu.setPrefSize(75, 30);
+            menu.setTooltip(new Tooltip("Change game style"));
 
-            // Add sounds if buttons are clicked on
             Label label = new Label("");
 
-            // if the item of the list is changed
+            
             menu.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> {
                 label.setText(settings[new_value.intValue()]);
                 String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
@@ -86,13 +88,20 @@ public class mainMenu extends Application {
                 MediaPlayer player = new MediaPlayer(sound);
                 player.play();
             });
-            stack.setTop(menu);
-            stack.setCenter(chess);
+            stack.getChildren().addAll(background, chess, menu);
+            menu.setTranslateX(-325);
+            menu.setTranslateY(-300);
+            chess.setTranslateX(62);
+            chess.setTranslateY(0);
             stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
-            stack.setPadding(new Insets(30, 0, 30, 60));
             stage.setScene(new Scene(stack, 750, 650));
             stage.show();
         });
+
+        gameButtonPP.setOnAction(event -> {
+            PlayerPlayer.playerPlayer(new Stage());
+            stage.close();
+                });
 
         // Rules Button logic
         rulesButton.setOnAction(event -> {
@@ -106,7 +115,7 @@ public class mainMenu extends Application {
         // Set Up Stage and Scene
         VBox buttonHolder = new VBox();
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(gameButton2, gameButton);
+        hbox.getChildren().addAll(gameButtonPP, gameButtonPC);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(30);
         buttonHolder.getChildren().addAll(title, hbox, rulesButton, quitButton);
