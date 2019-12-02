@@ -88,7 +88,7 @@ public class PlayerPlayer extends MainMenu {
         });
 
         client.setOnAction(event -> {
-            ChessClient chess = new ChessClient("144.39.202.39"); // Bryson's IP Address [144.39.202.39]
+            ChessClient chess = new ChessClient("144.39.207.138"); // Bryson's IP Address [144.39.202.39]
 
             StackPane stack = new StackPane();
 

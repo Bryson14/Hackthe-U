@@ -32,6 +32,7 @@ public class Chess extends Pane {
     private StackPane center;
     private GridPane imagePane;
     private int cellSize;
+    private boolean avgsounds;
 
 
     Chess() {
@@ -225,6 +226,7 @@ public class Chess extends Pane {
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
     void changeStyle(String key) {
+        avgsounds = false;
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
@@ -232,6 +234,7 @@ public class Chess extends Pane {
 
 
         if (key.toLowerCase().equals("avengers")) {
+            avgsounds = true;
             imgDir += "AvengersChess" + sep;
             soundDir += "AvengersChess" + sep;
         }
@@ -265,19 +268,21 @@ public class Chess extends Pane {
     }
 
     void playSound(Coordinates coor){
-        String pieceName;
-        if (coor == null) {
-            pieceName = "Error";
-        } else {
-            pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
-        }
-        try {
-            File file = new File(srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep + pieceName + ".mp3");
-            Media sound = new Media(file.toURI().toString());
-            MediaPlayer player = new MediaPlayer(sound);
-            player.play();
-        } catch (MediaException e) {
-            System.out.println("Couldn't load image " + pieceName + "\n" + e.getMessage());
+        if (avgsounds == true) {
+            String pieceName;
+            if (coor == null) {
+                pieceName = "Error";
+            } else {
+                pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
+            }
+            try {
+                File file = new File(srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep + pieceName + ".mp3");
+                Media sound = new Media(file.toURI().toString());
+                MediaPlayer player = new MediaPlayer(sound);
+                player.play();
+            } catch (MediaException e) {
+                System.out.println("Couldn't load image " + pieceName + "\n" + e.getMessage());
+            }
         }
     }
 
