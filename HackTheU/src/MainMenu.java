@@ -12,7 +12,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 import java.io.File;
 
-public class mainMenu extends Application {
+public class MainMenu extends Application {
     public void start(Stage stage){
         openMainMenu(stage);
     }
@@ -84,7 +84,7 @@ public class mainMenu extends Application {
                     file = new File(srcDir + "sounds" + sep +"short-definite-fart.wav");
                 }
                 else if (label.getText().equals("Main Menu")){
-                    mainMenu.openMainMenu(stage);
+                    MainMenu.openMainMenu(stage);
                 }
                 else if (label.getText().equals("New Game")){
                     chess.getChildren().clear();//this needs work

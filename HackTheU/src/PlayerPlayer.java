@@ -11,7 +11,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 import java.io.*;
 
-public class PlayerPlayer extends mainMenu{
+public class PlayerPlayer extends MainMenu {
     public static void playerPlayer(Stage stage){
         HBox hbox = new HBox();
         hbox.setStyle("-fx-background-color: rgba(255,186,26,0.64)");

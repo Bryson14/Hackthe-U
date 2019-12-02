@@ -7,7 +7,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 
-public class RulesPage extends mainMenu{
+public class RulesPage extends MainMenu {
     public static void rulesPage(Stage stage) {
         // Setup Pane and Title
         Text title2 = new Text("Rules");
@@ -22,7 +22,7 @@ public class RulesPage extends mainMenu{
         respawn.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
 
         respawn.setOnAction(event1 -> {
-            mainMenu.openMainMenu(new Stage());
+            MainMenu.openMainMenu(new Stage());
             stage.close();
         });
 
