@@ -60,7 +60,7 @@ public class mainMenu extends Application {
             Image img = new Image("/pictures/dank_4k_wood.jpg");
             background.setFill(new ImagePattern(img));
 
-            String[] settings = {"Normal", "Avengers"};
+            String[] settings = {"Normal", "Avengers", "Main Menu", "New Game"};
 
             ChoiceBox<? extends String> menu = new ChoiceBox<>(FXCollections.observableArrayList(settings));
             menu.setPrefSize(75, 30);
@@ -82,6 +82,14 @@ public class mainMenu extends Application {
                 else if (label.getText().equals("Normal")) {
                     chess.changeStyle("normal");
                     file = new File(srcDir + "sounds" + sep +"short-definite-fart.wav");
+                }
+                else if (label.getText().equals("Main Menu")){
+                    mainMenu.openMainMenu(stage);
+                }
+                else if (label.getText().equals("New Game")){
+                    chess.getChildren().clear();//this needs work
+                    chess.getChildren().addAll();
+                    chess.newGame();
                 }
                 assert file != null;
                 Media sound = new Media((file).toURI().toString());

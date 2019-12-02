@@ -284,7 +284,7 @@ public class Chess extends Pane {
     /**
      * initializes all class variables and panes
      */
-    private void newGame() {
+    public void newGame() {
         bp = new BorderPane();
         //TODO add background image first
 
