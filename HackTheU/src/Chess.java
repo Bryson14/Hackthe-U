@@ -293,7 +293,7 @@ public class Chess extends Pane {
         bp = new BorderPane();
         //TODO add background image first
 
-        base.setStyle("/pictures/dank_4k_wood.jpg/");
+//        base.setStyle("/pictures/dank_4k_wood.jpg/");
 //        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 

@@ -370,6 +370,7 @@ public class ChessServer extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
+        updateGraveyard();
         changeStyle("normal");
         updateText("SERVER");
     }

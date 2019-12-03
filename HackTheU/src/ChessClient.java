@@ -37,6 +37,7 @@ public class ChessClient extends Pane {
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
+    private boolean avgsounds;
 
 
     ChessClient(String hostAddress) {
@@ -268,11 +269,13 @@ public class ChessClient extends Pane {
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
     void changeStyle(String key) {
+        avgsounds = false;
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
 
         if (key.toLowerCase().equals("avengers")) {
+            avgsounds = true;
             imgDir += "AvengersChess" + sep;
         }
 
@@ -318,7 +321,7 @@ public class ChessClient extends Pane {
         bp = new BorderPane();
         //TODO add background image first
 
-        base.setStyle("/pictures/dank_4k_wood.jpg/");
+//        base.setStyle("/pictures/dank_4k_wood.jpg/");
 //        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
@@ -372,6 +375,7 @@ public class ChessClient extends Pane {
         moves = new ArrayList<>();
 
         drawSquares();
+        updateGraveyard();
         changeStyle("normal");
         updateText("CLIENT");
     }

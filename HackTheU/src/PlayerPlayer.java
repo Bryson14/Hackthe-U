@@ -51,7 +51,7 @@ public class PlayerPlayer extends MainMenu {
             background.setTranslateY(-8);
             background.setArcHeight(15.0d);
             background.setArcWidth(15.0d);
-            Image img = new Image("/pictures/dank_4k_wood.jpg");
+            Image img = new Image("/pictures/wood-background.jpg");
             background.setFill(new ImagePattern(img));
 
             String[] settings = {"Avengers", "Normal"};
@@ -109,7 +109,7 @@ public class PlayerPlayer extends MainMenu {
             background.setTranslateY(-8);
             background.setArcHeight(15.0d);
             background.setArcWidth(15.0d);
-            Image img = new Image("/pictures/dank_4k_wood.jpg");
+            Image img = new Image("/pictures/wood-background.jpg");
             background.setFill(new ImagePattern(img));
 
             String[] settings = {"Avengers", "Normal"};
