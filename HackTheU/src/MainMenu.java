@@ -24,7 +24,7 @@ public class MainMenu extends Application {
         title.setFont(new Font("Algerian",120));
 
         // Initialize Buttons
-        Button gameButtonPC = new Button("Player vs Computer");
+        Button gameButtonPC = new Button("Player vs Self");
         gameButtonPC.setTextFill(Color.WHITE);
         gameButtonPC.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
         gameButtonPC.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
@@ -57,7 +57,7 @@ public class MainMenu extends Application {
             background.setTranslateY(-8);
             background.setArcHeight(15.0d);
             background.setArcWidth(15.0d);
-            Image img = new Image("/pictures/dank_4k_wood.jpg");
+            Image img = new Image("/pictures/wood-background.jpg");
             background.setFill(new ImagePattern(img));
 
             String[] settings = {"Normal", "Avengers", "Main Menu", "New Game"};
@@ -75,21 +75,23 @@ public class MainMenu extends Application {
                 String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
                 File file = null;
 
-                if (label.getText().equals("Avengers")) {
-                    chess.changeStyle("avengers");
-                    file = new File(srcDir + "sounds" + sep + "assemble.mp3");
-                }
-                else if (label.getText().equals("Normal")) {
-                    chess.changeStyle("normal");
-                    file = new File(srcDir + "sounds" + sep +"short-definite-fart.wav");
-                }
-                else if (label.getText().equals("Main Menu")){
-                    MainMenu.openMainMenu(stage);
-                }
-                else if (label.getText().equals("New Game")){
-                    chess.getChildren().clear();//this needs work
-                    chess.getChildren().addAll();
-                    chess.newGame();
+                switch (label.getText()) {
+                    case "Avengers":
+                        chess.changeStyle("avengers");
+                        file = new File(srcDir + "sounds" + sep + "assemble.mp3");
+                        break;
+                    case "Normal":
+                        chess.changeStyle("normal");
+                        file = new File(srcDir + "sounds" + sep + "short-definite-fart.wav");
+                        break;
+                    case "Main Menu":
+                        MainMenu.openMainMenu(stage);
+                        break;
+                    case "New Game": // This needs work
+                        chess.getChildren().clear();
+                        chess.getChildren().addAll();
+                        chess.newGame();
+                        break;
                 }
                 assert file != null;
                 Media sound = new Media((file).toURI().toString());
@@ -104,6 +106,7 @@ public class MainMenu extends Application {
             stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
             stage.setScene(new Scene(stack, 750, 650));
             stage.show();
+//            stage.setFullScreen(true);
         });
 
         gameButtonPP.setOnAction(event -> {

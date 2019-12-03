@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.io.*;
 
 public class PlayerPlayer extends MainMenu {
+    static String ipAddress;
+
     public static void playerPlayer(Stage stage){
         HBox hbox = new HBox();
         hbox.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
@@ -29,7 +31,15 @@ public class PlayerPlayer extends MainMenu {
         client.setStyle("-fx-background-color: rgba(54,17,0,0.92)");
         client.setPrefSize(150, 200);
 
-        hbox.getChildren().addAll(server, client);
+        VBox serverBox = new VBox();
+        TextField ipLabel = new TextField("IP Address");
+        ipLabel.setOnAction(event -> ipAddress = ipLabel.getText());
+
+        serverBox.getChildren().addAll(server, ipLabel);
+
+        serverBox.setTranslateY(225);
+        serverBox.setSpacing(25);
+        hbox.getChildren().addAll(serverBox, client);
         stage.setScene(new Scene(hbox, 750, 650));
         stage.show();
 
@@ -79,6 +89,7 @@ public class PlayerPlayer extends MainMenu {
             stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
             stage.setScene(new Scene(stack, 750, 650));
             stage.show();
+//            stage.setFullScreen(true);
         try {
             chess.connect();
             chess.receiveMove();
@@ -87,8 +98,10 @@ public class PlayerPlayer extends MainMenu {
         }
         });
 
+
+
         client.setOnAction(event -> {
-            ChessClient chess = new ChessClient("144.39.207.138"); // Bryson's IP Address [144.39.202.39]
+            ChessClient chess = new ChessClient(ipAddress);
 
             StackPane stack = new StackPane();
 
@@ -134,6 +147,7 @@ public class PlayerPlayer extends MainMenu {
             stack.setStyle("-fx-background-color: rgba(255,186,26,0.64)");
             stage.setScene(new Scene(stack, 750, 650));
             stage.show();
+//            stage.setFullScreen(true);
             try {
                 chess.connect();
             } catch (IOException ex) {
