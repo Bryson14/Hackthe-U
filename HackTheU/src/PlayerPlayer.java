@@ -32,7 +32,8 @@ public class PlayerPlayer extends MainMenu {
         client.setPrefSize(150, 200);
 
         VBox serverBox = new VBox();
-        TextField ipLabel = new TextField("IP Address");
+        TextField ipLabel = new TextField();
+        ipLabel.setText("IP Address");
         ipLabel.setOnAction(event -> ipAddress = ipLabel.getText());
 
         serverBox.getChildren().addAll(server, ipLabel);

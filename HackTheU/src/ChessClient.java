@@ -110,7 +110,7 @@ public class ChessClient extends Pane {
 
                     if (moves.isEmpty()) { // first click
                         if (cb.isOccupiedWithCorrectTeam(coor)){
-                            playSound("WhiteKing.mp3");
+                            playSound(coor);
                             moves = cb.getAvailableMoves(coor);
                             lastCoor = coor;
                             possibleMoveDots(); // do this later if we got time
@@ -132,7 +132,7 @@ public class ChessClient extends Pane {
                             }
                         }
                         else{
-                            playSound("Error.mp3");
+                            playSound(null);
                         }
 
                         lastCoor = coor;
@@ -273,10 +273,13 @@ public class ChessClient extends Pane {
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
+        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
+
 
         if (key.toLowerCase().equals("avengers")) {
             avgsounds = true;
             imgDir += "AvengersChess" + sep;
+            soundDir += "AvengersChess" + sep;
         }
 
         players.clear();
@@ -305,13 +308,23 @@ public class ChessClient extends Pane {
         bp.setTop(box);
     }
 
-    void playSound(String piece){
-        String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-        String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-        File file = new File(srcDir + "sounds" + sep + piece);
-        Media sound = new Media(file.toURI().toString());
-        MediaPlayer player = new MediaPlayer(sound);
-        player.play();
+    void playSound(Coordinates coor){
+        if (avgsounds == true) {
+            String pieceName;
+            if (coor == null) {
+                pieceName = "Error";
+            } else {
+                pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
+            }
+            try {
+                File file = new File(srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep + pieceName + ".mp3");
+                Media sound = new Media(file.toURI().toString());
+                MediaPlayer player = new MediaPlayer(sound);
+                player.play();
+            } catch (MediaException e) {
+                System.out.println("Couldn't load image " + pieceName + "\n" + e.getMessage());
+            }
+        }
     }
 
     /**

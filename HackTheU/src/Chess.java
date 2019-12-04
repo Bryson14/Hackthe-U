@@ -270,8 +270,6 @@ public class Chess extends Pane {
 
         imagePane.getChildren().clear();
         drawImages();
-
-
     }
 
 
@@ -296,7 +294,7 @@ public class Chess extends Pane {
     }
 
     void playSound(Coordinates coor){
-        if (avgsounds == true) {
+        if (avgsounds) {
             String pieceName;
             if (coor == null) {
                 pieceName = "Error";
