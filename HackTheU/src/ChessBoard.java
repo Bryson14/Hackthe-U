@@ -25,7 +25,7 @@ public class ChessBoard {
     /**
      * creates a new board with false(black) team on top and true(white) team on bottom
      */
-    void setNewBoard() {
+    private void setNewBoard() {
         // rooks
         grid[0][0] = new Rook("BlackRook", 0,0,false);
         grid[7][0] = new Rook("BlackRook", 7,0,false);
@@ -67,6 +67,10 @@ public class ChessBoard {
         }
     }
 
+    boolean checkMate(Coordinates newSpot) {
+        return (grid[newSpot.x][newSpot.y] != null && grid[newSpot.x][newSpot.y].getName().contains("King"));
+    }
+
     public static boolean isEnemy(Coordinates newSpot){
         return grid[newSpot.x][newSpot.y] == null;
     }
@@ -76,15 +80,10 @@ public class ChessBoard {
      * @param oldSpot string representing the old spot of piece
      * @param newSpot string representing the new spot of piece
      */
-    public void movePiece(Coordinates oldSpot, Coordinates newSpot) {
+    void movePiece(Coordinates oldSpot, Coordinates newSpot) {
         // if there is an enemy piece in old spot, add that to the graveyard
 
         if (grid[newSpot.x][newSpot.y] != null) {
-
-            if (grid[newSpot.x][newSpot.y].getName().contains("pieces.King")) {
-                System.out.println("You Win");
-                System.exit(1);
-            }
 
             //adding killed player to the graveyard
             if (grid[newSpot.x][newSpot.y].getTeam()) teamTrueGraveyard.add(grid[newSpot.x][newSpot.y]);
@@ -105,11 +104,9 @@ public class ChessBoard {
      * @param pos a list of length 2. position[0] is row, position[1] is column
      * @return boolean if that spot can be moved on that turn
      */
-    public boolean isOccupiedWithCorrectTeam(Coordinates pos) {
+    boolean isOccupiedWithCorrectTeam(Coordinates pos) {
         if (grid[pos.x][pos.y] != null) {
-            if (grid[pos.x][pos.y].getTeam() == currentTeam){
-            return true;
-            }
+            return (grid[pos.x][pos.y].getTeam() == currentTeam);
         }
         return false;
     }
@@ -119,12 +116,12 @@ public class ChessBoard {
      * @param pos position on the grid that user wants to move
      * @return pieces.Coordinates of all possible moves for the piece
      */
-    public ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
+    ArrayList<Coordinates> getAvailableMoves(Coordinates pos) {
         if (grid[pos.x][pos.y] == null) return new ArrayList<>();
         return grid[pos.x][pos.y].moves(getGrid());
     }
 
-    public boolean getCurrentTeam() {
+    boolean getCurrentTeam() {
         return currentTeam;
     }
 
@@ -135,11 +132,5 @@ public class ChessBoard {
     public gamePiece[][] getGrid() {
         return grid;
     }
-
-//    public static void main(String[] args) {
-//        ChessBoard cb = new ChessBoard();
-//        cb.printBoard();
-//        System.out.println(cb.getAvailableMoves(new pieces.Coordinates(4,1)));
-//    }
 }
 

@@ -85,15 +85,18 @@ public class Chess extends Pane {
                         dotPane.getChildren().clear(); // removes dots from the board
 
                         if (moves.contains(coor)) {
-                            cb.movePiece(lastCoor, coor);
-                            updateBoard(lastCoor, coor);
-                            displayTurn();
+                            if (cb.checkMate(coor)) {
+                                reset();
+                                System.out.println("you win");
+                            } else {
+                                cb.movePiece(lastCoor, coor);
+                                updateBoard(lastCoor, coor);
+                                displayTurn();
+                            }
                         }
                         else{
                             playSound(null);
                         }
-
-                        cb.printBoard();
                         lastCoor = coor;
                         moves.clear();
                     }
@@ -343,9 +346,6 @@ public class Chess extends Pane {
 
 
         this.cb = new ChessBoard();
-
-        System.out.println("4");
-        cb.printBoard();
 
         tileColorA = "#f8f8f8"; //aggie blue
 //        tileColorA = "7d3a02"; //dark brown
