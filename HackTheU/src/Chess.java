@@ -1,3 +1,4 @@
+import javafx.animation.FadeTransition;
 import javafx.geometry.*;
 import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.scene.media.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
+import javafx.util.Duration;
 import pieces.Coordinates;
 import pieces.gamePiece;
 import java.io.File;
@@ -87,7 +89,22 @@ public class Chess extends Pane {
                         if (moves.contains(coor)) {
                             if (cb.checkMate(coor)) {
                                 reset();
-                                System.out.println("you win");
+
+                                Pane winnerMessage = new StackPane();
+                                base.getChildren().add(winnerMessage);
+                                Text mes = new Text("You Win!!");
+                                mes.setFont(Font.font("Comic Sans", FontWeight.BOLD, 50));
+                                Rectangle r = new Rectangle(500, 350, Color.DODGERBLUE);
+                                r.setArcHeight(30);
+                                r.setArcWidth(30);
+                                winnerMessage.getChildren().addAll(r, mes);
+
+                                FadeTransition ft = new FadeTransition(Duration.seconds(7),winnerMessage);
+                                ft.setFromValue(1.0);
+                                ft.setToValue(0.0);
+                                ft.setCycleCount(1);
+                                ft.play();
+
                             } else {
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
