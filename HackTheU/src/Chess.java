@@ -93,6 +93,7 @@ public class Chess extends Pane {
                             playSound(null);
                         }
 
+                        cb.printBoard();
                         lastCoor = coor;
                         moves.clear();
                     }
@@ -267,6 +268,13 @@ public class Chess extends Pane {
         bp.setTop(box);
     }
 
+    void reset() {
+        cb.reset();
+        updateGraveyard();
+        imagePane.getChildren().clear();
+        drawImages();
+    }
+
     void playSound(Coordinates coor){
         if (avgsounds == true) {
             String pieceName;
@@ -333,8 +341,11 @@ public class Chess extends Pane {
         //preloaded table for fast image movement
         players = new Hashtable<>();
 
+
         this.cb = new ChessBoard();
 
+        System.out.println("4");
+        cb.printBoard();
 
         tileColorA = "#f8f8f8"; //aggie blue
 //        tileColorA = "7d3a02"; //dark brown

@@ -14,6 +14,14 @@ public class ChessBoard {
         currentTeam = true; // white team
     }
 
+    void reset() {
+        grid = new gamePiece[8][8];
+        setNewBoard();
+        currentTeam = true;
+        teamFalseGraveyard.clear();
+        teamTrueGraveyard.clear();
+    }
+
     /**
      * creates a new board with false(black) team on top and true(white) team on bottom
      */

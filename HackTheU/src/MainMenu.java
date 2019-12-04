@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class MainMenu extends Application {
+
     public void start(Stage stage){
         openMainMenu(stage);
     }
@@ -88,15 +89,13 @@ public class MainMenu extends Application {
                         MainMenu.openMainMenu(stage);
                         break;
                     case "New Game": // This needs work
-                        chess.getChildren().clear();
-                        chess.getChildren().addAll();
-                        chess.newGame();
+                        chess.reset();
                         break;
                 }
-                assert file != null;
-                Media sound = new Media((file).toURI().toString());
-                MediaPlayer player = new MediaPlayer(sound);
-                player.play();
+//                assert file != null;
+//                Media sound = new Media((file).toURI().toString());
+//                MediaPlayer player = new MediaPlayer(sound);
+//                player.play();
             });
             stack.getChildren().addAll(background, chess, menu);
             menu.setTranslateX(-325);
