@@ -36,6 +36,7 @@ public class Chess extends Pane {
     private int cellSize;
     private boolean avgsounds;
 
+    StockFish client = new StockFish();
 
     Chess() {
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
@@ -106,6 +107,8 @@ public class Chess extends Pane {
                                 ft.play();
 
                             } else {
+                                String fen=cb.GridToFEN() + " b--042";
+                                System.out.println(client.getBestMove(fen, 100));
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
                                 displayTurn();

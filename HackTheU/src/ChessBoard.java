@@ -98,6 +98,46 @@ public class ChessBoard {
         currentTeam ^= true;
 
     }
+    //converts our pieces to the correct string format
+    public String pieceToString(gamePiece piece){
+        if(piece.getName() == "BlackRook") return "r";
+        if(piece.getName() == "BlackPawn") return "p";
+        if(piece.getName() == "WhitePawn") return "P";
+        if(piece.getName() == "WhiteRook") return "R";
+        if(piece.getName() == "BlackQueen") return "q";
+        if(piece.getName() == "WhiteQueen") return "Q";
+        if(piece.getName() == "BlackKnight") return "n";
+        if(piece.getName() == "WhiteKnight") return "N";
+        if(piece.getName() == "BlackBishop") return "b";
+        if(piece.getName() == "WhiteBishop") return "B";
+        if(piece.getName() == "BlackKing") return "k";
+        if(piece.getName() == "WhiteKing") return "K";
+
+        return "";
+    }
+    //This converts our board to the fen board
+    public String GridToFEN(){
+        String fen = "";
+        for(int row = 0; row < 8; row++){
+            int space = 0;
+            for(int col = 0; col < 8; col++){
+                if(grid[col][row] == null){
+                    space++;
+                }else if(space != 0){
+                    fen += space;
+                    space =0;
+                    fen+= pieceToString(grid[col][row]);
+                } else {
+                    fen += pieceToString(grid[col][row]);
+                }
+            }
+            if(space != 0) {
+                fen += space;
+            }
+                fen += "/";
+        }
+        return fen.substring(0, fen.length()-1);
+    }
 
     /**
      * return true if the spot is occupied and its that teams turn
