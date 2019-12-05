@@ -1,37 +1,20 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-/**
- * A simple and efficient client to run Stockfish from Java
- *
- * @author Rahul A R
- *
- */
 public class StockFish {
-
-    private Process engineProcess;
     private BufferedReader processReader;
     private OutputStreamWriter processWriter;
 
-
     public StockFish(){
-
-        // initialize and connect to engine
         if (startEngine()) {
             System.out.println("Engine has started..");
         } else {
             System.out.println("Oops! Something went wrong..");
         }
-
-        // send commands manually
         sendCommand("uci");
-
-        // receive output dump
         getOutput(0);
-
     }
 
     private static String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
@@ -40,15 +23,10 @@ public class StockFish {
         sep + "Windows" + sep + "stockfish_10_x64";
 //    private static final String PATH = "C:\\Users\\bluec\\Downloads\\stockfish-10-win\\stockfish-10-win\\Windows\\stockfish_10_x64";
 
-    /**
-     * Starts Stockfish engine as a process and initializes it
-     *
-     * @param None
-     * @return True on success. False otherwise
-     */
+
     public boolean startEngine() {
         try {
-            engineProcess = Runtime.getRuntime().exec(PATH);
+            Process engineProcess = Runtime.getRuntime().exec(PATH);
             processReader = new BufferedReader(new InputStreamReader(
                     engineProcess.getInputStream()));
             processWriter = new OutputStreamWriter(
@@ -59,11 +37,6 @@ public class StockFish {
         return true;
     }
 
-    /**
-     * Takes in any valid UCI command and executes it
-     *
-     * @param command
-     */
     public void sendCommand(String command) {
         try {
             processWriter.write(command + "\n");
@@ -73,18 +46,8 @@ public class StockFish {
         }
     }
 
-    /**
-     * This is generally called right after 'sendCommand' for getting the raw
-     * output from Stockfish
-     *
-     * @param waitTime
-     *            Time in milliseconds for which the function waits before
-     *            reading the output. Useful when a long running command is
-     *            executed
-     * @return Raw output from Stockfish
-     */
     public String getOutput(int waitTime) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         try {
             Thread.sleep(waitTime);
             sendCommand("isready");
@@ -93,7 +56,7 @@ public class StockFish {
                 if (text.equals("readyok"))
                     break;
                 else
-                    buffer.append(text + "\n");
+                    buffer.append(text).append("\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,53 +64,28 @@ public class StockFish {
         return buffer.toString();
     }
 
-    /**
-     * This function returns the best move for a given position after
-     * calculating for 'waitTime' ms
-     *
-     * @param fen
-     *            Position string
-     * @param waitTime
-     *            in milliseconds
-     * @return Best Move in PGN format
-     */
     public String getBestMove(String fen, int waitTime) {
         sendCommand("position fen " + fen);
         sendCommand("go movetime " + waitTime);
         return getOutput(waitTime + 20).split("bestmove ")[1].split(" ")[0];
     }
 
-    /**
-     * Stops Stockfish and cleans up before closing it
-     */
     public void stopEngine() {
         try {
             sendCommand("quit");
             processReader.close();
             processWriter.close();
-        } catch (IOException e) {
+        }
+        catch (IOException ignored) {
         }
     }
 
-    /**
-     * Get a list of all legal moves from the given position
-     *
-     * @param fen
-     *            Position string
-     * @return String of moves
-     */
     public String getLegalMoves(String fen) {
         sendCommand("position fen " + fen);
         sendCommand("d");
         return getOutput(0).split("Legal moves: ")[0];
     }
 
-    /**
-     * Draws the current state of the chess board
-     *
-     * @param fen
-     *            Position string
-     */
     public void drawBoard(String fen) {
         sendCommand("position fen " + fen);
         sendCommand("d");
@@ -159,12 +97,6 @@ public class StockFish {
         }
     }
 
-    /**
-     * Get the evaluation score of a given board position
-     * @param fen Position string
-     * @param waitTime in milliseconds
-     * @return evalScore
-     */
     public float getEvalScore(String fen, int waitTime) {
         sendCommand("position fen " + fen);
         sendCommand("go movetime " + waitTime);
