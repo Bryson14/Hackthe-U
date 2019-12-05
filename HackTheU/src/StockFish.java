@@ -16,6 +16,7 @@ public class StockFish {
     private BufferedReader processReader;
     private OutputStreamWriter processWriter;
 
+
     public StockFish(){
 
         // initialize and connect to engine
@@ -33,7 +34,11 @@ public class StockFish {
 
     }
 
-    private static final String PATH = "C:\\Users\\bluec\\Downloads\\stockfish-10-win\\stockfish-10-win\\Windows\\stockfish_10_x64";
+    private static String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+    private String srcDir = System.getProperty("user.dir");
+    private static final String PATH = "HackTheU" + sep + "src" + sep+ "stockfish-10-win" + sep + "stockfish-10-win" +
+        sep + "Windows" + sep + "stockfish_10_x64";
+//    private static final String PATH = "C:\\Users\\bluec\\Downloads\\stockfish-10-win\\stockfish-10-win\\Windows\\stockfish_10_x64";
 
     /**
      * Starts Stockfish engine as a process and initializes it
