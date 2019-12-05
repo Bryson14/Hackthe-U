@@ -5,12 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.media.*;
+//import javafx.scene.media.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-import java.io.File;
+//import java.io.File;
 
 public class MainMenu extends Application {
 
@@ -72,18 +72,18 @@ public class MainMenu extends Application {
             
             menu.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> {
                 label.setText(settings[new_value.intValue()]);
-                String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-                String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
-                File file = null;
+//                String sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+//                String srcDir = System.getProperty("user.dir") + sep + "HackTheU" + sep + "src" + sep;
+//                File file = null;
 
                 switch (label.getText()) {
                     case "Avengers":
                         chess.changeStyle("avengers");
-                        file = new File(srcDir + "sounds" + sep + "assemble.mp3");
+//                        file = new File(srcDir + "sounds" + sep + "assemble.mp3");
                         break;
                     case "Normal":
                         chess.changeStyle("normal");
-                        file = new File(srcDir + "sounds" + sep + "short-definite-fart.wav");
+//                        file = new File(srcDir + "sounds" + sep + "short-definite-fart.wav");
                         break;
                     case "Main Menu":
                         MainMenu.openMainMenu(stage);
