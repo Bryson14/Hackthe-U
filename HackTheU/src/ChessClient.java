@@ -15,7 +15,6 @@ import java.net.Socket;
 import java.util.*;
 
 public class ChessClient extends Pane {
-
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
@@ -332,10 +331,6 @@ public class ChessClient extends Pane {
      */
     private void newGame() {
         bp = new BorderPane();
-        //TODO add background image first
-
-//        base.setStyle("/pictures/dank_4k_wood.jpg/");
-//        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
         //graveyards

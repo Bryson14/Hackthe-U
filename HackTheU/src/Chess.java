@@ -14,9 +14,10 @@ import pieces.Coordinates;
 import pieces.gamePiece;
 import java.io.File;
 import java.util.*;
+import java.io.*;
+import java.net.Socket;
 
 public class Chess extends Pane {
-
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
     private Coordinates lastCoor;
@@ -35,15 +36,70 @@ public class Chess extends Pane {
     private GridPane imagePane;
     private int cellSize;
     private boolean avgsounds;
+    private String host;
+    private Socket socket;
+    private BufferedReader reader;
+    private BufferedWriter writer;
 
     StockFish client = new StockFish();
 
     Chess() {
+        this("localhost");
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
         newGame();
         getChildren().add(base);
+    }
+
+    Chess(String hostAddress) {
+        this.host = hostAddress;
+        sep = System.getProperty("file.separator") + System.getProperty("file.separator");
+        srcDir = System.getProperty("user.dir");
+        base = new StackPane();
+        newGame();
+        getChildren().add(base);
+    }
+
+    // Client
+    public void connect() throws IOException {
+        try {
+            this.socket = new Socket(this.host, 5678);
+            System.out.println("Client connection established");
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        } catch (Exception ex) {
+            System.err.println("Server couldn't connect.");
+        }
+    }
+
+    // Server
+//    public void connect() throws IOException {
+//        try {
+//            ServerSocket server = new ServerSocket(5678);
+//            System.out.println("waiting on acception");
+//            socket = server.accept();
+//            System.out.println("Server connection established");
+//        } catch (Exception ex) {
+//            System.err.println("Server couldn't connect.");
+//        }
+//        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+//    }
+
+
+
+
+    private void sendMove(Coordinates coor) throws IOException {
+        writer.write(lastCoor.toString() + "\r\n");
+        writer.write(coor.toString() + "\r\n");
+        writer.flush();
+    }
+    public void receiveMove() throws IOException{
+        String from = reader.readLine().trim();
+        String to = reader.readLine().trim();
+        cb.movePiece(new Coordinates(from), new Coordinates(to));
+        updateBoard(new Coordinates(from), new Coordinates(to));
     }
 
     /**
@@ -112,6 +168,17 @@ public class Chess extends Pane {
                                 cb.movePiece(lastCoor, coor);
                                 updateBoard(lastCoor, coor);
                                 displayTurn();
+
+                                // Client/Server
+//                                if(client) {
+//                                    try {
+//                                        System.out.println("updated and moved");
+//                                        sendMove(coor);
+//                                        receiveMove();
+//                                    } catch (IOException ex) {
+//                                        System.out.println("There was a problem sending the move (Client)" + ex.toString());
+//                                    }
+//                                }
                             }
                         }
                         else{
