@@ -44,7 +44,8 @@ public class Chess extends Pane {
     StockFish client = new StockFish();
 
     Chess() {
-//        this("localhost");
+//        this("localhost"); // The local host doesn't work yet, if you run 'Chess()' with no parameters then it will run
+//                              the computer version of chess (if host == null)
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
