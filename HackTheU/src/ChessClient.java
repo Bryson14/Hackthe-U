@@ -17,7 +17,7 @@ import java.util.*;
 public class ChessClient extends Pane {
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
-    private Coordinates lastCoor;
+    private Coordinates lastCoordinate;
     private GridPane squaresGrid;
     private String srcDir;
     private String sep;
@@ -29,14 +29,13 @@ public class ChessClient extends Pane {
     private GridPane dotPane;
     private String tileColorA;
     private String tileColorB;
-    private StackPane center;
     private GridPane imagePane;
     private int cellSize;
     private String host;
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
-    private boolean avgsounds;
+    private boolean avengeSounds;
 
 
     ChessClient(String hostAddress) {
@@ -78,30 +77,8 @@ public class ChessClient extends Pane {
         }
     }
 
-//    ChessServer() {
-//        sep = System.getProperty("file.separator") + System.getProperty("file.separator");
-//        srcDir = System.getProperty("user.dir");
-//        base = new StackPane();
-//        newGame();
-//        getChildren().add(base);
-//    }
-//    public void connect() throws IOException {
-//        try {
-//            ServerSocket server = new ServerSocket(5678);
-//            System.out.println("waiting on acception");
-//            socket = server.accept();
-//            System.out.println("Server connection established");
-//        } catch (Exception ex) {
-//            System.err.println("Server couldn't connect.");
-//        }
-//        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//    }
-
-
-
     private void sendMove(Coordinates coor) throws IOException {
-        writer.write(lastCoor.toString() + "\r\n");
+        writer.write(lastCoordinate.toString() + "\r\n");
         writer.write(coor.toString() + "\r\n");
         writer.flush();
     }
@@ -149,7 +126,7 @@ public class ChessClient extends Pane {
                         if (cb.isOccupiedWithCorrectTeam(coor)){
                             playSound(coor);
                             moves = cb.getAvailableMoves(coor);
-                            lastCoor = coor;
+                            lastCoordinate = coor;
                             possibleMoveDots(); // do this later if we got time
                         }
                     } else { // second click
@@ -158,8 +135,8 @@ public class ChessClient extends Pane {
 
                         if (moves.contains(coor)) {
                             try {
-                                cb.movePiece(lastCoor, coor);
-                                updateBoard(lastCoor, coor);
+                                cb.movePiece(lastCoordinate, coor);
+                                updateBoard(lastCoordinate, coor);
                                 displayTurn();
                                 System.out.println("updated and moved");
                                 sendMove(coor);
@@ -172,7 +149,7 @@ public class ChessClient extends Pane {
                             playSound(null);
                         }
 
-                        lastCoor = coor;
+                        lastCoordinate = coor;
                         moves.clear();
                     }
                 });
@@ -215,13 +192,12 @@ public class ChessClient extends Pane {
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
-                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
-                    imagePane.setAlignment(Pos.CENTER);
                 }
+                imagePane.setAlignment(Pos.CENTER);
             }
         }
     }
@@ -235,7 +211,7 @@ public class ChessClient extends Pane {
         ObservableList<Node> children = this.imagePane.getChildren();
 
         for (Node child : children) {
-            if (col == squaresGrid.getColumnIndex(child) && row ==  squaresGrid.getRowIndex(child)) {
+            if (col == GridPane.getColumnIndex(child) && row ==  GridPane.getRowIndex(child)) {
                 imagePane.getChildren().remove(child);
                 break;
             }
@@ -249,20 +225,20 @@ public class ChessClient extends Pane {
     private void possibleMoveDots() {
 
         ObservableList<Node> children = this.squaresGrid.getChildren();
-        gamePiece[][] grid = cb.getGrid();
+//        gamePiece[][] grid = cb.getGrid();
 
         for (Node child : children) {
-            if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
+            if (this.moves.contains(new Coordinates(GridPane.getColumnIndex(child), GridPane.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                if(ChessBoard.isEnemy(new Coordinates(GridPane.getColumnIndex(child), GridPane.getRowIndex(child)))){
                     dot.setFill(Color.GREEN);
                 }
                 else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
-                GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
-                GridPane.setRowIndex(dot, squaresGrid.getRowIndex(child));
+                GridPane.setColumnIndex(dot, GridPane.getColumnIndex(child));
+                GridPane.setRowIndex(dot, GridPane.getRowIndex(child));
                 //dotPane.setConstraints(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child) );
 //                dotPane.add(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child));
                 dotPane.getChildren().add(dot);
@@ -306,17 +282,17 @@ public class ChessClient extends Pane {
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
     void changeStyle(String key) {
-        avgsounds = false;
+        avengeSounds = false;
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
-        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
+//        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
 
 
         if (key.toLowerCase().equals("avengers")) {
-            avgsounds = true;
+            avengeSounds = true;
             imgDir += "AvengersChess" + sep;
-            soundDir += "AvengersChess" + sep;
+//            soundDir += "AvengersChess" + sep;
         }
 
         players.clear();
@@ -346,7 +322,7 @@ public class ChessClient extends Pane {
     }
 
     void playSound(Coordinates coor){
-        if (avgsounds == true) {
+        if (avengeSounds) {
             String pieceName;
             if (coor == null) {
                 pieceName = "Error";
@@ -401,7 +377,7 @@ public class ChessClient extends Pane {
         imagePane.setMouseTransparent(true);
 
         //stack pane that holds the main components of the chess board
-        center = new StackPane(squaresGrid, imagePane, dotPane);
+        StackPane center = new StackPane(squaresGrid, imagePane, dotPane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement
