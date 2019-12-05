@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import pieces.Coordinates;
 import pieces.gamePiece;
 import java.io.File;
+import java.net.ServerSocket;
 import java.util.*;
 import java.io.*;
 import java.net.Socket;
@@ -20,7 +21,7 @@ import java.net.Socket;
 public class Chess extends Pane {
     private ArrayList<Coordinates> moves;
     private ChessBoard cb;
-    private Coordinates lastCoor;
+    private Coordinates lastCoordinate;
     private GridPane squaresGrid;
     private String srcDir;
     private String sep;
@@ -32,10 +33,9 @@ public class Chess extends Pane {
     private GridPane dotPane;
     private String tileColorA;
     private String tileColorB;
-    private StackPane center;
     private GridPane imagePane;
     private int cellSize;
-    private boolean avgsounds;
+    private boolean avengeSounds;
     private String host;
     private Socket socket;
     private BufferedReader reader;
@@ -44,7 +44,7 @@ public class Chess extends Pane {
     StockFish client = new StockFish();
 
     Chess() {
-        this("localhost");
+//        this("localhost");
         sep = System.getProperty("file.separator") + System.getProperty("file.separator");
         srcDir = System.getProperty("user.dir");
         base = new StackPane();
@@ -61,43 +61,45 @@ public class Chess extends Pane {
         getChildren().add(base);
     }
 
-    // Client
     public void connect() throws IOException {
-        try {
-            this.socket = new Socket(this.host, 5678);
-            System.out.println("Client connection established");
+        if(host.equals("00")){ // Server
+            try {
+                ServerSocket server = new ServerSocket(5678);
+                System.out.println("waiting on acceptation");
+                socket = server.accept();
+                System.out.println("Server connection established");
+            } catch (Exception ex) {
+                System.err.println("Server couldn't connect.");
+            }
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (Exception ex) {
-            System.err.println("Server couldn't connect.");
+        }
+        else { // Client
+            try {
+                this.socket = new Socket(this.host, 5678);
+                System.out.println("Client connection established");
+                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            } catch (Exception ex) {
+                System.err.println("Server couldn't connect.");
+            }
         }
     }
 
-    // Server
-//    public void connect() throws IOException {
-//        try {
-//            ServerSocket server = new ServerSocket(5678);
-//            System.out.println("waiting on acception");
-//            socket = server.accept();
-//            System.out.println("Server connection established");
-//        } catch (Exception ex) {
-//            System.err.println("Server couldn't connect.");
-//        }
-//        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//    }
 
 
 
-
-    private void sendMove(Coordinates coor) throws IOException {
-        writer.write(lastCoor.toString() + "\r\n");
-        writer.write(coor.toString() + "\r\n");
+    private void sendMove(Coordinates coordinate) throws IOException {
+        writer.write(lastCoordinate.toString() + "\r\n");
+        writer.write(coordinate.toString() + "\r\n");
         writer.flush();
     }
     public void receiveMove() throws IOException{
         String from = reader.readLine().trim();
+        System.out.println("server received from move" + from);
         String to = reader.readLine().trim();
+        System.out.println("server received to move" + to);
         cb.movePiece(new Coordinates(from), new Coordinates(to));
         updateBoard(new Coordinates(from), new Coordinates(to));
     }
@@ -129,22 +131,23 @@ public class Chess extends Pane {
                 else rec.setFill(b);
 
                 rec.setOnMouseClicked(e -> {
-                    Coordinates coor = new Coordinates(Character.getNumericValue(rec.getId().charAt(0)),
+                    Coordinates coordinate = new Coordinates(Character.getNumericValue(rec.getId().charAt(0)),
                             Character.getNumericValue(rec.getId().charAt(1)));
 
                     if (moves.isEmpty()) { // first click
-                        if (cb.isOccupiedWithCorrectTeam(coor)){
-                            playSound(coor);
-                            moves = cb.getAvailableMoves(coor);
-                            lastCoor = coor;
+                        if (cb.isOccupiedWithCorrectTeam(coordinate)){
+                            playSound(coordinate);
+                            moves = cb.getAvailableMoves(coordinate);
+                            lastCoordinate = coordinate;
                             possibleMoveDots(); // do this later if we got time
                         }
-                    } else { // second click
+                    }
+                    else { // second click
 
                         dotPane.getChildren().clear(); // removes dots from the board
 
-                        if (moves.contains(coor)) {
-                            if (cb.checkMate(coor)) {
+                        if (moves.contains(coordinate)) {
+                            if (cb.checkMate(coordinate)) {
                                 reset();
 
                                 Pane winnerMessage = new StackPane();
@@ -162,29 +165,33 @@ public class Chess extends Pane {
                                 ft.setCycleCount(1);
                                 ft.play();
 
-                            } else {
-                                String fen=cb.GridToFEN() + " b--042";
-                                System.out.println(client.getBestMove(fen, 100));
-                                cb.movePiece(lastCoor, coor);
-                                updateBoard(lastCoor, coor);
-                                displayTurn();
-
-                                // Client/Server
-//                                if(client) {
-//                                    try {
-//                                        System.out.println("updated and moved");
-//                                        sendMove(coor);
-//                                        receiveMove();
-//                                    } catch (IOException ex) {
-//                                        System.out.println("There was a problem sending the move (Client)" + ex.toString());
-//                                    }
-//                                }
+                            }
+                            else {
+                                if(host == null) {
+                                    String fen = cb.GridToFEN() + " b--042";
+                                    System.out.println(client.getBestMove(fen, 100));
+                                    cb.movePiece(lastCoordinate, coordinate);
+                                    updateBoard(lastCoordinate, coordinate);
+                                    displayTurn();
+                                }
+                                else {
+                                    try {
+                                        cb.movePiece(lastCoordinate, coordinate);
+                                        updateBoard(lastCoordinate, coordinate);
+                                        displayTurn();
+                                        System.out.println("updated and moved");
+                                        sendMove(coordinate);
+                                        receiveMove();
+                                    } catch (IOException ex) {
+                                        System.out.println("There was a problem sending the move (Client)" + ex.toString());
+                                    }
+                                }
                             }
                         }
                         else{
                             playSound(null);
                         }
-                        lastCoor = coor;
+                        lastCoordinate = coordinate;
                         moves.clear();
                     }
                 });
@@ -196,22 +203,22 @@ public class Chess extends Pane {
     /**
      * After a valid move, the board is updated to reflect the change in the state of the backend
      */
-    private void updateBoard(Coordinates lastCoor, Coordinates newCoor) {
+    private void updateBoard(Coordinates lastCoordinate, Coordinates newCoordinate) {
     updateGraveyard();
-    updateImages(lastCoor, newCoor);
+    updateImages(lastCoordinate, newCoordinate);
     }
 
-    private void updateImages(Coordinates lastCoor, Coordinates newCoor) {
-        removeImage(lastCoor.x, lastCoor.y); //removing image
-        removeImage(newCoor.x, newCoor.y); //removing old invisibox
+    private void updateImages(Coordinates lastCoordinate, Coordinates newCoordinate) {
+        removeImage(lastCoordinate.x, lastCoordinate.y); //removing image
+        removeImage(newCoordinate.x, newCoordinate.y); //removing old box
         Rectangle rec = new Rectangle(cellSize,cellSize);
         rec.setFill(Color.TRANSPARENT);
-        imagePane.add(rec, lastCoor.x, lastCoor.y); //adding the invisiBox
+        imagePane.add(rec, lastCoordinate.x, lastCoordinate.y); //adding the box
 
-        ImageView image = new ImageView(players.get(cb.getGrid()[newCoor.x][newCoor.y].getName()));
+        ImageView image = new ImageView(players.get(cb.getGrid()[newCoordinate.x][newCoordinate.y].getName()));
         image.setFitHeight(cellSize );
         image.setFitWidth(cellSize );
-        imagePane.add(image, newCoor.x, newCoor.y);
+        imagePane.add(image, newCoordinate.x, newCoordinate.y);
         imagePane.setAlignment(Pos.CENTER);
     }
 
@@ -227,13 +234,12 @@ public class Chess extends Pane {
                     image.setFitHeight(cellSize );
                     image.setFitWidth(cellSize );
                     imagePane.add(image, column, row);
-                    imagePane.setAlignment(Pos.CENTER);
                 } else {
                     Rectangle rec = new Rectangle(cellSize,cellSize);
                     rec.setFill(Color.TRANSPARENT);
                     imagePane.add(rec, column, row);
-                    imagePane.setAlignment(Pos.CENTER);
                 }
+                imagePane.setAlignment(Pos.CENTER);
             }
         }
     }
@@ -247,7 +253,7 @@ public class Chess extends Pane {
         ObservableList<Node> children = this.imagePane.getChildren();
 
         for (Node child : children) {
-            if (col == squaresGrid.getColumnIndex(child) && row ==  squaresGrid.getRowIndex(child)) {
+            if (col == GridPane.getColumnIndex(child) && row ==  GridPane.getRowIndex(child)) {
                 imagePane.getChildren().remove(child);
                 break;
             }
@@ -263,17 +269,17 @@ public class Chess extends Pane {
         ObservableList<Node> children = this.squaresGrid.getChildren();
 
         for (Node child : children) {
-            if (this.moves.contains(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))) {
+            if (this.moves.contains(new Coordinates(GridPane.getColumnIndex(child), GridPane.getRowIndex(child)))) {
                 Circle dot = new Circle();
                 dot.setRadius(8);
-                if(ChessBoard.isEnemy(new Coordinates(squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child)))){
+                if(ChessBoard.isEnemy(new Coordinates(GridPane.getColumnIndex(child), GridPane.getRowIndex(child)))){
                     dot.setFill(Color.GREEN);
                 }
                 else dot.setFill(Color.RED);
                 GridPane.setHalignment(dot, HPos.CENTER); // To align horizontally in the cell
                 GridPane.setValignment(dot, VPos.CENTER);
-                GridPane.setColumnIndex(dot, squaresGrid.getColumnIndex(child));
-                GridPane.setRowIndex(dot, squaresGrid.getRowIndex(child));
+                GridPane.setColumnIndex(dot, GridPane.getColumnIndex(child));
+                GridPane.setRowIndex(dot, GridPane.getRowIndex(child));
                 //dotPane.setConstraints(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child) );
 //                dotPane.add(dot, squaresGrid.getColumnIndex(child), squaresGrid.getRowIndex(child));
                 dotPane.getChildren().add(dot);
@@ -317,17 +323,17 @@ public class Chess extends Pane {
      * @param key normal or nothing for regular pieces, 'avengers' for you know what
      */
     void changeStyle(String key) {
-        avgsounds = false;
+        avengeSounds = false;
         String[] pieces = {"WhiteBishop", "BlackBishop", "WhiteQueen", "BlackQueen", "WhiteKing", "BlackKing",
                 "WhiteRook", "BlackRook", "BlackKnight", "WhiteKnight", "BlackPawn", "WhitePawn"};
         String imgDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "pictures" + sep;
-        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
+//        String soundDir = srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep;
 
 
         if (key.toLowerCase().equals("avengers")) {
-            avgsounds = true;
+            avengeSounds = true;
             imgDir += "AvengersChess" + sep;
-            soundDir += "AvengersChess" + sep;
+//            soundDir += "AvengersChess" + sep;
         }
 
         players.clear();
@@ -363,13 +369,13 @@ public class Chess extends Pane {
         drawImages();
     }
 
-    void playSound(Coordinates coor){
-        if (avgsounds) {
+    void playSound(Coordinates coordinate){
+        if (avengeSounds) {
             String pieceName;
-            if (coor == null) {
+            if (coordinate == null) {
                 pieceName = "Error";
             } else {
-                pieceName = this.cb.getGrid()[coor.x][coor.y].getName();
+                pieceName = this.cb.getGrid()[coordinate.x][coordinate.y].getName();
             }
             try {
                 File file = new File(srcDir + sep + "HackTheU" + sep + "src" + sep + "sounds" + sep + pieceName + ".mp3");
@@ -387,10 +393,6 @@ public class Chess extends Pane {
      */
     public void newGame() {
         bp = new BorderPane();
-        //TODO add background image first
-
-//        base.setStyle("/pictures/dank_4k_wood.jpg/");
-//        base.setStyle(String.valueOf(Chess.class.getResource("/pictures/dank_4k_wood.jpg/")));
         base.getChildren().add(bp);
 
         //graveyards
@@ -423,7 +425,7 @@ public class Chess extends Pane {
         imagePane.setMouseTransparent(true);
 
         //stack pane that holds the main components of the chess board
-        center = new StackPane(squaresGrid, imagePane, dotPane);
+        StackPane center = new StackPane(squaresGrid, imagePane, dotPane);
         this.bp.setCenter(center);
 
         //preloaded table for fast image movement

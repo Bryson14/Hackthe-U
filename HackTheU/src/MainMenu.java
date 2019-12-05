@@ -52,7 +52,7 @@ public class MainMenu extends Application {
         // Play Game button logic
         gameButtonPC.setOnAction(event -> {
             StackPane stack = new StackPane();
-            Chess chess = new Chess("computer");
+            Chess chess = new Chess();
 
             Rectangle background = new Rectangle(545, 543);
             background.setTranslateY(-8);

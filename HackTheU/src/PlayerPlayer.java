@@ -45,7 +45,7 @@ public class PlayerPlayer extends MainMenu {
         stage.show();
 
         server.setOnAction(event -> {
-            ChessClient chess = new ChessClient("00");
+            Chess chess = new Chess("00");
             StackPane stack = new StackPane();
 
             Rectangle background = new Rectangle(545, 543);
@@ -102,7 +102,7 @@ public class PlayerPlayer extends MainMenu {
 
 
         client.setOnAction(event -> {
-            ChessClient chess = new ChessClient(ipAddress);
+            Chess chess = new Chess(ipAddress);
 
             StackPane stack = new StackPane();
 
